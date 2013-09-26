@@ -1,0 +1,11 @@
+@import 'sass-bootstrap/lib/bootstrap';
+
+.hero-unit {
+    margin: 50px auto 0 auto;
+    width: 400px;
+}
+html, body { height:100%; }
+#map-canvas { 
+	height: 500px; 
+	width: 500px;
+}
