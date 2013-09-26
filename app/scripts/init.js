@@ -40,7 +40,7 @@ require.config({
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
         text: '../components/requirejs-text/text',
         tmpl: "../templates",
-        tweetparse: '../components/tweet-parse/tweet-parse',
+        tweetparse: 'vendor/tweet-parse/tweet-parse',
 
         /* handlebars from the require handlerbars plugin below */
         handlebars: '../components/require-handlebars-plugin/Handlebars',

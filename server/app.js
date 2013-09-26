@@ -54,7 +54,7 @@ var socketIO = require('socket.io');
 	var server = http.createServer(app);
 	var io = socketIO.listen(server.listen(app.get('port')))
 
-	var watchList = ['love', 'hate'];
+	
 
 	var T = new Twit({
     	consumer_key: 'j5KEvlHO0rnDdTh3POuQ'
@@ -72,23 +72,16 @@ var socketIO = require('socket.io');
   			return res.send(reply)
 		})
 	});
-	
-	// T.stream('statuses/filter', { track: watchList },function (stream) {
- //    	stream.on('tweet', function (tweet) {
- //        	io.sockets.emit('tweet', tweet.text);
- //        	console.log(tweet.text);
- //    	});
-	// });
 
-var stream = T.stream('statuses/filter', { track: '#apple', language: 'en' })
+	// var watchList = ['#midtownsac','#sacramento','#downtownsac','#oldtownsac','']
+	var watchList = ['#apple', '#mac'];
 
-stream.on('tweet', function (tweet) {
-  io.sockets.emit('tweet', tweet);
-})
+	var stream = T.stream('statuses/filter', { track: '#apple', language: 'en' })
+
+	stream.on('tweet', function (tweet) {
+	  io.sockets.emit('tweet', tweet);
+	})
  
 	io.sockets.on('connection', function (socket) {
     	console.log('Connected');
 	}); 
-// });
-
-

@@ -3,11 +3,11 @@ define([
 	'communicator',
 	'map',
 	'tweetparse',
-	'models/neighborhoods',
+	'collections/neighborhoods-collection',
 	'hbs!tmpl/tweet'
 ],
 
-function( Backbone, Communicator, map, tweetParse, nbhoods, tweet_tmp) {
+function( Backbone, Communicator, map, tweetParse, nbhoodsCollection, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
@@ -20,7 +20,7 @@ function( Backbone, Communicator, map, tweetParse, nbhoods, tweet_tmp) {
 		
 	});
 	var count = 0;
-
+	console.log(nbhoodsCollection)
 	var socket = io.connect('http://localhost:9000');
 	  
 	  socket.on('tweet', function (data) {
@@ -31,7 +31,7 @@ function( Backbone, Communicator, map, tweetParse, nbhoods, tweet_tmp) {
 
 	    $('.tweet-container').append(tweet_tmp(data));
 	    $('#count span').text(count);
-	    
+
 	    socket.emit('my other event', { my: 'data' });
 	  });
     	
