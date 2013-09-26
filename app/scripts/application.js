@@ -2,11 +2,12 @@ define([
 	'backbone',
 	'communicator',
 	'map',
+	'tweetparse',
 	'models/neighborhoods',
-	'hbs!tmpl/welcome'
+	'hbs!tmpl/tweet'
 ],
 
-function( Backbone, Communicator, map, nbhoods) {
+function( Backbone, Communicator, map, tweetParse, nbhoods, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
@@ -18,11 +19,19 @@ function( Backbone, Communicator, map, nbhoods) {
 	App.addInitializer( function () {
 		
 	});
+	var count = 0;
 
 	var socket = io.connect('http://localhost:9000');
 	  
 	  socket.on('tweet', function (data) {
-	    console.log(data);
+	    var tweet = linkify_entities(data);
+	    data.entities.text = tweet
+
+	    count++;
+
+	    $('.tweet-container').append(tweet_tmp(data));
+	    $('#count span').text(count);
+	    
 	    socket.emit('my other event', { my: 'data' });
 	  });
     	
@@ -32,15 +41,14 @@ function( Backbone, Communicator, map, nbhoods) {
 	// }
 	$.ajax({
   		type: "GET",
-  		url: "/tweets/midtownsac/100",
+  		url: "/tweets/cfabrigade/200",
 	}).done(function(data) {
+		console.log(data)
   		for (var i = 0; i < data['statuses'].length; i++){
   			var geo = data['statuses'][i]['coordinates'],
   				lat,
   				lng,
   				point;
-
-  			console.log(data['statuses'][i])
 
   			if (geo){
   				lat = geo.coordinates[1];

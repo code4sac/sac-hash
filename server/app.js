@@ -80,10 +80,10 @@ var socketIO = require('socket.io');
  //    	});
 	// });
 
-var stream = T.stream('statuses/filter', { track: '#sacramento', language: 'en' })
+var stream = T.stream('statuses/filter', { track: '#apple', language: 'en' })
 
 stream.on('tweet', function (tweet) {
-  io.sockets.emit('tweet', tweet.text);
+  io.sockets.emit('tweet', tweet);
 })
  
 	io.sockets.on('connection', function (socket) {

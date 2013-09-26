@@ -1,0 +1,19 @@
+<div class="tweet">
+       <div class="avatar">
+           <a href="http://twitter.com/{{user.screen_name}}"
+           target="_blank">
+             <img src="{{user.profile_image_url}}"/>
+           </a>
+       </div>
+       
+       <div class="user">
+           <a href="http://twitter.com/{{user.screen_name}}"
+            target="_blank"> {{user.name}}
+           </a>
+       </div>
+             
+       <div class="time">{{created_at}}</div>
+       <div class="txt">
+            {{{entities.text}}}
+       </div>
+</div>
