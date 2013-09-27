@@ -1,13 +1,12 @@
 define([
 	'backbone',
 	'communicator',
-	'map',
 	'tweetparse',
 	'collections/neighborhoods-collection',
 	'hbs!tmpl/tweet'
 ],
 
-function( Backbone, Communicator, map, tweetParse, nbhoodsCollection, tweet_tmp) {
+function( Backbone, Communicator, tweetParse, nbhoodsCollection, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
@@ -26,31 +25,21 @@ function( Backbone, Communicator, map, tweetParse, nbhoodsCollection, tweet_tmp)
 	var socket = io.connect('http://localhost:9000');
 	  
 	  socket.on('tweet', function (data) {
-	    var tweet = linkify_entities(data);
-	    data.entities.text = tweet
+	    var tweet = linkify_entities(data.tweet);
+	    data.tweet.entities.text = tweet;
 	    
 	    count++;
 
-	    $('.tweet-container .tweets').append(tweet_tmp(data));
+	    for (var i = 0; i < data.matchedTags.length; i++){
+
+	    	var tagDom = $('#map-canvas [data-hashtag="'+data.matchedTags[i]+'"] span'),
+	    		tagCount = parseFloat(tagDom.text()) + 1;
+	    	tagDom.text(tagCount)
+	    	console.log(tagDom)
+	    }
+
+	    $('.tweet-container .tweets').prepend(tweet_tmp(data.tweet));
 	    $('#count span').text(count);
-	    
-	    var geo = data['coordinates'],
-  				lat,
-  				lng,
-  				point;
-
-  			if (geo){
-  				lat = geo.coordinates[1];
-  				lng = geo.coordinates[0];
-
-  				point = new google.maps.LatLng(lat, lng);
-  				
-  				new google.maps.Marker({
-		            map: map,
-		            position: point,
-        		});
-        		
-  			}
 
 	    socket.emit('my other event', { my: 'data' });
 	  });
@@ -61,7 +50,7 @@ function( Backbone, Communicator, map, tweetParse, nbhoodsCollection, tweet_tmp)
 	// }
 	// $.ajax({
  //  		type: "GET",
- //  		url: "/tweets/sacramento/200",
+ //  		url: "/tweets/sacramento/1",
 	// }).done(function(data) {
 		
  //  		for (var i = 0; i < data['statuses'].length; i++){
@@ -69,7 +58,7 @@ function( Backbone, Communicator, map, tweetParse, nbhoodsCollection, tweet_tmp)
  //  				lat,
  //  				lng,
  //  				point;
-
+ //  				console.log(data)
  //  			if (geo){
  //  				lat = geo.coordinates[1];
  //  				lng = geo.coordinates[0];
