@@ -1,11 +1,25 @@
-@import 'sass-bootstrap/lib/bootstrap';
+@import 'bootstrap-sass/lib/bootstrap';
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 400px;
-}
+
 html, body { height:100%; }
+
+.navbar {
+	margin: 0;
+	border-radius: 0;
+}
 #map-canvas { 
-	height: 500px; 
-	width: 500px;
+	height: 100%; 
+	width: 66%;
+}
+.tweet-container {
+	height: 100%;
+	width: 33%;
+	float: right;
+	margin-top: -50px;
+	padding-top: 50px;
+
+	.tweets {
+		height: 100%;
+		overflow-y: scroll;
+	}
 }

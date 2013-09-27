@@ -28,8 +28,21 @@
     </head>
 
     <body>
-        <h2 id="count">Tweets about #apple <span>0</span></h2>
-        <div class="tweet-container"></div>
+        <header>
+            <nav class="navbar navbar-default" role="navigation">
+                <a class="navbar-brand" href="#">Sacramento Hashtag Project</a>
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="tweet-container">
+            <h2 id="count">Tweets <span>0</span></h2>
+            <div class="tweets">
+
+            </div>
+        </div>
         <div id="map-canvas"></div>
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="components/requirejs/require.js"></script>
