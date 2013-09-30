@@ -4,6 +4,10 @@
 3. run 'bower install' to install front-end dependencies
 4. Project uses sass and compass as well so you may need to install those if you want to edit the css
 
+###Populate Database
+'mongod' to start mongoDB
+in application directory root type 'mongoimport --db sachash --collection nbhoods --type json --file app/scripts/models/neighborhoods.json --jsonArray'
+
 ###Starting the server
 type 'grunt' in the command line
 
