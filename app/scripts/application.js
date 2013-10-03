@@ -2,26 +2,30 @@ define([
 	'backbone',
 	'communicator',
 	'tweetparse',
-	'collections/neighborhoods-collection',
-	'hbs!tmpl/tweet'
+	'views/nbhoods-view',
+	'collections/nbhoods-collection',
+	'hbs!tmpl/tweet',
+	'mapael',
 ],
 
-function( Backbone, Communicator, tweetParse, nbhoodsCollection, tweet_tmp) {
+function( Backbone, Communicator, tweetParse, nbhoodsView, nbhoodsCollection, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
 
 	/* Add application regions here */
 	App.addRegions({
-
+		blockView: '#block-view',
+		mapView: '#map-view'
 	});
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		
+		App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) )
 	});
-	var count = 0;
 
+	var count = 0;
+	
 	var socket = io.connect('http://localhost:9000');
 	  
 	  socket.on('tweet', function (data) {

@@ -21,7 +21,8 @@ require.config({
         bootstrap: {
             deps: ['jquery'],
             exports: 'jquery'
-        }
+        },
+        mapael: ['jquery','raphael']
     },
 
     paths: {
@@ -33,6 +34,12 @@ require.config({
         'backbone.marionette': '../components/backbone.marionette/lib/core/amd/backbone.marionette',
         'backbone.wreqr': '../components/backbone.wreqr/lib/amd/backbone.wreqr',
         'backbone.babysitter': '../components/backbone.babysitter/lib/amd/backbone.babysitter',
+
+        raphael: 'vendor/jquery-mapael/js/raphael/raphael-min',
+        mapael: 'vendor/jquery-mapael/js/jquery.mapael',
+        map: 'vendor/jquery-mapael/js/maps/world_countries',
+
+        shuffle: 'vendor/shuffle/jquery.shuffle.min',
 
         /* alias the bootstrap js lib */
         bootstrap: 'vendor/bootstrap',

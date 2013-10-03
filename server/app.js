@@ -11,31 +11,35 @@ var express = require('express'),
 	watchList = ['#49ers','#rams'];
 
 // start mongoose
-// mongoose.connect('mongodb://localhost/sachash');
-// var db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function callback () {
+mongoose.connect('mongodb://localhost/sachash');
+var db = mongoose.connection;
+var app = express();
+var nbhood
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
 	
-// 	var nbhoods = [ { name: 'Alhambra Triangle',	hashtag: '#AlhambraTriangle' }, { name: 'Alkali Flat',	hashtag: '#AlkaliFlat' }, { name: 'American River Parkway',	hashtag: '#AmericanRiverPkwy' }, { name: 'Boulevard Park',	hashtag: '#BlvdPark' }, { name: 'Cal Expo',	hashtag: '#CalExpo' }, { name: 'College/Glen',	hashtag: '#CollegeGlen' }, { name: 'College Town',	hashtag: '#CollegeTown' }, { name: 'CSUS',	hashtag: '#CSUS' }, { name: 'Curtis Park',	hashtag: '#CurtisPark' }, { name: 'Dos Rios Triangle',	hashtag: '#DosRiosTriangle' }, { name: 'Downtown',	hashtag: '#DowntownSac' }, { name: 'East Sacramento',	hashtag: '#EastSac' }, { name: 'Elmhurst',	hashtag: '#Elmhurst' }, { name: 'Fairgrounds',	hashtag: '#Fairgrounds' }, { name: 'Greenhaven',	hashtag: '#Greenhaven' }, { name: 'Hollywood Park',	hashtag: '#HollywoodPark' }, { name: 'Johnson Business Park',	hashtag: '#JohnsonBizPark' }, { name: 'Land Park',	hashtag: '#LandPark' }, { name: 'Little Pocket',	hashtag: '#LittlePocket' }, { name: 'Marshall School',	hashtag: '#MarshallSchool' }, { name: 'Meadowview',	hashtag: '#Meadowview' }, { name: 'Med Center',	hashtag: '#MedCenter' }, { name: 'Midtown / Winn Park / Capital Avenue',	hashtag: '#MidTownSac' }, { name: 'New Era Park',	hashtag: '#NewEraPark' }, { name: 'Newton Booth',	hashtag: '#NewtonBooth' }, { name: 'Old North Sacramento',	hashtag: '#NorthOldSac' }, { name: 'North Oak Park',	hashtag: '#OakPark' }, { name: 'Central Oak Park',	hashtag: '#OakPark' }, { name: 'South Oak Park',	hashtag: '#OakPark' }, { name: 'Old Sacramento',	hashtag: '#OldSac' }, { name: 'Pocket',	hashtag: '#Pocket' }, { name: 'Point West',	hashtag: '#PointWest' }, { name: 'Richmond Grove',	hashtag: '#RichmondGrove' }, { name: 'River Park',	hashtag: '#RiverPark' }, { name: 'SCC',	hashtag: '#SCC' }, { name: 'Sierra Oaks',	hashtag: '#SierraOaks' }, { name: 'South Land Park',	hashtag: '#SouthLandPark' }, { name: 'Southside Park',	hashtag: '#SouthsidePark' }, { name: 'Tahoe Park',	hashtag: '#TahoePark' }, { name: 'Tahoe Park East',	hashtag: '#TahoePark' }, { name: 'Tahoe Park South',	hashtag: '#TahoePark' }, { name: 'West Tahoe Park',	hashtag: '#TahoePark' }, { name: 'Tallac Village',	hashtag: '#TallacVillage' }, { name: 'Woodlake',	hashtag: '#WoodLake' } ];
+	var nbhoods = [ { name: 'Alhambra Triangle',	hashtag: '#AlhambraTriangle' }, { name: 'Alkali Flat',	hashtag: '#AlkaliFlat' }, { name: 'American River Parkway',	hashtag: '#AmericanRiverPkwy' }, { name: 'Boulevard Park',	hashtag: '#BlvdPark' }, { name: 'Cal Expo',	hashtag: '#CalExpo' }, { name: 'College/Glen',	hashtag: '#CollegeGlen' }, { name: 'College Town',	hashtag: '#CollegeTown' }, { name: 'CSUS',	hashtag: '#CSUS' }, { name: 'Curtis Park',	hashtag: '#CurtisPark' }, { name: 'Dos Rios Triangle',	hashtag: '#DosRiosTriangle' }, { name: 'Downtown',	hashtag: '#DowntownSac' }, { name: 'East Sacramento',	hashtag: '#EastSac' }, { name: 'Elmhurst',	hashtag: '#Elmhurst' }, { name: 'Fairgrounds',	hashtag: '#Fairgrounds' }, { name: 'Greenhaven',	hashtag: '#Greenhaven' }, { name: 'Hollywood Park',	hashtag: '#HollywoodPark' }, { name: 'Johnson Business Park',	hashtag: '#JohnsonBizPark' }, { name: 'Land Park',	hashtag: '#LandPark' }, { name: 'Little Pocket',	hashtag: '#LittlePocket' }, { name: 'Marshall School',	hashtag: '#MarshallSchool' }, { name: 'Meadowview',	hashtag: '#Meadowview' }, { name: 'Med Center',	hashtag: '#MedCenter' }, { name: 'Midtown / Winn Park / Capital Avenue',	hashtag: '#MidTownSac' }, { name: 'New Era Park',	hashtag: '#NewEraPark' }, { name: 'Newton Booth',	hashtag: '#NewtonBooth' }, { name: 'Old North Sacramento',	hashtag: '#NorthOldSac' }, { name: 'North Oak Park',	hashtag: '#OakPark' }, { name: 'Central Oak Park',	hashtag: '#OakPark' }, { name: 'South Oak Park',	hashtag: '#OakPark' }, { name: 'Old Sacramento',	hashtag: '#OldSac' }, { name: 'Pocket',	hashtag: '#Pocket' }, { name: 'Point West',	hashtag: '#PointWest' }, { name: 'Richmond Grove',	hashtag: '#RichmondGrove' }, { name: 'River Park',	hashtag: '#RiverPark' }, { name: 'SCC',	hashtag: '#SCC' }, { name: 'Sierra Oaks',	hashtag: '#SierraOaks' }, { name: 'South Land Park',	hashtag: '#SouthLandPark' }, { name: 'Southside Park',	hashtag: '#SouthsidePark' }, { name: 'Tahoe Park',	hashtag: '#TahoePark' }, { name: 'Tahoe Park East',	hashtag: '#TahoePark' }, { name: 'Tahoe Park South',	hashtag: '#TahoePark' }, { name: 'West Tahoe Park',	hashtag: '#TahoePark' }, { name: 'Tallac Village',	hashtag: '#TallacVillage' }, { name: 'Woodlake',	hashtag: '#WoodLake' } ];
     
-//     var nbhoodSchema = new mongoose.Schema({
-//         name: String,
-//         hashtag: String
-//     });
+    var nbhoodSchema = new mongoose.Schema({
+        name: String,
+        hashtag: String,
+        count: Number
+    },{
+    	collection: 'nbhoods'
+    });
 
-//     var nbhood = mongoose.model( 'nbhood', nbhoodSchema );
+    nbhood = mongoose.model( 'nbhood', nbhoodSchema );
 
-//     for (var i = 0; i < nbhoods.length; i++){
-//     	new nbhood({ name: nbhoods[i].name, hashtag: nbhoods[i].hashtag, count: 0 })
-//     	// watchList[i] = nbhoods[i].hashtag;
-//     }
-//     // watchList.push('#sacramento')
-
-//     console.log(watchList)
-// });
-	var app = express();
-
+    // for (var i = 0; i < nbhoods.length; i++){
+    // 	new nbhood({ name: nbhoods[i].name, hashtag: nbhoods[i].hashtag, count: 0 })
+    // 	// watchList[i] = nbhoods[i].hashtag;
+    // }
+    // watchList.push('#sacramento')
+    new nbhood({ name: '49ers', hashtag: '#49ers', count: 0 })
+    var test = new nbhood({ name: 'rams', hashtag: '#rams', count: 0 })
+    
+	
+});
 	app.configure(function(){
 	    app.set('port', 9000);
 	    app.set('view engine', 'handlebars');
@@ -46,7 +50,7 @@ var express = require('express'),
 
 	// simple log
 	app.use(function(req, res, next){
-	  console.log('%s %s', req.method, req.url);
+	  // console.log('%s %s', req.method, req.url);
 	  next();
 	});
 
@@ -70,6 +74,12 @@ var express = require('express'),
 
  	app.get('/', function(req, res){
 	  res.sendfile( path.join( __dirname, '../app/index.html' ) );
+	});
+
+	app.get('/neighborhoods', function(req, res){
+		nbhood.find('nbhoods', function (err, results) {
+			res.send(results);
+  		});
 	});
 
 	app.get('/tweets/:hashtag/:num', function(req, res){
