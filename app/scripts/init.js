@@ -22,7 +22,7 @@ require.config({
             deps: ['jquery'],
             exports: 'jquery'
         },
-        mapael: ['jquery','raphael']
+        mapael: ['raphael']
     },
 
     paths: {
@@ -37,9 +37,7 @@ require.config({
 
         raphael: 'vendor/jquery-mapael/js/raphael/raphael-min',
         mapael: 'vendor/jquery-mapael/js/jquery.mapael',
-        map: 'vendor/jquery-mapael/js/maps/world_countries',
-
-        shuffle: 'vendor/shuffle/jquery.shuffle.min',
+        mapdata: 'vendor/jquery-mapael/js/maps/usa_states',
 
         /* alias the bootstrap js lib */
         bootstrap: 'vendor/bootstrap',

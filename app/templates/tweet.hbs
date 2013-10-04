@@ -1,21 +1,23 @@
-<div class="tweet panel panel-default">
-       <div class="panel-heading">
-         <div class="avatar">
+<div class="tweet">
+<div class="time">{{created_at}}</div>
+  <div class="avatar">
              <a href="http://twitter.com/{{user.screen_name}}"
              target="_blank">
                <img src="{{user.profile_image_url}}"/>
              </a>
          </div>
-         
+       <div class="meta">
          <div class="user">
              <a href="http://twitter.com/{{user.screen_name}}"
-              target="_blank"> {{user.name}}
+              target="_blank"> {{user.name}} <span>@{{user.screen_name}}</span>
              </a>
          </div>
                
-         <div class="time">{{created_at}}</div>
+         
         </div>
-       <div class="txt panel-content">
+
+       <div class="text">
            <p>{{{entities.text}}}</p>
        </div>
+       
 </div>

@@ -30,16 +30,13 @@ db.once('open', function callback () {
 
     nbhood = mongoose.model( 'nbhood', nbhoodSchema );
 
-    // for (var i = 0; i < nbhoods.length; i++){
-    // 	new nbhood({ name: nbhoods[i].name, hashtag: nbhoods[i].hashtag, count: 0 })
-    // 	// watchList[i] = nbhoods[i].hashtag;
-    // }
-    // watchList.push('#sacramento')
-    new nbhood({ name: '49ers', hashtag: '#49ers', count: 0 })
-    var test = new nbhood({ name: 'rams', hashtag: '#rams', count: 0 })
-    
-	
+    for (var i = 0; i < nbhoods.length; i++){
+    	// new nbhood({ name: nbhoods[i].name, hashtag: nbhoods[i].hashtag, count: 0 })
+    	// watchList.push(nbhoods[i].hashtag);
+    }
+    watchList.push('#sacramento')	
 });
+
 	app.configure(function(){
 	    app.set('port', 9000);
 	    app.set('view engine', 'handlebars');

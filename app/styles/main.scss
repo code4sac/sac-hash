@@ -8,34 +8,74 @@ html, body { height:100%; }
 	border-radius: 0;
 }
 #map-canvas {
-	padding-top: 20px;
-	padding-left: 12px;
-	font-size: 24px;
-	font-weight: 700;
-
-	span {
-		font-size: 24px;
-	}
+	height: 300px;
+	width: 100%;
+	float: left;
 }
 #map-canvas > div{ 
 	height: 60px;
 	width: 66%;
 }
-.tweet-container {
-	height: 100%;
-	width: 33%;
-	float: right;
-	margin-top: -50px;
-	padding-top: 50px;
 
-	.tweets {
-		height: 100%;
-		overflow-y: scroll;
-	}
+
+/*///////////////////////////////////////////
+
+			TWEET STYLES
+
+///////////////////////////////////////////*/
+
+
+#tweet-feed {
+	height: 300px;
+	width: 30%;
+	float: right;
+	display: none;
 }
-#map {
-	width: 500px;
-	height: 500px;
+
+.tweet {
+	padding: 12px 15px 0 12px;
+	border-top: 1px solid #e9e9e9;
+	.avatar {
+		float: left;
+		width: 60px;
+
+		img {
+			border-radius: 5px;
+			width: 48px;
+			height: 48px;
+		}
+	}
+	.user {
+		position: relative;
+		top: -3px;
+	}
+	.user a {
+		font-weight: 700;
+		font-size: 15px;
+		color: #333;
+		text-transform: capitalize;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+	.user span, .time {
+		font-weight: 300;
+		font-size: 13px;
+		color: #aaa;
+	}
+	.time {
+		float: right;
+		margin-top: -3px;
+	}
+	.text {
+		margin-left: 60px;
+		p {
+			margin-top: -3px;
+		}
+	}
+
+	
 }
 
 /*///////////////////////////////////////////
@@ -44,12 +84,17 @@ html, body { height:100%; }
 
 ///////////////////////////////////////////*/
 
+
+#block-view {
+	width: 100%;
+	float: left;
+}
 .nbhood {
 	float: left;
 	width: 25%;
-	height: 140px;
-	padding-top: 35px;
-	background-color: tomato;
+	height: 70px;
+	padding-top: 11px;
+	background-color: whiteSmoke;
 	color: white;
 	text-align: center;
 	border-right: 1px solid rgba(0,0,0,.1);
@@ -59,18 +104,44 @@ html, body { height:100%; }
 	&:hover {
 		cursor: pointer;
 	}
-	&:after {
-		content: "\0020";
-	display: block;
-	height: 0;
-	overflow: hidden;
+	.count {
+		padding: 10px 0;
+		width: 38px;
+		height: 38px;
+		border-radius: 20%;
+		float: left;
+		text-align: center;
+		margin: 5px 0 0 11px;
+	}
+	hgroup {
+		margin-left: -58px;
+	}
+	h4 {
+		margin: 4px 0;
+		font-size: 16px;
+		color: rgba(0,0,0,.7);
+		font-weight: 900;
 	}
 	h5 {
+		margin: 0;
+		font-size: 14px;
 		color: rgba(0,0,0,.5);
 	}
 }
 
+.map-key {
+	list-style: none;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 
+	li {
+		width: 20%;
+		display: inline-block;
+		text-align: center;
+		padding: 10px 0;
+	}
+}
 
 
 

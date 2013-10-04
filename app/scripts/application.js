@@ -2,13 +2,13 @@ define([
 	'backbone',
 	'communicator',
 	'tweetparse',
+	'map',
 	'views/nbhoods-view',
 	'collections/nbhoods-collection',
 	'hbs!tmpl/tweet',
-	'mapael',
 ],
 
-function( Backbone, Communicator, tweetParse, nbhoodsView, nbhoodsCollection, tweet_tmp) {
+function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollection, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
@@ -25,13 +25,46 @@ function( Backbone, Communicator, tweetParse, nbhoodsView, nbhoodsCollection, tw
 	});
 
 	var count = 0;
-	
+
+
 	var socket = io.connect('http://localhost:9000');
 	  
 	  socket.on('tweet', function (data) {
-	    var tweet = linkify_entities(data.tweet);
+
+	  	function timeSince(date) {
+
+		    var seconds = Math.floor((new Date() - date) / 1000);
+
+		    var interval = Math.floor(seconds / 31536000);
+
+		    if (interval > 1) {
+		        return interval + "y";
+		    }
+		    interval = Math.floor(seconds / 2592000);
+		    if (interval > 1) {
+		        return interval + "m";
+		    }
+		    interval = Math.floor(seconds / 86400);
+		    if (interval > 1) {
+		        return interval + "d";
+		    }
+		    interval = Math.floor(seconds / 3600);
+		    if (interval > 1) {
+		        return interval + "h";
+		    }
+		    interval = Math.floor(seconds / 60);
+		    if (interval > 1) {
+		        return interval + "m";
+		    }
+		    return Math.floor(seconds) + "s";
+		}
+
+	    var tweet = linkify_entities(data.tweet),
+	    	date = data.tweet.created_at;
+
 	    data.tweet.entities.text = tweet;
-	    
+	    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
+	    data.tweet.created_at = timeSince(date);
 	    count++;
 
 	    for (var i = 0; i < data.matchedTags.length; i++){
@@ -42,8 +75,7 @@ function( Backbone, Communicator, tweetParse, nbhoodsView, nbhoodsCollection, tw
 	    	console.log(tagDom)
 	    }
 
-	    $('.tweet-container .tweets').prepend(tweet_tmp(data.tweet));
-	    $('#count span').text(count);
+	    $('#tweet-feed').prepend(tweet_tmp(data.tweet));
 
 	    socket.emit('my other event', { my: 'data' });
 	  });
