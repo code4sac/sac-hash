@@ -6,15 +6,19 @@ define(['backbone', 'models/nbhood-model'], function( Backbone, nbhoodModel){
 		url: '/neighborhoods',
 		parse: function(response) {
 			var result = [];
-			for (var i = 0; i<response.length;i++){
-				if (response[i].hashtag != '')
-				result.push(response[i])
+
+			for (var i = 0; i < response.length; i++){
+				if (response[i].hashtag != ''){
+					result.push(response[i])
+				}
 			}
    			return result;
+   			// return response;
   		}
 	});
 
 	var Neighborhoods = new nbhoodCollection();
-	Neighborhoods.fetch({ });
+		Neighborhoods.fetch();
+
 	return Neighborhoods;
 })

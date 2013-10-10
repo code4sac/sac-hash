@@ -28,17 +28,23 @@
     <body>
         <header>
             <nav class="navbar navbar-inverse" role="navigation">
-                <a class="navbar-brand" href="#">Sacramento Hashtag Project</a>
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Link</a></li>
+                <a class="navbar-brand" href="#">#SacramentoHashtagProject</a>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Made by Code for Sacramento</a></li>
                 </ul>
             </nav>
         </header>
         
         <div id="map-canvas"></div>
-        <div id="tweet-feed"></div>
+        
         <div id="block-view"></div>
-    
+        <div id="tweet-feed">
+            <div class="tweet-header">
+                <h5>Showing tweets for #Sacramento</h5>
+            </div>
+            <div class="tweet-container"></div>
+        </div>
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="components/requirejs/require.js"></script>
         <!-- endbuild -->

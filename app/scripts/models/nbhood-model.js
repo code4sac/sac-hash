@@ -3,7 +3,7 @@ define(['backbone'], function( Backbone ){
 
 	return Backbone.Model.extend({
 		initialize: function(){
-			var count = Math.floor((Math.random()*136)+1);
+			var count = Math.floor((Math.random()*327)+1);
 			this.set('count', count);
 		},
 		url: '/neighborhoods',

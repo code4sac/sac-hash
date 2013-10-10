@@ -1,10 +1,14 @@
 require([
 	'backbone',
 	'application',
-	'regionManager'
+	'pace'
 ],
-function ( Backbone, App ) {
+function ( Backbone, App, pace ) {
     'use strict';
 
+    pace.start({
+    	querySelector: '#tweet-feed'
+    });
+    console.log(pace)
 	App.start();
 });

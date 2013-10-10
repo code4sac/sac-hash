@@ -19,6 +19,22 @@ define([], function(){
     "stylers": [
       { "visibility": "simplified" }
     ]
+  },
+  {
+    "featureType": "poi.park",
+    "stylers": [
+      { "visibility": "simplified" },
+      { "lightness": 35 },
+      { "saturation": -45 }
+    ]
+  },
+  {
+    "featureType": "poi.school",
+    "stylers": [
+      { "visibility": "simplified" },
+      { "lightness": 31 },
+      { "saturation": -52 }
+    ]
   },{
     "featureType": "administrative.neighborhood",
     "stylers": [
@@ -52,7 +68,7 @@ define([], function(){
 ];
     var mapOptions = {
       center: center,
-      zoom: 12,
+      zoom: 13,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: styles
     }

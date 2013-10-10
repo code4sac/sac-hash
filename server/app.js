@@ -85,7 +85,7 @@ db.once('open', function callback () {
 		})
 	});
 	
-	var stream = T.stream('statuses/filter', { track: watchList, language: 'en' })
+	var stream = T.stream('statuses/filter', { track: '#sacramento', language: 'en' })
 
 	stream.on('tweet', function (tweet) {
 		var hashtags = tweet.entities.hashtags,

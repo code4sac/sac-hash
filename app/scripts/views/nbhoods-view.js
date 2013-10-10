@@ -26,9 +26,9 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 
 			function generateColor(count, diff, min){
 
-				var count = count - min,
-					scale = count / diff * 100;
-
+				var count = count,
+					scale = count / max * 100;
+					
 				if (scale <= 20)
 				color = colors[0]
 				else if (scale <= 40)
@@ -46,13 +46,14 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 			}
 
 			function createScale(min, max, diff){
-				var fifth = diff * .2,
+				var fifth = max * .2,
 					ranges = [],
 					finalRange = [];
 
 				for (var i = 1; i <= 5; i++){
-					var num = Math.round(fifth*i)
-					ranges.push(num)
+					var num = fifth * i;
+						num = Math.round(num);
+					ranges.push(num);
 
 					if (i == 1)
 					finalRange[0] = '0 - ' + (num-1);
@@ -62,7 +63,7 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 					finalRange[i-1] = ranges[i-2] + ' - ' + (num-1);
 
 				}
-
+				
 				return finalRange;
 			}
 
@@ -84,14 +85,14 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 				var count = collection[i].attributes.count,
 					poly = collection[i].attributes.poly,
 					color = generateColor(count, diff, min);
-
+					
 				collection[i].set('color', color);
 			}
 
 			scale = createScale(min, max, diff);
 
 			for (var i = 0; i < scale.length; i++){
-				console.log(colors[i])
+				// console.log(colors[i])
 				scaleDom = scaleDom + '<li style="background-color: rgb(' + colors[i].join('%,') + '%);">' + scale[i] + ' tweets</li>';
 			}
 			$('#block-view').before('<ul class="map-key">'+scaleDom+'</ul>')	

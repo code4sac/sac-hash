@@ -75,7 +75,7 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 	    	console.log(tagDom)
 	    }
 
-	    $('#tweet-feed').prepend(tweet_tmp(data.tweet));
+	    $('.tweet-container').prepend(tweet_tmp(data.tweet));
 
 	    socket.emit('my other event', { my: 'data' });
 	  });

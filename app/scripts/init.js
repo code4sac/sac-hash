@@ -3,7 +3,7 @@ require.config({
     baseUrl: "/scripts",
 
     /* starting point for application */
-    deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'main'],
+    deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars','main'],
 
 
     shim: {
@@ -29,15 +29,14 @@ require.config({
         jquery: '../components/jquery/jquery',
         backbone: '../components/backbone-amd/backbone',
         underscore: '../components/underscore-amd/underscore',
+        pace: '../components/pace/pace.min',
 
         /* alias all marionette libs */
         'backbone.marionette': '../components/backbone.marionette/lib/core/amd/backbone.marionette',
         'backbone.wreqr': '../components/backbone.wreqr/lib/amd/backbone.wreqr',
         'backbone.babysitter': '../components/backbone.babysitter/lib/amd/backbone.babysitter',
 
-        raphael: 'vendor/jquery-mapael/js/raphael/raphael-min',
-        mapael: 'vendor/jquery-mapael/js/jquery.mapael',
-        mapdata: 'vendor/jquery-mapael/js/maps/usa_states',
+        infobox: 'vendor/infobox/infobox-min',
 
         /* alias the bootstrap js lib */
         bootstrap: 'vendor/bootstrap',
