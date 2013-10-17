@@ -5,10 +5,12 @@ define([
 	'map',
 	'views/nbhoods-view',
 	'collections/nbhoods-collection',
+	'views/ranges-view',
+	'collections/ranges-collection',
 	'hbs!tmpl/tweet',
 ],
 
-function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollection, tweet_tmp) {
+function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollection, rangesView, rangesCollection, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
@@ -16,12 +18,13 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 	/* Add application regions here */
 	App.addRegions({
 		blockView: '#block-view',
-		mapView: '#map-view'
+		mapKey: '#map-key'
 	});
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) )
+		App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) );
+		App.mapKey.show( new rangesView({ collection: rangesCollection }) );
 	});
 
 	var count = 0;
@@ -110,6 +113,14 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
  //  		}
   		
 	// });
+
+	$('#address-search').on('click', function(event){
+		var target = $(event.target),
+			panel = target.find('#panel');
+
+		target.removeClass('glyphicon')
+		panel.show().animate({'width':'500px'}, 100);
+	})
 
 	return App;
 });

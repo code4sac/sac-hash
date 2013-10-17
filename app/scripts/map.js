@@ -57,10 +57,10 @@ define([], function(){
   },{
     "featureType": "road.highway",
     "stylers": [
-      { "saturation": -40 },
-      { "lightness": 20 },
-      { "hue": "#ff3c00" },
-      { "weight": 2 },
+      { "saturation": -50 },
+      { "lightness": 35 },
+      { "hue": '#ff6347' },
+      { "weight": 0 },
       { "visibility": "simplified" }
     ]
   },{
@@ -70,10 +70,26 @@ define([], function(){
       center: center,
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      styles: styles
+      styles: styles,
+      mapTypeControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.SMALL,
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+      },
     }
     
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    var defaultBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(38.413304379132946, -120.43513343652342),
+      new google.maps.LatLng(38.735394964282314, -122.51704261621092)
+    );
+    console.log(defaultBounds)
+    var input = document.getElementById('target');
+    var searchBox = new google.maps.places.SearchBox(input, { setBounds: defaultBounds });
+        // searchBox.setBounds(defaultBounds);
+ console.log(searchBox)
     
     return map;    
 });

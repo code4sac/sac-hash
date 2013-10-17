@@ -22,11 +22,14 @@ require.config({
             deps: ['jquery'],
             exports: 'jquery'
         },
-        mapael: ['raphael']
+        jqueryui: {
+            deps: ['jquery']
+        }
     },
 
     paths: {
         jquery: '../components/jquery/jquery',
+        jqueryui: 'vendor/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min',
         backbone: '../components/backbone-amd/backbone',
         underscore: '../components/underscore-amd/underscore',
         pace: '../components/pace/pace.min',

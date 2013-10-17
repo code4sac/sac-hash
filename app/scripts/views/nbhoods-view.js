@@ -1,4 +1,4 @@
-define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Backbone, nbhoodsView, nbhoodsTemplate){
+define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','jqueryui'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, jqueryui){
 	'use strict';
 
 	return Backbone.Marionette.CompositeView.extend({
@@ -7,16 +7,93 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 			type: 'handlebars',
 			template: nbhoodsTemplate
 		},
+		events: {
+			'click #sort-by li':'sort'
+		},
+		sort: function(e){
+			var target = $(e.target).closest('li').attr('class'),
+				nbhoods = this.$el.find('.nbhood');
+			
+			if (target == 'sort-high'){
+				nbhoods.sort(function(a, b) {
+
+					 // convert to integers from strings
+					 a = parseInt($(a).attr('data-count'));
+					 b = parseInt($(b).attr('data-count'));
+
+					 // compare
+					 if (a < b) {
+					  return 1;
+					 } else if (a > b) {
+					  return -1;
+					 } else {
+					  return 0;
+					 }
+				});
+				
+				this.$el.append(nbhoods);
+			} else if (target == 'sort-low'){
+				nbhoods.sort(function(a, b) {
+
+					 // convert to integers from strings
+					 a = parseInt($(a).attr('data-count'));
+					 b = parseInt($(b).attr('data-count'));
+
+					 // compare
+					 if (a > b) {
+					  return 1;
+					 } else if (a < b) {
+					  return -1;
+					 } else {
+					  return 0;
+					 }
+				});
+				
+				this.$el.append(nbhoods);
+			} else if (target == 'sort-a'){
+				nbhoods.sort(function(a, b) {
+
+					 // convert to integers from strings
+					 a = $(a).attr('data-name');
+					 b = $(b).attr('data-name');
+
+					 // compare
+					 if (a > b) {
+					  return 1;
+					 } else if (a < b) {
+					  return -1;
+					 } else {
+					  return 0;
+					 }
+				});
+				
+				this.$el.append(nbhoods);
+			} else if (target == 'sort-z'){
+				nbhoods.sort(function(a, b) {
+
+					 // convert to integers from strings
+					 a = $(a).attr('data-name');
+					 b = $(b).attr('data-name');
+
+					 // compare
+					 if (a < b) {
+					  return 1;
+					 } else if (a > b) {
+					  return -1;
+					 } else {
+					  return 0;
+					 }
+				});
+				
+				this.$el.append(nbhoods);
+			}
+		},
 		onBeforeRender: function(){
+
 			var countValues = [],
 				collection = this.collection.models,
-				colors = [
-					['81.2', '94.1', '62'],
-					['65.9', '85.9', '65.9'],
-					['47.5', '74.1', '60.4'],
-					['23.1', '52.5', '52.5'],
-					['4.3', '28.2', '42']
-				],
+				autocomplete = [],
+				range,
 				min,
 				max,
 				diff,
@@ -24,56 +101,66 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 				scale,
 				scaleDom = '';
 
+			// sets range on nbhood model to reference to ranges model later
 			function generateColor(count, diff, min){
 
 				var count = count,
 					scale = count / max * 100;
 					
 				if (scale <= 20)
-				color = colors[0]
+				range = 0;
 				else if (scale <= 40)
-				color = colors[1]
+				range = 1;
 				else if (scale <= 60)
-				color = colors[2]
+				range = 2;
 				else if (scale <= 80)
-				color = colors[3]
+				range = 3;
 				else if (scale <= 100)
-				color = colors[4]
-
-				color = 'rgb(' + color.join('%,') + '%)';
+				range = 4;
 				
-				return color;	
+				return range;	
 			}
 
+			// creates range scale and saves to ranges model
 			function createScale(min, max, diff){
-				var fifth = max * .2,
+				var rangesLen = rangesCollection.length,
+					singleRange = max * (1 / rangesLen),
 					ranges = [],
 					finalRange = [];
 
-				for (var i = 1; i <= 5; i++){
-					var num = fifth * i;
+				for (var i = 1; i <= rangesLen; i++){
+					var num = singleRange * i;
 						num = Math.round(num);
 					ranges.push(num);
 
 					if (i == 1)
-					finalRange[0] = '0 - ' + (num-1);
-					else if (i == 5)
-					finalRange[4] = ranges[3] + ' - ' + max;
+					rangesCollection.models[0].set('range', '0 - ' + ( num - 1));
+					else if (i == rangesLen)
+					rangesCollection.models[rangesLen - 1].set('range', ranges[rangesLen - 2] + ' - ' + max);
 					else
-					finalRange[i-1] = ranges[i-2] + ' - ' + (num-1);
-
+					rangesCollection.models[i - 1].set('range', ranges[i - 2] + ' - ' + ( num - 1));
 				}
-				
-				return finalRange;
 			}
 
+
+			// finds min and max values of all nbhood counts to create range
 			Array.minMax = function( array ){
     			max = Math.max.apply( Math, array ),
     			min = Math.min.apply( Math, array )
 			};
 
 			for (var i = 0; i < collection.length; i++){
-				var count = collection[i].attributes.count;
+				var model = collection[i].attributes,
+					count = model.count,
+					name = model.NAME2,
+					hashtag = model.hashtag;
+
+				autocomplete.push({
+			        value: name,
+			        label: name,
+			        desc: hashtag
+      			});
+
 				countValues.push(count)
 			}
 
@@ -86,16 +173,36 @@ define(['backbone','views/nbhood-view','hbs!tmpl/nbhoods-template'], function(Ba
 					poly = collection[i].attributes.poly,
 					color = generateColor(count, diff, min);
 					
-				collection[i].set('color', color);
+				collection[i].set('range', range);
+				collection[i].set('color', rangesCollection.models[range].get('color'));
 			}
 
 			scale = createScale(min, max, diff);
 
-			for (var i = 0; i < scale.length; i++){
-				// console.log(colors[i])
-				scaleDom = scaleDom + '<li style="background-color: rgb(' + colors[i].join('%,') + '%);">' + scale[i] + ' tweets</li>';
-			}
-			$('#block-view').before('<ul class="map-key">'+scaleDom+'</ul>')	
+			this.collection.autocomplete = autocomplete;
+			
+		},
+		onRender: function(){
+			var data = this.collection.autocomplete,
+				self = this,
+				input = this.$el.find('#nbhood-search');
+			
+			input.autocomplete({
+		    	minLength: 0,
+		    	source: data,
+		    	appendTo: "#sort-by .search",
+    			select: function(event, ui){
+    				var hashtag = ui.item.desc,
+    					selectedModel = self.collection.find(function(model){
+    						return model.get('hashtag') == hashtag;
+    					});
+    				Communicator.events.trigger('searchSelected', selectedModel);
+    				
+    				window.setTimeout(function(){
+						input.val('');
+					}, 100)
+    			}
+		  	});
 		}
 	});
 });

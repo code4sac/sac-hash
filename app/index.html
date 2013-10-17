@@ -20,23 +20,31 @@
 
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="components/modernizr/modernizr.js"></script>
-       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNECPGkZc-6HqX0h2jU4mVkMwjH_HH6xw&sensor=true"></script>
+       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNECPGkZc-6HqX0h2jU4mVkMwjH_HH6xw&sensor=true&libraries=places"></script>
     <script src="http://localhost:9000/socket.io/socket.io.js"> </script>
         <!-- endbuild -->
     </head>
 
     <body>
         <header>
-            <nav class="navbar navbar-inverse" role="navigation">
-                <a class="navbar-brand" href="#">#SacramentoHashtagProject</a>
-                <ul class="nav navbar-nav pull-right">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Made by Code for Sacramento</a></li>
+            <h1>#SacramentoHashtagProject</h1>
+            <nav>
+                <ul>
+                    <li id="address-search">
+                        <div class="glyphicon glyphicon-search"></div>
+                        <div id="panel">
+                            <input id="target" type="text" placeholder="Find your address in Sacramento, CA">
+                            <button class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span>Use Location</button>
+                        </div> 
+                    </li>
+                    <li class="glyphicon glyphicon-align-justify"></li>
                 </ul>
-            </nav>
+            </nav> 
+            
         </header>
-        
+
         <div id="map-canvas"></div>
+        <div id="map-key"></div>
         
         <div id="block-view"></div>
         <div id="tweet-feed">

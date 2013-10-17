@@ -1,4 +1,18 @@
-define(['backbone','communicator','hbs!tmpl/nbhood-template','map','hbs!tmpl/infobox-template','hbs!tmpl/tweet','infobox'], function(Backbone, Communicator, nbhoodTemplate, map, infoboxTemp, tweetTemp){
+define(['backbone',
+		'communicator',
+		'hbs!tmpl/nbhood-template',
+		'map',
+		'hbs!tmpl/infobox-template',
+		'hbs!tmpl/tweet',
+		'collections/ranges-collection',
+		'infobox'], 
+function(Backbone,
+		Communicator,
+		nbhoodTemplate,
+		map,
+		infoboxTemp,
+		tweetTemp,
+		rangesCollection){
 	'use strict';
 
 	return Backbone.Marionette.ItemView.extend({ 
@@ -10,15 +24,14 @@ define(['backbone','communicator','hbs!tmpl/nbhood-template','map','hbs!tmpl/inf
 		},
 
 		events: {
-			'click':'showTweets',
-			'mouseenter':'over',
-			'mouseleave':'out'
+			'click':'showTweets'
 		},
 
 		attributes: function(){
 			return {
-				'data-count': this.model.get('count'),
-				// 'style': 'background-color:'+this.model.get('color')+';'
+				'data-count': parseFloat(this.model.get('count')),
+				'data-name': this.model.get('NAME2'),
+				'data-range': this.model.get('range')
 			}
 		},
 
@@ -30,6 +43,13 @@ define(['backbone','communicator','hbs!tmpl/nbhood-template','map','hbs!tmpl/inf
 
 			Communicator.events.on('clicked', function(){
 				self.model.get('infobox').close();
+			});
+			Communicator.events.on('searchSelected', function(model){
+				if (self.model.cid == model.cid){
+					console.log(model)
+					self.showTweets();
+				}
+				
 			});
 		},
 
@@ -45,31 +65,31 @@ define(['backbone','communicator','hbs!tmpl/nbhood-template','map','hbs!tmpl/inf
 
 			function timeSince(date) {
 
-		    var seconds = Math.floor((new Date() - date) / 1000);
+			    var seconds = Math.floor((new Date() - date) / 1000);
 
-		    var interval = Math.floor(seconds / 31536000);
+			    var interval = Math.floor(seconds / 31536000);
 
-		    if (interval > 1) {
-		        return interval + "y";
-		    }
-		    interval = Math.floor(seconds / 2592000);
-		    if (interval > 1) {
-		        return interval + "m";
-		    }
-		    interval = Math.floor(seconds / 86400);
-		    if (interval > 1) {
-		        return interval + "d";
-		    }
-		    interval = Math.floor(seconds / 3600);
-		    if (interval > 1) {
-		        return interval + "h";
-		    }
-		    interval = Math.floor(seconds / 60);
-		    if (interval > 1) {
-		        return interval + "m";
-		    }
-		    return Math.floor(seconds) + "s";
-		}
+			    if (interval > 1) {
+			        return interval + "y";
+			    }
+			    interval = Math.floor(seconds / 2592000);
+			    if (interval > 1) {
+			        return interval + "m";
+			    }
+			    interval = Math.floor(seconds / 86400);
+			    if (interval > 1) {
+			        return interval + "d";
+			    }
+			    interval = Math.floor(seconds / 3600);
+			    if (interval > 1) {
+			        return interval + "h";
+			    }
+			    interval = Math.floor(seconds / 60);
+			    if (interval > 1) {
+			        return interval + "m";
+			    }
+			    return Math.floor(seconds) + "s";
+			}
 
 			if ($(window).scrollTop() > 0){
 				$('html, body').animate({'scrollTop':0}, 100, function(){
@@ -106,27 +126,18 @@ define(['backbone','communicator','hbs!tmpl/nbhood-template','map','hbs!tmpl/inf
 			ib.open(map, marker);
 		},
 
-		over: function(){
-			this.$el.css('background-color', this.model.get('color'))
-			this.$el.find('span').css({'box-shadow': '0px 0px 1px 0px rgba(0,0,0,.32)','background-color':'rgba(255,255,255,.06'})
-		},
-
-		out: function(){
-			this.$el.css('background-color', 'white')
-			this.$el.find('span').css({'box-shadow': '0px 0px 0px rgba(0,0,0,.2)','background-color': this.model.get('color')})
-		},
-
 		createPolygon: function(){
 			var paths = this.model.get('geometry'),
 				bounds = new google.maps.LatLngBounds(),
-				center,
-				coordinates = [],
-				poly,
+				range = this.model.get('range'),
 				color = this.model.get('color'),
+				coordinates = [],
 				infoWindow,
 				infoPosition,
-				contentString;
-
+				contentString,
+				poly,
+				center;
+				
 				paths = paths.match('<coordinates>(.*?)</coordinates>');
 				paths = paths[1].match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
 
@@ -179,7 +190,7 @@ define(['backbone','communicator','hbs!tmpl/nbhood-template','map','hbs!tmpl/inf
                  content: infoboxTemp(this.model.attributes)
                 ,disableAutoPan: false
                 ,maxWidth: 0
-                ,pixelOffset: new google.maps.Size(10, -60)
+                ,pixelOffset: new google.maps.Size(10, -52)
                 ,zIndex: null
                 // ,closeBoxMargin: "10px 2px 2px 10px"
                 ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
