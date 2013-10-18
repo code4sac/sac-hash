@@ -1,6 +1,10 @@
 <?
-$sh_config = array(
-  'api_key'   => 'AIzaSyAJsXs9HHywzBcR_JSfcgQeWmrEyaPu28c',
-  'fusion_table'  => '1PPlalKs5TkDSfx_v4CEePIICbtwrTqD-2z74e00'
+$cityTags = array(
+  'api_key'                 => '',
+  'fusion_table'            => '',
+  'twitter_consumer_key'    => '',
+  'twitter_consumer_secret' => '',
+  'twitter_oauth_token'     => '',
+  'twitter_oauth_secret'    => ''
 );
 ?>
