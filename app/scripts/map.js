@@ -85,10 +85,10 @@ define([], function(){
       new google.maps.LatLng(38.413304379132946, -120.43513343652342),
       new google.maps.LatLng(38.735394964282314, -122.51704261621092)
     );
-    console.log(defaultBounds)
+    
     var input = document.getElementById('target');
     var searchBox = new google.maps.places.SearchBox(input, { setBounds: defaultBounds });
-        // searchBox.setBounds(defaultBounds);
+        searchBox.setBounds(defaultBounds);
  console.log(searchBox)
     
     return map;    

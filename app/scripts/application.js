@@ -115,11 +115,12 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 	// });
 
 	$('#address-search').on('click', function(event){
-		var target = $(event.target),
+		var target = $(event.target).closest('li'),
 			panel = target.find('#panel');
 
-		target.removeClass('glyphicon')
-		panel.show().animate({'width':'500px'}, 100);
+		target.animate({'width':'500px'}, 150);
+		target.find('> .glyphicon').removeClass('glyphicon-search').addClass('glyphicon-remove')
+		panel.show();
 	})
 
 	return App;

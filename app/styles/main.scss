@@ -43,19 +43,33 @@ header {
 		li {
 			display: inline-block;
 			margin-right: 6px;
-			padding: 14px;
 			background-color: tomato;
 			font-size: 16px;
 			border-radius: 2px;
+			height: 43px;
+			overflow: hidden;
 			color: white;
+
+			> .glyphicon {
+				float: left;
+				padding: 11px 14px 16px;
+				border-right: 0px solid rgba(0,0,0,.1);
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+
+
 		}
 	}
 }
 #panel {
-	margin: 7px auto 0;
-	padding-right: 10px;
+	// margin: 7px auto 0;
+	margin: 6px 0;
+	padding-right: 6px;
+	width: 90%;
 	float: right;
-	width: 0;
 	display: none;
 
 	h1 {
@@ -67,19 +81,29 @@ header {
 	}
 
 	input, button {
-		padding: 6px 15px;
-		border: 1px solid rgba(0,0,0,.15);
-		height:34px;
-		border-radius: 3px;
+		border: 1px solid #DD573F;
+		border-radius: 5px;
+		font-size: 13px;
+		height: 31px;
+		float: left;
 	}
 	input {
-		width: 80%;
-		border: 1px solid rgba(0,0,0,.4);
+		width: 69%;
+		padding: 6px 15px 5px;
+		margin-right: 1%;
+
+		&:focus {
+			// border: 0;
+			outline: 0;
+		}
 	}
 	button {
-		background-color: rgb(23.1%,52.5%,52.5%);
+		background-color: tomato;
+		padding: 5px 5px 5px;
 		color: white;
 		text-shadow: 1px 1px 1px rgba(0,0,0,.1);
+		box-shadow: inset 1px 1px 1px tomato; 
+		width: 30%;
 	}
 }
 
@@ -277,6 +301,8 @@ header {
 
 .nbhood[data-range="0"]:hover .count {
 		border: 2px solid rgb(220,252,158);	
+		// background-color: rgb(220,252,158) !important;
+
 }
 .nbhood[data-range="1"]:hover .count {
 		border: 2px solid rgb(170,231,168);
