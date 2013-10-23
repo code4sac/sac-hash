@@ -19,7 +19,7 @@ define(['backbone','models/nbhood-model'], function( Backbone, nbhoodModel){
 
   var nbhoodCollection = Backbone.Collection.extend({
     model: nbhoodModel,
-    url: 'http://ec2-50-18-231-203.us-west-1.compute.amazonaws.com/data/alldata.php',
+    url: '/data/alldata.php',
     // parse: function(response) {
     //  var result = [];
 
