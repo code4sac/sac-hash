@@ -19,7 +19,7 @@ class mysql {
 			print $this->connection->connect_error;
 			$errMsg  = "ERROR (".$this->connection->connect_errno.") ";
 			$errMsg .= $this->connection->connect_error;
-			logger($errMsg, 'mysql');
+			//logger($errMsg, 'mysql');
 		}
 	} // end __construct
 
@@ -43,13 +43,13 @@ class mysql {
 					break;				// End Return Objecta ------------------------
 			}
 			$result->close();
-			logger("getRows($tableName): ".sizeof($retArray)." rows returned", 'mysql');
+			//logger("getRows($tableName): ".sizeof($retArray)." rows returned", 'mysql');
 			return $retArray;
 		} else {
 			// Result failed! Report Error!!
 			$errMsg  = "ERROR (".$this->connection->errno.") ";
 			$errMsg .= $this->connection->error;
-			logger($errMsg, 'mysql');	// Report to logfile
+			//logger($errMsg, 'mysql');	// Report to logfile
 			jsError($errMsg);					// Critical. Report to javascript ALERT
 			return;
 
@@ -60,12 +60,12 @@ class mysql {
 		preg_match('/into (?P<table>.*).* values|\(/i', $query, $table);
 		$tableName = $table['table'];
 		if($result = $this->connection->query($query)) {
-			logger("Insert($tableName): id => ".$this->connection->insert_id, 'mysql');
+			//logger("Insert($tableName): id => ".$this->connection->insert_id, 'mysql');
 			return $this->connection->insert_id;
 		} else {
 			$errMsg  = "ERROR (".$this->connection->errno.") ";
 			$errMsg .= $this->connection->error;
-			logger($errMsg, 'mysql');	// Report to logfile
+			//logger($errMsg, 'mysql');	// Report to logfile
 			jsError($errMsg);					// Critical. Report to javascript ALERT
 			return;
 		}
@@ -74,12 +74,12 @@ class mysql {
 		preg_match('/SET (?P<table>.*).* values|\(/i', $query, $table);
 		$tableName = $table['table'];
 		if($result = $this->connection->query($query)) {
-			logger("Update($tableName): affected rows => ".$this->connection->affected_rows, 'mysql');
+			//logger("Update($tableName): affected rows => ".$this->connection->affected_rows, 'mysql');
 			return $this->connection->affected_rows;
 		} else {
 			$errMsg  = "ERROR (".$this->connection->errno.") ";
 			$errMsg .= $this->connection->error;
-			logger($errMsg, 'mysql');	// Report to logfile
+			//logger($errMsg, 'mysql');	// Report to logfile
 			jsError($errMsg);					// Critical. Report to javascript ALERT
 			return;
 		}
@@ -91,7 +91,7 @@ class mysql {
     //  if($key == 'id') {
     //    if(!$var = filter_var($val, FILTER_VALIDATE_INT)) { return "FAIL"; }
     //  }
-	  logger("SANITIZE: ($key)", 'mysql');
+	  //logger("SANITIZE: ($key)", 'mysql');
       $retArray[$key] = $val;
     }
     return $retArray;

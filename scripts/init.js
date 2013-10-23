@@ -1,6 +1,6 @@
 require.config({
 
-    baseUrl: "/hashtags-merge/scripts",
+    baseUrl: "/scripts",
 
     /* starting point for application */
     deps: ['backbone.marionette','marionette.handlebars','main'],
