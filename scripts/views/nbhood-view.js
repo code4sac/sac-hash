@@ -138,11 +138,12 @@ function(Backbone,
 				poly,
 				center;
 				
-				paths = paths.match('<coordinates>(.*?)</coordinates>');
-				paths = paths[1].match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
+				// paths = paths.match('<coordinates>(.*?)</coordinates>');
+				// paths = paths[1].match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
+				paths = paths.geometry.coordinates[0];
 
 			for (var i = 0; i < paths.length; i++){
-				var coords = paths[i].split(','),
+				var coords = paths[i],
 					latLng = new google.maps.LatLng(coords[1],coords[0]);
 
 				coordinates.push( latLng )

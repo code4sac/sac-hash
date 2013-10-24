@@ -10,6 +10,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 		events: {
 			'click #sort-by li':'sort'
 		},
+		initialize: function(){
+			
+		},
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),
 				nbhoods = this.$el.find('.nbhood');
@@ -151,7 +154,7 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 
 			for (var i = 0; i < collection.length; i++){
 				var model = collection[i].attributes,
-					count = model.count,
+					count = model.COUNT,
 					name = model.NAME2,
 					hashtag = model.hashtag;
 
@@ -169,7 +172,7 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			diff = Math.abs(min - max);
 
 			for (var i = 0; i < collection.length; i++){
-				var count = collection[i].attributes.count,
+				var count = collection[i].attributes.COUNT,
 					poly = collection[i].attributes.poly,
 					color = generateColor(count, diff, min);
 					

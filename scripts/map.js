@@ -89,7 +89,7 @@ define([], function(){
     var input = document.getElementById('target');
     var searchBox = new google.maps.places.SearchBox(input, { setBounds: defaultBounds });
         searchBox.setBounds(defaultBounds);
- console.log(searchBox)
+
     
     return map;    
 });

@@ -22,10 +22,12 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 	});
 
 	/* Add initializers here */
-	App.addInitializer( function () {
-		App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) );
-		App.mapKey.show( new rangesView({ collection: rangesCollection }) );
-	});
+		App.addInitializer( function(){
+			App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) );
+			App.mapKey.show( new rangesView({ collection: rangesCollection }) );
+		});
+	
+	
 
 	$('#toggle-search').on('click', function(event){
 		var target = $(event.target),
