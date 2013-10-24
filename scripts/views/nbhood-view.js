@@ -29,7 +29,7 @@ function(Backbone,
 
 		attributes: function(){
 			return {
-				'data-count': parseFloat(this.model.get('count')),
+				'data-count': parseFloat(this.model.get('COUNT')),
 				'data-name': this.model.get('NAME2'),
 				'data-range': this.model.get('range')
 			}
@@ -46,10 +46,8 @@ function(Backbone,
 			});
 			Communicator.events.on('searchSelected', function(model){
 				if (self.model.cid == model.cid){
-					console.log(model)
 					self.showTweets();
 				}
-				
 			});
 		},
 
@@ -174,7 +172,7 @@ function(Backbone,
 				center = this.model.get('center'),
 				nbhood = this.model.get('NAME2'),
 				hashtag = this.model.get('hashtag'),
-				count = this.model.get('count'),
+				count = this.model.get('COUNT'),
 				self = this,
 				marker,
 				boxText,

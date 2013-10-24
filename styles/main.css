@@ -1,4 +1,5 @@
 @import url("normalize.css");
+@import url("pace-theme-flat-top.css");
 
 * { box-sizing: border-box }
 html, body {
@@ -10,16 +11,24 @@ html, body {
   border-radius: 0;
 }
 
+/*/////////////////////////////
+      google maps canvas
+/////////////////////////////*/
+
 #map-canvas {
   height: 340px;
   width: 100%;
   float: left;
 }
-
 #map-canvas > div {
   height: 60px;
   width: 66%;
 }
+
+
+/*/////////////////////////////
+        header and nav
+/////////////////////////////*/
 
 header {
   position: absolute;
@@ -38,13 +47,14 @@ header h1 {
   padding: 10px;
   width: 170px;
 }
-
 header nav {
   position: absolute;
   right: 4px;
   top: -4px;
   pointer-events: auto;
 }
+
+/* navigation */
 
 .navigation > li {
   display: inline-block;
@@ -65,6 +75,7 @@ header nav {
   cursor: pointer;
 }
 
+/* navigation drop-down menu */
 
 .drop-down {
   list-style: none;
@@ -78,15 +89,13 @@ header nav {
 }
 .drop-down li {
   padding: 6px 12px;
-
 }
 .drop-down li a {
-  /*color: white;*/
   font-size: 14px;
   text-decoration: none;
-
 }
 
+/* address search panel */
 
 #search-panel {
   margin: 6px 0;
@@ -127,6 +136,9 @@ header nav {
 }
 
 
+/*/////////////////////////////
+    map key/range indicator
+/////////////////////////////*/
 
 .map-key {
   list-style: none;
@@ -153,6 +165,9 @@ header nav {
 }
 
 
+/*/////////////////////////////
+        tweet feed
+/////////////////////////////*/
 
 #tweet-feed {
   height: 300px;
@@ -167,7 +182,6 @@ header nav {
   padding: 18px 10px;
   margin: 0;
 }
-
 .tweet {
   padding: 12px 15px 0 12px;
   border-top: 1px solid #e9e9e9;
@@ -210,11 +224,16 @@ header nav {
   margin-top: -3px;
 }
 
+
+
+/*/////////////////////////////
+      neighborhood display
+/////////////////////////////*/
+
 #block-view {
   width: 75%;
   float: left;
 }
-
 .nbhood {
   float: left;
   width: 25%;
@@ -249,6 +268,7 @@ header nav {
 }
 .nbhood h4 {
   margin: 4px 0;
+  line-height: 1em;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.7);
   font-weight: 900;
@@ -319,121 +339,9 @@ header nav {
   border: 2px solid #17546b;
 }
 
-#sort-by {
-  padding: 5px 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-#sort-by ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-#sort-by li {
-  padding: 3px 5px 6px;
-  height: 36px;
-  margin-right: 5px;
-  border-radius: 2px;
-  background-color: #eee;
-  display: inline-block;
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.25);
-  position: relative;
-}
-#sort-by li:hover {
-  background-color: #ddd;
-  color: rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-}
-#sort-by span {
-  position: relative;
-  top: -6px;
-  color: inherit;
-  margin: 0 5px 0 10px;
-}
-#sort-by li:after {
-  content: attr(data-tooltip);
-  position: absolute;
-  font-size: 12px;
-  bottom: 110%;
-  left: -135%;
-  background: rgba(0, 0, 0, 0.8);
-  padding: 5px 15px;
-  color: whiteSmoke;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  white-space: nowrap;
-  opacity: 0;
-  /* At time of this creation, only Fx4 doing pseduo transitions */
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-}
-#sort-by li:before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 8px solid rgba(0, 0, 0, 0.8);
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  /* At time of this creation, only Fx4 doing pseduo transitions */
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  opacity: 0;
-  left: 50%;
-  margin-left: -8px;
-  bottom: 90%;
-}
-#sort-by li:hover:after, #sort-by li:hover:before {
-  opacity: 1;
-}
-#sort-by .search {
-  float: right;
-  margin-right: 5px;
-  position: relative;
-}
-#sort-by .search input {
-  padding: 8px 15px 7px;
-  width: 300px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 18px;
-}
-#sort-by .search input:focus {
-  outline: none;
-}
-#sort-by .search .ui-helper-hidden-accessible {
-  display: none;
-}
-
-#ui-id-1 {
-  position: absolute;
-  margin: 0;
-  padding: 6px 0;
-  margin-bottom: -5px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  list-style: none;
-  background-color: white;
-}
-#ui-id-1 li {
-  padding: 6px 15px;
-}
-#ui-id-1 li a:hover {
-  text-decoration: none;
-  color: #428bca;
-}
-#ui-id-1 li:hover {
-  background-color: whiteSmoke;
-  cursor: pointer;
-}
-
-.infoBox img {
-  position: absolute;
-  opacity: 0;
-  top: 21px;
-  left: -4px;
-  z-index: 100;
-}
+/*/////////////////////////////
+  neighborhood map info-box
+/////////////////////////////*/
 
 .infoBox:after {
   border: 2px solid #d2d2d2;
@@ -485,3 +393,131 @@ header nav {
   border-bottom: 10px solid transparent;
   border-right: 10px solid rgba(255, 255, 255, 0.94);
 }
+
+
+/*/////////////////////////////
+neighborhood display sorting
+/////////////////////////////*/
+
+#sort-by {
+  padding: 5px 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+#sort-by ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#sort-by li {
+  padding: 3px 5px 6px;
+  height: 36px;
+  margin-right: 5px;
+  border-radius: 2px;
+  background-color: #eee;
+  display: inline-block;
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+#sort-by li:hover {
+  background-color: #ddd;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+#sort-by span {
+  position: relative;
+  top: -6px;
+  color: inherit;
+  margin: 0 5px 0 10px;
+}
+#sort-by li:after {
+  content: attr(data-tooltip);
+  position: absolute;
+  font-size: 12px;
+  bottom: 110%;
+  left: -135%;
+  background: black;
+  padding: 5px 15px;
+  color: whiteSmoke;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  white-space: nowrap;
+  opacity: 0;
+  /* At time of this creation, only Fx4 doing pseduo transitions */
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+}
+#sort-by li:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 8px solid black;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  /* At time of this creation, only Fx4 doing pseduo transitions */
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  opacity: 0;
+  left: 50%;
+  margin-left: -8px;
+  bottom: 90%;
+}
+#sort-by li:hover:after, #sort-by li:hover:before {
+  opacity: 1;
+}
+#sort-by .search {
+  float: right;
+  margin-right: 5px;
+  position: relative;
+}
+#sort-by .search input {
+  padding: 8px 15px 7px;
+  width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 18px;
+}
+#sort-by .search input:focus {
+  outline: none;
+}
+#sort-by .search .ui-helper-hidden-accessible {
+  display: none;
+}
+
+
+/*/////////////////////////////
+neighborhood search autocomplete
+/////////////////////////////*/
+
+#ui-id-1 {
+  position: absolute;
+  margin: 0;
+  padding: 6px 0;
+  margin-bottom: -5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  list-style: none;
+  background-color: white;
+}
+#ui-id-1 li {
+  padding: 6px 15px;
+}
+#ui-id-1 li a:hover {
+  text-decoration: none;
+  color: #428bca;
+}
+#ui-id-1 li:hover {
+  background-color: whiteSmoke;
+  cursor: pointer;
+}
+
+.infoBox img {
+  position: absolute;
+  opacity: 0;
+  top: 21px;
+  left: -4px;
+  z-index: 100;
+}
+
+
