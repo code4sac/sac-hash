@@ -1,7 +1,8 @@
-<?
+<?php
 include('140dev/db/cityTags_config.php');
 include('mysqli.php');
 include('140dev/db/fusion_tables.php');
+header('Content-type: application/json');
 
 $ftable = new ftables('array');
 $mysql  = new mysql();
@@ -22,3 +23,4 @@ foreach($tags as $tag) {
 }
 $json = json_encode($json, true);
 print $json;
+?>
