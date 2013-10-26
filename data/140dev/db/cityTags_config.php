@@ -9,7 +9,7 @@ $cityTags = array(
 );
 
 $mysql_config = array(
-  'host'    => 'ec2-50-18-231-203.us-west-1.compute.amazonaws.com',
+  'host'    => 'localhost',
   'user'    => 'cityTags',
   'pass'    => 'cityTags1018!',
   'db'      => 'sactags'
