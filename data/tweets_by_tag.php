@@ -1,6 +1,7 @@
 <?php
 include('140dev/db/cityTags_config.php');
 include('mysqli.php');
+
 header('Content-type: application/json');
 
 $mysql  = new mysql();

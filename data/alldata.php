@@ -1,7 +1,8 @@
 <?php
 include('140dev/db/cityTags_config.php');
-include('mysqli.php');
 include('140dev/db/fusion_tables.php');
+include('mysqli.php');
+
 header('Content-type: application/json');
 
 $ftable = new ftables('array');

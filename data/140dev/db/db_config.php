@@ -8,8 +8,9 @@
 * @license GNU Public License
 * @version BETA 0.20
 */
-  $db_host = 'localhost';
-  $db_user = 'root';
-  $db_password = '0cool';
-  $db_name = 'sactags';
+require_once('cityTags_config.php');
+  $db_host      = $mysql_config['host'];
+  $db_user      = $mysql_config['user'];
+  $db_password  = $mysql_config['pass'];
+  $db_name      = $mysql_config['db'];
 ?> 

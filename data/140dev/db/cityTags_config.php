@@ -10,8 +10,8 @@ $cityTags = array(
 
 $mysql_config = array(
   'host'    => 'localhost',
-  'user'    => 'cityTags',
-  'pass'    => 'cityTags1018!',
+  'user'    => 'root',
+  'pass'    => '0cool',
   'db'      => 'sactags'
 );
 ?>
