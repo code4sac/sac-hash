@@ -1,14 +1,16 @@
 require([
 	'backbone',
 	'application',
-	'pace'
+	'pace',
 ],
 function ( Backbone, App, pace ) {
     'use strict';
 
-    pace.start({
-    	querySelector: '#tweet-feed'
-    });
+    // pace.start({
+    // 	querySelector: '#tweet-feed'
+    // });
     
-	App.start();
+   
+     App.start();
+	
 });

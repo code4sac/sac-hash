@@ -15,19 +15,31 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 
 	var App = new Backbone.Marionette.Application();
 
-	/* Add application regions here */
+	// application regions
 	App.addRegions({
 		blockView: '#block-view',
 		mapKey: '#map-key'
 	});
 
-	/* Add initializers here */
-		App.addInitializer( function(){
+	// append loader
+	$('body').append('<div id="loader"><div class="loadable loading"> <div class="loadable-content"></div> <div class="loadable-progress"> <div class="loading-spinner"></div></div></div>LOADING DATA</div>');
+	
+	// fetch neighborhood data
+	nbhoodsCollection.fetch({
+		success: function(){
+			$('#loader').hide();
+		}
+	})
+    
+    // render app after data is loaded
+    nbhoodsCollection.on('sync', function(model, xhr, options){
+   	  	App.addInitializer( function(){
 			App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) );
 			App.mapKey.show( new rangesView({ collection: rangesCollection }) );
 		});
-	
-	
+
+		nbhoodsCollection.off('sync');
+    });
 
 	$('#toggle-search').on('click', function(event){
 		var target = $(event.target),
@@ -48,6 +60,24 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 			target.addClass('search-active');
 		}
 	});
+
+	$('#toggle-nav').on('click', function(event){
+		var self = $(this);
+
+		if (self.hasClass('nav-active')){
+			$('.drop-down').animate({'height':'10px'}, 100 , function(){
+				$(this).animate({'width':'0'}, 70, function(){
+					$(this).css({'top':'66px','opacity':'0','width':'200px','height':'auto'});
+				});
+			});
+			self.removeClass('nav-active');
+		} else {
+			$('.drop-down').show(0).animate({'top':'60px','opacity':'1'}, 260);
+			self.addClass('nav-active');
+		}
+		
+	});
+
 
 	return App;
 });

@@ -173,9 +173,12 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 
 			for (var i = 0; i < collection.length; i++){
 				var count = collection[i].attributes.COUNT,
-					poly = collection[i].attributes.poly,
-					color = generateColor(count, diff, min);
+					poly = collection[i].attributes.poly;
+					generateColor(count, diff, min);
 					
+				if (!range)
+				range = 0
+
 				collection[i].set('range', range);
 				collection[i].set('color', rangesCollection.models[range].get('color'));
 			}
@@ -184,6 +187,44 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 
 			this.collection.autocomplete = autocomplete;
 			
+		},
+		createRanges: function(){
+			var collection = this.collection.models,
+				mean = 0,
+				allCountValues = [],
+				searchAutocomplete = [];
+
+			// finds min and max values of all nbhood counts to create range
+			Array.minMax = function( array ){
+    			return {
+    				max : Math.max.apply( Math, array ),
+    				min : Math.min.apply( Math, array )
+    			}
+			};
+
+			// populate array of all count values
+			for (var i = 0; i < collection.length; i++){
+				var model = collection[i].attributes,
+					count = parseInt(model.COUNT),
+					name = model.NAME2,
+					hashtag = model.hashtag;
+
+				searchAutocomplete.push({
+			        value: name,
+			        label: name,
+			        desc: hashtag
+      			});
+
+				mean = mean + count;
+				
+				allCountValues.push(count)
+			}
+
+			allCountValues.sort(function(a,b){ return a-b });
+			mean = mean / allCountValues.length;
+
+
+			console.log(mean, allCountValues)
 		},
 		onRender: function(){
 			var data = this.collection.autocomplete,
@@ -206,6 +247,8 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 					}, 100)
     			}
 		  	});
+
+		  	
 		}
 	});
 });

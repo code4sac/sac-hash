@@ -20,9 +20,80 @@ html, body {
   width: 100%;
   float: left;
 }
-#map-canvas > div {
+#map-canvas > div{
   height: 60px;
   width: 66%;
+}
+
+/* loading data popup */
+
+.loadable.loading .loadable-content {
+  display: none;
+}
+
+.loadable.loading .loadable-progress {
+  display: block;
+}
+
+.loading-spinner {
+   height:40px;
+   width:40px;
+   margin:0 auto;
+   position:relative;
+   margin: 5px auto 10px;
+   -webkit-animation: rotation .6s infinite linear;
+   -moz-animation: rotation .6s infinite linear;
+   -o-animation: rotation .6s infinite linear;
+   animation: rotation .6s infinite linear;
+   border: 2px solid rgba(0,0,0,0);
+   box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+   border-radius:100%;
+}
+
+.loading-spinner:before {
+   content:"";
+   display:block;
+   position:absolute;
+   /*left:-5px;
+   top:-5px;*/
+   height:100%;
+   width:100%;
+   border-top:13px solid rgba(0,0,0,.3);
+   border-left:13px solid transparent;
+   border-bottom:13px solid transparent;
+   border-right:13px solid transparent;
+   border-radius:100%;
+
+}
+
+@-webkit-keyframes rotation {
+   from {-webkit-transform: rotate(0deg);}
+   to {-webkit-transform: rotate(359deg);}
+}
+@-moz-keyframes rotation {
+   from {-moz-transform: rotate(0deg);}
+   to {-moz-transform: rotate(359deg);}
+}
+@-o-keyframes rotation {
+   from {-o-transform: rotate(0deg);}
+   to {-o-transform: rotate(359deg);}
+}
+@keyframes rotation {
+   from {transform: rotate(0deg);}
+   to {transform: rotate(359deg);}
+}
+#loader {
+  position: absolute;
+  border-radius: 4px;
+  width: 400px !important;
+  background: rgba(121,189,154,.95);
+  top: 100px;
+  left: calc(50% - 200px);
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  letter-spacing: .07em;
+  padding: 15px;
 }
 
 
@@ -81,11 +152,13 @@ header nav {
   list-style: none;
   position: absolute;
   right: 6px;
-  top: 60px;
+  top: 66px;
+  width: 200px;
   background-color: white;
   border-radius: 2px;
   padding: 0;
   display: none;
+  opacity: 0;
 }
 .drop-down li {
   padding: 6px 12px;
@@ -174,6 +247,7 @@ header nav {
   width: 25%;
   float: left;
   position: relative;
+  display: none;
 }
 #tweet-feed .tweet-header {
   height: 52px;
@@ -231,7 +305,7 @@ header nav {
 /////////////////////////////*/
 
 #block-view {
-  width: 75%;
+  width: 100%;
   float: left;
 }
 .nbhood {
