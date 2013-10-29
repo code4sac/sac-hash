@@ -3,7 +3,7 @@ define(['backbone','communicator','models/nbhood-model'], function( Backbone, Co
 
   var nbhoodCollection = Backbone.Collection.extend({
     model: nbhoodModel,
-    url: '/data/alldata.php'
+    url: 'data/alldata.php'
   });
 
   var Neighborhoods = new nbhoodCollection([]);
