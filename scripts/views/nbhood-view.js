@@ -3,14 +3,17 @@ define(['backbone',
 		'hbs!tmpl/nbhood-template',
 		'map',
 		'hbs!tmpl/infobox-template',
+		'hbs!tmpl/modal-template',
 		'hbs!tmpl/tweet',
 		'collections/ranges-collection',
-		'infobox'], 
+		'infobox',
+		'polygonContains'], 
 function(Backbone,
 		Communicator,
 		nbhoodTemplate,
 		map,
 		infoboxTemp,
+		modalTemp,
 		tweetTemp,
 		rangesCollection){
 	'use strict';
@@ -44,11 +47,52 @@ function(Backbone,
 			Communicator.events.on('clicked', function(){
 				self.model.get('infobox').close();
 			});
-			Communicator.events.on('searchSelected', function(model){
+
+			Communicator.events.on('searchSelected', function( model ){
 				if (self.model.cid == model.cid){
 					self.showTweets();
 				}
 			});
+
+			Communicator.events.on('addressSearch', function( place ){
+				self.addressSearch( place );
+			});
+		},
+
+		addressSearch: function( place ){
+			var polygon = this.model.get('poly'),
+				contains = polygon.containsLatLng( place.geometry.location ),
+				self = this,
+				modalInfo = {
+					place: place
+				};
+
+				function destroyModal(){
+					$('#modal').remove();
+				}
+
+				if (contains == true){
+					modalInfo.name = this.model.get('NAME2');
+
+					$('body').append(modalTemp( modalInfo ));
+					
+					$('.close-modal').on('click', function(){
+						destroyModal();
+					});
+
+					$('.show-tweets').on('click', function(){
+						destroyModal();
+						self.showTweets();
+					});
+
+					$('.watch-nbhood').on('click', function(){
+						destroyModal();
+						self.showTweets();
+					});
+					
+
+				}
+			
 		},
 
 		showTweets: function(){
@@ -95,32 +139,28 @@ function(Backbone,
 				});
 			} else {
 				map.panTo( center );
-
 			}
-			
-			$('#block-view').animate({'width':'75%'}, 200).addClass('tweets-visible');
 
-			$.ajax({
-		  		type: 'GET',
-		  		url: '/tweets/'+hashtag+'/'+num,
-			}).done(function(data){
-				$('.tweet-header h5').text('Showing tweets for #'+hashtag);
-				$('.tweet-container').empty()
-				for (var i = 0; i < data.statuses.length; i++){
-					var status = data.statuses[i],
-						tweet = linkify_entities(status),
-	    				date = status.created_at;
+			// $.ajax({
+		 //  		type: 'GET',
+		 //  		url: '/tweets/'+hashtag+'/'+num,
+			// }).done(function(data){
+			// 	$('.tweet-header h5').text('Showing tweets for #'+hashtag);
+			// 	$('.tweet-container').empty()
+			// 	for (var i = 0; i < data.statuses.length; i++){
+			// 		var status = data.statuses[i],
+			// 			tweet = linkify_entities(status),
+	  //   				date = status.created_at;
 	    				
-				    status.entities.text = tweet;
-				    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
-				    status.created_at = timeSince(date);
+			// 	    status.entities.text = tweet;
+			// 	    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
+			// 	    status.created_at = timeSince(date);
 
-				    $('.tweet-container').append(tweetTemp(status));
-				}
+			// 	    $('.tweet-container').append(tweetTemp(status));
+			// 	}
 
-			});
+			// });
 
-			$('#tweet-feed').append($('.pace-activity'));
 			ib.open(map, marker);
 		},
 

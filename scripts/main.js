@@ -1,9 +1,8 @@
 require([
 	'backbone',
 	'application',
-	'pace',
 ],
-function ( Backbone, App, pace ) {
+function ( Backbone, App ) {
     'use strict';
 
     // pace.start({

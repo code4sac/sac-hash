@@ -11,7 +11,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			'click #sort-by li':'sort'
 		},
 		initialize: function(){
-			
+			Communicator.events.on('search', function( places ){
+				console.log(places)
+			});
 		},
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),

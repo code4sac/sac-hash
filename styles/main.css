@@ -2,8 +2,14 @@
 @import url("pace-theme-flat-top.css");
 
 * { box-sizing: border-box }
+
 html, body {
   height: 100%;
+}
+
+button {
+  border: 0;
+  border-radius: 3px;
 }
 
 .navbar {
@@ -152,16 +158,31 @@ header nav {
   list-style: none;
   position: absolute;
   right: 6px;
-  top: 66px;
+  top: 68px;
   width: 200px;
   background-color: white;
   border-radius: 2px;
-  padding: 0;
+  padding: 6px;
   display: none;
   opacity: 0;
 }
+.drop-down:after {
+  content: '';
+  position: absolute;
+  right: 12px;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-bottom: 10px solid white;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
 .drop-down li {
-  padding: 6px 12px;
+  padding: 6px 5px;
+  border-bottom: 1px dotted #eee;
+}
+.drop-down li:last-child {
+  border: 0;
 }
 .drop-down li a {
   font-size: 14px;
@@ -206,6 +227,46 @@ header nav {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: inset 1px 1px 1px tomato;
   width: 30%;
+}
+
+/* address modal popup */
+
+#modal {
+  position: absolute;
+  top: 110px;
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 140px;
+  padding: 16px;
+  background-color: white;
+  /*text-align: center;*/
+  border-radius: 5px;
+}
+#modal p span {
+  font-weight: 700;
+}
+#modal .button-wrapper {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 16px;
+}
+#modal button {
+  padding: 6px 12px;
+  margin-right: 6px;
+}
+#modal button .glyphicon {
+  margin-right: 6px;
+}
+.close-modal {
+  position: absolute;
+  color: #ddd;
+  right: 4px;
+  top: 4px;
+}
+.close-modal:hover {
+  cursor: pointer;
+  color: #aaa;
 }
 
 
@@ -375,6 +436,7 @@ header nav {
 
 .nbhood[data-range="0"]:hover {
   background-color: #cff09e;
+  /*outline: 4px solid #cff09e;*/
 }
 
 .nbhood[data-range="1"]:hover {

@@ -1,6 +1,6 @@
 require.config({
 
-    baseUrl: "/scripts",
+    baseUrl: "/sac-hash/scripts",
 
     /* starting point for application */
     deps: ['backbone.marionette','marionette.handlebars','main'],
@@ -36,6 +36,7 @@ require.config({
         'backbone.babysitter': '../components/backbone.babysitter/lib/amd/backbone.babysitter',
 
         infobox: '../components/infobox/infobox-min',
+        polygonContains: '../components/polygon-contains/polygon-contains',
 
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
         text: '../components/requirejs-text/text',

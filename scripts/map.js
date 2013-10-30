@@ -1,4 +1,4 @@
-define([], function(){
+define(['communicator'], function( Communicator ){
     var center = new google.maps.LatLng(38.575067, -121.487761);
     var styles = [
   {
@@ -81,14 +81,23 @@ define([], function(){
     
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    var defaultBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(38.413304379132946, -120.43513343652342),
-      new google.maps.LatLng(38.735394964282314, -122.51704261621092)
-    );
+    var defaultBounds = new google.maps.LatLngBounds(center, center);
     
     var input = document.getElementById('target');
-    var searchBox = new google.maps.places.SearchBox(input, { setBounds: defaultBounds });
-        searchBox.setBounds(defaultBounds);
+    var searchBox = new google.maps.places.Autocomplete( input );
+        searchBox.setBounds( defaultBounds );
+
+    google.maps.event.addListener(searchBox, 'place_changed', function() {
+      var place = searchBox.getPlace();
+
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+      Communicator.events.trigger('addressSearch', place);
+
+    });
 
     
     return map;    
