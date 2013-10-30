@@ -6,8 +6,6 @@ header('Content-type: application/json');
 
 $mysql  = new mysql();
 
-$_GET['hashtag'] = 'SCC';
-
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
 
 $query = "
