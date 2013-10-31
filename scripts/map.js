@@ -68,7 +68,7 @@ define(['communicator'], function( Communicator ){
 ];
     var mapOptions = {
       center: center,
-      zoom: 13,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: styles,
       mapTypeControl: false,

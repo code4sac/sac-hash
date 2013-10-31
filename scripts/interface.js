@@ -1,8 +1,8 @@
-define(['backbone'], function(){
+define(['backbone','communicator'], function(Backbone, Communicator){
 	'use strict';
 
-	$('#toggle-search').on('click', function(event){
-		var target = $(event.target),
+	function toggleSearch(){
+		var target = $('#toggle-search'),
 			wrapper = target.closest('li'),
 			panel = wrapper.find('#search-panel');
 
@@ -14,12 +14,18 @@ define(['backbone'], function(){
 
 			target.removeClass('search-active');
 		} else {
-			wrapper.animate({'width':'500px'}, 150);
+			wrapper.animate({'width':'500px'}, 100);
 			target.removeClass('glyphicon-search').addClass('glyphicon-remove');
 			panel.show();
 			panel.find('input').focus();
 			target.addClass('search-active');
 		}
+	}
+
+	Communicator.events.on('closeSearchPanel', toggleSearch );
+
+	$('#toggle-search').on('click', function(){
+		toggleSearch();
 	});
 
 	$('#toggle-nav').on('click', function(event){

@@ -5,6 +5,7 @@
 
 html, body {
   height: 100%;
+  font-family: 'Open Sans', sans-serif;
 }
 
 button {
@@ -139,14 +140,21 @@ header nav {
   background-color: tomato;
   font-size: 16px;
   border-radius: 2px;
-  height: 43px;
+  height: 42px;
   overflow: hidden;
   color: white;
+}
+.navigation > li:first-child {
+  position: relative;
 }
 .navigation > li > .glyphicon {
   float: left;
   padding: 11px 14px 16px;
   border-right: 0px solid rgba(0, 0, 0, 0.1);
+}
+.navogation .glyphicon-remove {
+  position: relative;
+  top: 3px;
 }
 .navigation > li > .glyphicon:hover {
   cursor: pointer;
@@ -192,10 +200,11 @@ header nav {
 /* address search panel */
 
 #search-panel {
-  margin: 6px 0;
+  margin-top: 5px;
   padding-right: 6px;
-  width: 90%;
-  float: right;
+  width: 450px;
+  position: absolute;
+  right: 0;
   display: none;
 }
 #search-panel h1 {
@@ -209,12 +218,12 @@ header nav {
   border: 1px solid #DD573F;
   border-radius: 5px;
   font-size: 13px;
-  height: 31px;
+  height: 32px;
   float: left;
 }
 #search-panel input {
   width: 69%;
-  padding: 6px 15px 5px;
+  padding: 5px 15px 5px;
   margin-right: 1%;
 }
 #search-panel input:focus {
@@ -236,7 +245,6 @@ header nav {
   top: 110px;
   left: calc(50% - 200px);
   width: 400px;
-  height: 140px;
   padding: 16px;
   background-color: white;
   /*text-align: center;*/
@@ -246,8 +254,6 @@ header nav {
   font-weight: 700;
 }
 #modal .button-wrapper {
-  position: absolute;
-  width: 100%;
   text-align: center;
   bottom: 16px;
 }
@@ -284,8 +290,9 @@ header nav {
   width: 20%;
   display: inline-block;
   text-align: center;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+  text-shadow: 1px 1px 0px rgba(255,255,255,.17);
   padding: 7px 0;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-right: 0px;
@@ -296,6 +303,7 @@ header nav {
 }
 .map-key li:last-child {
   color: #000;
+  text-shadow: 1px 1px 0px rgba(255,255,255,.13);
 }
 
 
@@ -308,7 +316,7 @@ header nav {
   width: 25%;
   float: left;
   position: relative;
-  display: none;
+  /*display: none;*/
 }
 #tweet-feed .tweet-header {
   height: 52px;
@@ -366,7 +374,7 @@ header nav {
 /////////////////////////////*/
 
 #block-view {
-  width: 100%;
+  width: 75%;
   float: left;
 }
 .nbhood {
@@ -377,8 +385,8 @@ header nav {
   background-color: white;
   color: white;
   text-align: center;
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
   position: relative;
 }
 .nbhood:hover {
@@ -389,7 +397,7 @@ header nav {
   width: 44px;
   height: 44px;
   border-radius: 5px;
-  font-weight: 400;
+  font-weight: 500;
   float: left;
   position: relative;
   text-align: center;
@@ -398,20 +406,41 @@ header nav {
   border: 2px solid white;
 }
 .nbhood hgroup {
-  position: relative;
-  left: -10px;
+  letter-spacing: -.03em;
 }
 .nbhood h4 {
-  margin: 4px 0;
+  margin: 6px 0 1px;
   line-height: 1em;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.7);
-  font-weight: 900;
 }
 .nbhood h5 {
   margin: 0;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+}
+
+
+/* watched neighborhood */
+
+.nbhood.watched {
+  height: 140px;
+  width: 50%;
+}
+.nbhood.watched .count {
+  width: 88px;
+  height: 88px;
+  padding: 20px;
+  margin-top: 16px;
+  font-size: 32px;
+}
+.nbhood.watched h4 {
+  font-size: 24px;
+  margin-top: 30px;
+}
+.nbhood.watched h5 {
+  font-size: 18px;
 }
 
 .nbhood[data-range="0"] .count {
@@ -479,6 +508,9 @@ header nav {
   neighborhood map info-box
 /////////////////////////////*/
 
+.infoBox {
+  font-family: 'Open Sans';
+}
 .infoBox:after {
   border: 2px solid #d2d2d2;
   background-color: rgba(255, 255, 255, 0.94);
@@ -507,6 +539,10 @@ header nav {
   padding: 10px 0;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.98);
+}
+.info-box hgroup {
+  position: relative;
+  left: -10px;
 }
 .info-box span {
   font-family: sans-serif;
@@ -608,12 +644,13 @@ neighborhood display sorting
   float: right;
   margin-right: 5px;
   position: relative;
+  top: 1px;
 }
 #sort-by .search input {
-  padding: 8px 15px 7px;
+  padding: 6px 15px 7px;
   width: 300px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 18px;
+  border-radius: 6px;
 }
 #sort-by .search input:focus {
   outline: none;

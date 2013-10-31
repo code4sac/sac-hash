@@ -74,25 +74,38 @@ function(Backbone,
 				if (contains == true){
 					modalInfo.name = this.model.get('NAME2');
 
-					$('body').append(modalTemp( modalInfo ));
+					Communicator.events.trigger('clicked');
+
+					$('body').append( modalTemp(modalInfo) );
 					
 					$('.close-modal').on('click', function(){
 						destroyModal();
+						Communicator.events.trigger('closeSearchPanel');
 					});
 
 					$('.show-tweets').on('click', function(){
 						destroyModal();
 						self.showTweets();
+						Communicator.events.trigger('closeSearchPanel');
 					});
 
 					$('.watch-nbhood').on('click', function(){
 						destroyModal();
+						Communicator.events.trigger('closeSearchPanel');
+						self.model.set('watched', true);
+						self.watched();
 						self.showTweets();
 					});
 					
 
 				}
 			
+		},
+
+		watched: function(){
+			if ( this.model.get('watched') == true ){
+				this.$el.insertAfter( $('#sort-by') ).addClass('watched');
+			}
 		},
 
 		showTweets: function(){
