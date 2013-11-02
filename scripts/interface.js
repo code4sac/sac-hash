@@ -39,7 +39,7 @@ define(['backbone','communicator'], function(Backbone, Communicator){
 			});
 			self.removeClass('nav-active');
 		} else {
-			$('.drop-down').show(0).animate({'top':'68px','opacity':'1'}, 260);
+			$('.drop-down').show(0).animate({'top':'62px','opacity':'1'}, 260);
 			self.addClass('nav-active');
 		}
 		

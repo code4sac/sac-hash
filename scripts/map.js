@@ -71,12 +71,7 @@ define(['communicator'], function( Communicator ){
       zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: styles,
-      mapTypeControl: false,
-      zoomControl: true,
-      zoomControlOptions: {
-        style: google.maps.ZoomControlStyle.SMALL,
-        position: google.maps.ControlPosition.LEFT_BOTTOM
-      },
+      disableDefaultUI: true,
     }
     
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
@@ -99,6 +94,15 @@ define(['communicator'], function( Communicator ){
 
     });
 
+    $('.zoom-in').on('click', function(){
+        var zoom = map.getZoom();
+        map.setZoom( zoom + 1 )
+    });
+
+    $('.zoom-out').on('click', function(){
+        var zoom = map.getZoom();
+        map.setZoom( zoom - 1 )
+    });
     
     return map;    
 });

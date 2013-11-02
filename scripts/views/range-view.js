@@ -6,8 +6,11 @@ define(['backbone','hbs!tmpl/range-template'], function(Backbone, rangeTemp){
 		template: rangeTemp,
 		attributes: function(){
 			return {
-				style: 'background-color:'+this.model.get('color')+';'
+				style:  'border-top: 5px solid '+this.model.get('color')+';'
 			}
+		},
+		onRender: function(){
+			this.$el.find('.color-indicator').css('background-color', this.model.get('color'))
 		}
 	});
 });

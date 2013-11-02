@@ -10,23 +10,15 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 		events: {
 			'click #sort-by li':'sort'
 		},
-		initialize: function(){
-			Communicator.events.on('search', function( places ){
-				console.log(places)
-			});
-		},
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),
 				nbhoods = this.$el.find('.nbhood');
 			
 			if (target == 'sort-high'){
 				nbhoods.sort(function(a, b) {
-
-					 // convert to integers from strings
 					 a = parseInt($(a).attr('data-count'));
 					 b = parseInt($(b).attr('data-count'));
 
-					 // compare
 					 if (a < b) {
 					  return 1;
 					 } else if (a > b) {
@@ -39,12 +31,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				this.$el.append(nbhoods);
 			} else if (target == 'sort-low'){
 				nbhoods.sort(function(a, b) {
-
-					 // convert to integers from strings
 					 a = parseInt($(a).attr('data-count'));
 					 b = parseInt($(b).attr('data-count'));
 
-					 // compare
 					 if (a > b) {
 					  return 1;
 					 } else if (a < b) {
@@ -57,12 +46,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				this.$el.append(nbhoods);
 			} else if (target == 'sort-a'){
 				nbhoods.sort(function(a, b) {
-
-					 // convert to integers from strings
 					 a = $(a).attr('data-name');
 					 b = $(b).attr('data-name');
 
-					 // compare
 					 if (a > b) {
 					  return 1;
 					 } else if (a < b) {
@@ -76,11 +62,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			} else if (target == 'sort-z'){
 				nbhoods.sort(function(a, b) {
 
-					 // convert to integers from strings
 					 a = $(a).attr('data-name');
 					 b = $(b).attr('data-name');
 
-					 // compare
 					 if (a < b) {
 					  return 1;
 					 } else if (a > b) {
@@ -92,6 +76,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				
 				this.$el.append(nbhoods);
 			}
+
+			// sorts watched neighborhoods back to top of list
+			this.sortWatched();
 		},
 		onBeforeRender: function(){
 
@@ -228,20 +215,28 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 
 			console.log(mean, allCountValues)
 		},
+		sortWatched: function(){
+			this.$el.find('.watched').insertAfter( this.$el.find('#sort-by') );
+		},
 		onRender: function(){
-			var data = this.collection.autocomplete,
-				self = this,
+			var self = this,
+				autocompleteData = this.collection.autocomplete,
 				input = this.$el.find('#nbhood-search');
-			
+
+			// brings watched neighborhoods to top of list
+			this.sortWatched();
+
+			// initialize neighborhood search autocomplete
 			input.autocomplete({
 		    	minLength: 0,
-		    	source: data,
+		    	source: autocompleteData,
 		    	appendTo: "#sort-by .search",
     			select: function(event, ui){
     				var hashtag = ui.item.desc,
     					selectedModel = self.collection.find(function(model){
     						return model.get('hashtag') == hashtag;
     					});
+
     				Communicator.events.trigger('searchSelected', selectedModel);
     				
     				window.setTimeout(function(){
@@ -249,8 +244,6 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 					}, 100)
     			}
 		  	});
-
-		  	
 		}
 	});
 });

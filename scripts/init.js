@@ -28,7 +28,6 @@ require.config({
         jqueryui: '../components/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min',
         backbone: '../components/backbone-amd/backbone',
         underscore: '../components/underscore-amd/underscore',
-        pace: '../components/pace/pace.min',
 
         /* alias all marionette libs */
         'backbone.marionette': '../components/backbone.marionette/lib/core/amd/backbone.marionette',
@@ -45,6 +44,7 @@ require.config({
 
         /* handlebars from the require handlerbars plugin below */
         handlebars: '../components/require-handlebars-plugin/Handlebars',
+        store: '../components/storejs/store-min',
 
         /* require handlebars plugin - Alex Sexton */
         i18nprecompile: '../components/require-handlebars-plugin/hbs/i18nprecompile',

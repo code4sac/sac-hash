@@ -3,7 +3,10 @@ define(['backbone','communicator','models/nbhood-model'], function( Backbone, Co
 
   var nbhoodCollection = Backbone.Collection.extend({
     model: nbhoodModel,
-    url: 'data/alldata.php'
+    url: 'data/alldata.json',
+    comparator: function(model) {
+        return -model.get('COUNT');
+    }
   });
 
   var Neighborhoods = new nbhoodCollection([]);

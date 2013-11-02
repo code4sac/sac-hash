@@ -1,5 +1,6 @@
 define(['backbone',
 		'communicator',
+		'store',
 		'hbs!tmpl/nbhood-template',
 		'map',
 		'hbs!tmpl/infobox-template',
@@ -10,6 +11,7 @@ define(['backbone',
 		'polygonContains'], 
 function(Backbone,
 		Communicator,
+		store,
 		nbhoodTemplate,
 		map,
 		infoboxTemp,
@@ -38,22 +40,37 @@ function(Backbone,
 			}
 		},
 
+		initialize: function(){
+			var watchedItems = store.get('watched');
+
+			// checks local storage for watched neighborhoods
+			if ( watchedItems && watchedItems.indexOf(this.model.cid) > -1){
+				this.model.set('watched', true);
+			}
+		},
+
 		onRender: function(){
 			var self = this;
+				
 
 			this.createPolygon();
 			this.infoBox();
+			this.watched();
+			
 
+			// close open infobox when another is clicked
 			Communicator.events.on('clicked', function(){
 				self.model.get('infobox').close();
 			});
 
+			// trigger showTweets when neighborhood is selected from search autocomplete
 			Communicator.events.on('searchSelected', function( model ){
 				if (self.model.cid == model.cid){
 					self.showTweets();
 				}
 			});
 
+			// trigger check if address search result is in neighborhood bounds
 			Communicator.events.on('addressSearch', function( place ){
 				self.addressSearch( place );
 			});
@@ -104,7 +121,8 @@ function(Backbone,
 
 		watched: function(){
 			if ( this.model.get('watched') == true ){
-				this.$el.insertAfter( $('#sort-by') ).addClass('watched');
+				this.$el.addClass('watched');
+				this.$el.insertAfter( $('#sort-by') );
 			}
 		},
 
