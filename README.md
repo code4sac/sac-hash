@@ -2,6 +2,9 @@
 
 This application listens to the Twitter firehose streaming API, gathers data about specific hashtags and displays them on a map overlay similar to a heatmap, but using neighborhood geometry.
 
+### Project discussion
+https://trello.com/b/eMuHgAAN/sacramentohashtagproject
+
 ## Installing
 
 ###Data Component
