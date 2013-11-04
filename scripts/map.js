@@ -94,15 +94,5 @@ define(['communicator'], function( Communicator ){
 
     });
 
-    $('.zoom-in').on('click', function(){
-        var zoom = map.getZoom();
-        map.setZoom( zoom + 1 )
-    });
-
-    $('.zoom-out').on('click', function(){
-        var zoom = map.getZoom();
-        map.setZoom( zoom - 1 )
-    });
-    
     return map;    
 });

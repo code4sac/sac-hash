@@ -7,11 +7,12 @@ define([
 	'collections/nbhoods-collection',
 	'views/ranges-view',
 	'collections/ranges-collection',
+	'views/map-controls-view',
 	'hbs!tmpl/tweet',
 	'interface'
 ],
 
-function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollection, rangesView, rangesCollection, tweet_tmp) {
+function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollection, rangesView, rangesCollection, mapControlsView, tweet_tmp) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application();
@@ -19,7 +20,8 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 	// application regions
 	App.addRegions({
 		blockView: '#block-view',
-		mapKey: '#map-key'
+		mapKey: '#map-key',
+		mapControls: '#map-controls'
 	});
 
 	// append loader
@@ -37,6 +39,7 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
    	  	App.addInitializer( function(){
 			App.blockView.show( new nbhoodsView({ collection: nbhoodsCollection }) );
 			App.mapKey.show( new rangesView({ collection: rangesCollection }) );
+			App.mapControls.show( new mapControlsView() );
 		});
 
 		nbhoodsCollection.off('sync');

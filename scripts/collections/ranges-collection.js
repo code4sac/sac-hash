@@ -10,7 +10,7 @@ define(['backbone', 'models/range-model'], function( Backbone, rangeModel){
 		new rangeModel({ color: 'rgb(168,219,168)' }),
 		new rangeModel({ color: 'rgb(121,189,154)' }),
 		new rangeModel({ color: 'rgb(59,134,134)' }),
-		new rangeModel({ color: 'rgb(11,72,107)' })
+		new rangeModel({ color: '#1B5D83' })
 	]);
 
 	return Ranges;
