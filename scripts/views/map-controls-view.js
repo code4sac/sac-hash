@@ -25,11 +25,12 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 		},
 
 		geoLocation: function(){
+      console.log('Geo Location Not Implemented');
 
 		},
 
 		addressSearch: function(){
-
+      console.log('Address Search Not Implemented');
 		}
 	});
 });
