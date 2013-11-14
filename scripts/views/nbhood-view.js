@@ -260,7 +260,7 @@ function(Backbone,
                  content: infoboxTemp(this.model.attributes)
                 ,disableAutoPan: false
                 ,maxWidth: 0
-                ,pixelOffset: new google.maps.Size(10, -52)
+                ,pixelOffset: new google.maps.Size(10, -45)
                 ,zIndex: null
                 // ,closeBoxMargin: "10px 2px 2px 10px"
                 ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"

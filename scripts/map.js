@@ -76,23 +76,5 @@ define(['communicator'], function( Communicator ){
     
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-    // var defaultBounds = new google.maps.LatLngBounds(center, center);
-    
-    // var input = document.getElementById('target');
-    // var searchBox = new google.maps.places.Autocomplete( input );
-    //     searchBox.setBounds( defaultBounds );
-
-    // google.maps.event.addListener(searchBox, 'place_changed', function() {
-    //   var place = searchBox.getPlace();
-
-    //   var marker = new google.maps.Marker({
-    //     map: map,
-    //     position: place.geometry.location
-    //   });
-
-    //   Communicator.events.trigger('addressSearch', place);
-
-    // });
-
     return map;    
 });

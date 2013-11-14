@@ -12,26 +12,30 @@ define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geo
 		},
 		
 		onRender: function(){
-			if( !navigator.geolocation ){
-			    handleNoGeolocation(false);
-			}
-			var center = new google.maps.LatLng(map.center.ob, map.center.pb);
-			var defaultBounds = new google.maps.LatLngBounds( center, center);
-    
-		    var input = this.$el.find('#search-box')[0];
-		    var searchBox = new google.maps.places.Autocomplete( input );
-		        searchBox.setBounds( defaultBounds );
+			this.initAddressSearch();
+		},
 
-		    google.maps.event.addListener(searchBox, 'place_changed', function() {
-		      var place = searchBox.getPlace();
+		initAddressSearch: function(){
+			// initialize address search
+			var self = this,
+				center = new google.maps.LatLng(map.center.ob, map.center.pb),
+				defaultBounds = new google.maps.LatLngBounds( center, center),
+		    	input = this.$el.find('#search-box')[0],
+		    	searchBox = new google.maps.places.Autocomplete( input );
+		    
+		    searchBox.setBounds( defaultBounds );
 
-		      var marker = new google.maps.Marker({
-		        map: map,
-		        position: place.geometry.location
-		      });
+			google.maps.event.addListener(searchBox, 'place_changed', function() {
+		      	var place = searchBox.getPlace(),
+		      		marker = new google.maps.Marker({
+		        		map: map,
+		        		position: place.geometry.location
+		      		});
+				
+				self.$el.find('#search-box').val('');
+		      	self.$el.find('#search-panel').toggle();
 
-		      Communicator.events.trigger('addressSearch', place);
-
+		      	Communicator.events.trigger('addressSearch', place);
 		    });
 		},
 
@@ -58,12 +62,15 @@ define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geo
 
 			}
 			navigator.geolocation.getAccurateCurrentPosition(onSuccess, onError, onProgress, {desiredAccuracy:20, maxWait:15000});
-
-
 		},
 
-		addressSearch: function(){
-      		this.$el.find('#search-panel').show();
+		addressSearch: function(e){
+			
+			if ($(e.target).closest('#search-panel').length == 0){
+				this.$el.find('#search-panel').toggle();
+				this.$el.find('#search-box').val('').focus();
+			}
+      		
 		}
 	});
 });
