@@ -28,6 +28,7 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 		},
 
 		geoLocation: function(){
+      console.log('Geo Location Not Implemented');
 
 			    navigator.geolocation.getCurrentPosition(function(position) {
 			      var pos = new google.maps.LatLng(position.coords.latitude,
@@ -46,7 +47,7 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 		},
 
 		addressSearch: function(){
-
+      console.log('Address Search Not Implemented');
 		}
 	});
 });
