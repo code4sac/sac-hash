@@ -8,6 +8,8 @@ $mysql  = new mysql();
 
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
 
+$tag = "HollywoodPark";
+
 $query = "
 SELECT  tweets.tweet_id
     ,   tweets.tweet_text
