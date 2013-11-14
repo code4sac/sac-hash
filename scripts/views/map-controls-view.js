@@ -12,6 +12,9 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 		},
 		
 		onRender: function(){
+			if( !navigator.geolocation ){
+			    handleNoGeolocation(false);
+			}
 		},
 
 		zoomIn: function(){
@@ -26,6 +29,20 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 
 		geoLocation: function(){
 
+			    navigator.geolocation.getCurrentPosition(function(position) {
+			      var pos = new google.maps.LatLng(position.coords.latitude,
+			                                       position.coords.longitude);
+
+			      var infowindow = new google.maps.InfoWindow({
+			        map: map,
+			        position: pos,
+			        content: 'Location found using HTML5.'
+			      });
+
+			      map.setCenter(pos);
+			    }, function() {
+			      handleNoGeolocation(true);
+			    });
 		},
 
 		addressSearch: function(){
