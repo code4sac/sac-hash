@@ -300,12 +300,27 @@ header nav {
 /* address search panel */
 
 #search-panel {
-  margin-top: 5px;
-  padding-right: 6px;
+  padding: 6px;
   width: 450px;
   position: absolute;
+  left: 50px;
+  top: 65px;
+  z-index: 2000;
   right: 0;
+  background-color: white;
+  border-radius: 6px;
   display: none;
+}
+#search-panel:before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 11px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid white;
 }
 #search-panel h1 {
   color: #333;
@@ -315,14 +330,14 @@ header nav {
   padding-bottom: 15px;
 }
 #search-panel input, #search-panel button {
-  border: 1px solid #DD573F;
-  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,.16);
+  border-radius: 3px;
   font-size: 13px;
   height: 32px;
   float: left;
 }
 #search-panel input {
-  width: 69%;
+  width: 79%;
   padding: 5px 15px 5px;
   margin-right: 1%;
 }
@@ -330,12 +345,12 @@ header nav {
   outline: 0;
 }
 #search-panel button {
-  background-color: tomato;
-  padding: 5px 5px 5px;
+  background-color: #eee;
+  padding: 4px 5px 5px;
   color: white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 1px 1px 1px tomato;
-  width: 30%;
+  box-shadow: inset 1px 1px 1px #eee;
+  width: 20%;
 }
 
 /* address modal popup */
@@ -710,18 +725,18 @@ header nav {
   font-family: 'Open Sans';
   /*min-width: 300px;*/
 }
-.infoBox:after {
+.info-box:after {
   border: 2px solid rgba(0, 0, 0, 0.16);
   background-color: rgba(255, 255, 255, 0.94);
   width: 20px;
   height: 20px;
   border-radius: 5px;
   position: absolute;
-  right: 5px;
-  margin-top: 22px;
+  top: 4px;
+  right: 4px;
   z-index: 1000;
   color: rgba(0, 0, 0, 0.16);
-  display: inline-block;
+  /*display: inline-block;*/
   font-family: 'Glyphicons Halflings';
   font-style: normal;
   font-weight: normal;
@@ -952,8 +967,8 @@ neighborhood search autocomplete
 .infoBox img {
   position: absolute;
   opacity: 0;
-  top: 21px;
-  left: -4px;
+  top: 5px;
+  left: -20px;
   z-index: 100;
 }
 

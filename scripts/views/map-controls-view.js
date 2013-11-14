@@ -1,4 +1,4 @@
-define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone, map, mapControlsTemp){
+define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geolocation'], function(Backbone, Communicator, map, mapControlsTemp){
 	'use strict';
 
 	return Backbone.Marionette.ItemView.extend({
@@ -8,13 +8,31 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 			'click .zoom-in':'zoomIn',
 			'click .zoom-out':'zoomOut',
 			'click .geo-location':'geoLocation',
-			'click .address-search':'addressSearch'
+			'click .search-location':'addressSearch'
 		},
 		
 		onRender: function(){
 			if( !navigator.geolocation ){
 			    handleNoGeolocation(false);
 			}
+			var center = new google.maps.LatLng(map.center.ob, map.center.pb);
+			var defaultBounds = new google.maps.LatLngBounds( center, center);
+    
+		    var input = this.$el.find('#search-box')[0];
+		    var searchBox = new google.maps.places.Autocomplete( input );
+		        searchBox.setBounds( defaultBounds );
+
+		    google.maps.event.addListener(searchBox, 'place_changed', function() {
+		      var place = searchBox.getPlace();
+
+		      var marker = new google.maps.Marker({
+		        map: map,
+		        position: place.geometry.location
+		      });
+
+		      Communicator.events.trigger('addressSearch', place);
+
+		    });
 		},
 
 		zoomIn: function(){
@@ -28,26 +46,24 @@ define(['backbone', 'map', 'hbs!tmpl/map-controls-template'], function(Backbone,
 		},
 
 		geoLocation: function(){
-      console.log('Geo Location Not Implemented');
+			function onSuccess(a){
+				console.log('success', a)
+			}
+			function onError(a){
+				console.log('error',a)
 
-			    navigator.geolocation.getCurrentPosition(function(position) {
-			      var pos = new google.maps.LatLng(position.coords.latitude,
-			                                       position.coords.longitude);
+			}
+			function onProgress(a){
+				console.log('progress',a)
 
-			      var infowindow = new google.maps.InfoWindow({
-			        map: map,
-			        position: pos,
-			        content: 'Location found using HTML5.'
-			      });
+			}
+			navigator.geolocation.getAccurateCurrentPosition(onSuccess, onError, onProgress, {desiredAccuracy:20, maxWait:15000});
 
-			      map.setCenter(pos);
-			    }, function() {
-			      handleNoGeolocation(true);
-			    });
+
 		},
 
 		addressSearch: function(){
-      console.log('Address Search Not Implemented');
+      		this.$el.find('#search-panel').show();
 		}
 	});
 });
