@@ -25,7 +25,6 @@ LEFT JOIN
   tweet_tags ON tweet_tags.tweet_id = tweets.tweet_id
 WHERE 
   tweet_tags.tag = '$tag'
-ORDER BY tweets.created_at DESC
 ";
 
 $result = $mysql->getRows($query);
