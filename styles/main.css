@@ -486,8 +486,10 @@ header nav {
   width: 75%;
   float: left;
   position: relative;
-  padding: 10px;
   /*display: none;*/
+}
+.tweet-container {
+  padding: 10px;
 }
 #tweet-feed h5 {
   padding: 18px 10px;
@@ -498,9 +500,10 @@ header nav {
 }
 .tweet {
   padding: 12px 15px 0 12px;
-  border-top: 1px solid #e9e9e9;
-  float: left;
-  width: 20%;
+  border: 1px solid #e9e9e9;
+  display: inline-block;
+  width: 30%;
+  margin: 0 1%;
 }
 .tweet .avatar {
   float: left;
