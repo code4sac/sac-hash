@@ -23,7 +23,7 @@ button {
 /////////////////////////////*/
 
 #map-canvas {
-  height: 340px;
+  height: 300px;
   width: 100%;
   float: left;
 }
@@ -200,11 +200,11 @@ button {
 
 #logo {
   fill: black;
-  width: 120px;
+  width: 150px;
   position: absolute;
   z-index: 100;
-  top: -195px;
-  left: 8px;
+  top: -180px;
+  left: 12px;
   pointer-events: none;
 }
 header {

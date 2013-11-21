@@ -234,9 +234,11 @@ function(Backbone,
 				    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
 				    status.created_at = timeSince(date);
 				    tweets = $(tweetTemp(status));
-				    
+				    console.log(data[i])
 				    $('.tweet-container').isotope( 'insert', tweets );
-
+				    $(".tweet img").error(function(){
+        				$(this).attr('src','styles/twitter-ico.png');
+					});
 				}
 
 			});
