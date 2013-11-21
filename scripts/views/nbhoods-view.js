@@ -1,4 +1,4 @@
-define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','jqueryui'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, jqueryui){
+define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','jqueryui','isotope'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, jqueryui){
 	'use strict';
 
 	return Backbone.Marionette.CompositeView.extend({
@@ -92,6 +92,9 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				mapKey,
 				scale,
 				scaleDom = '';
+
+			this.collection.tweetWidth = Math.floor($('.tweet-container').width() / 3) - 10;
+
 
 			// sets range on nbhood model to reference to ranges model later
 			function generateColor(count, diff, min){
@@ -223,6 +226,7 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				autocompleteData = this.collection.autocomplete,
 				input = this.$el.find('#nbhood-search');
 
+
 			// brings watched neighborhoods to top of list
 			this.sortWatched();
 
@@ -244,6 +248,15 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 					}, 100)
     			}
 		  	});
+
+		  	$('.tweet-container').isotope({
+				itemSelector: '.tweet',
+				masonry: {
+   					columnWidth: self.tweetWidth,
+   					gutterWidth: 10,
+   					resizesContainer: true
+  				}
+			});
 		}
 	});
 });

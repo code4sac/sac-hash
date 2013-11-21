@@ -86,7 +86,6 @@ function(Backbone,
 
 		onRender: function(){
 			var self = this;
-				
 
 			this.createPolygon();
 			this.infoBox();
@@ -109,15 +108,7 @@ function(Backbone,
 			Communicator.events.on('addressSearch', function( place ){
 				self.addressSearch( place );
 			});
-
-			$('.tweet-container').isotope({
-				itemSelector: '.tweet',
-				masonry: {
-   					columnWidth: 310,
-   					gutterWidth: 10,
-   					resizesContainer: true
-  				}
-			});
+			
 		},
 
 		addressSearch: function( place ){
@@ -172,7 +163,8 @@ function(Backbone,
 		},
 
 		showTweets: function(){
-			var hashtag = this.model.get('hashtag'),
+			var self = this,
+				hashtag = this.model.get('hashtag'),
 				ib = this.model.get('infobox'),
 				marker = this.model.get('marker'),
 				center = this.model.get('center'),
@@ -234,7 +226,8 @@ function(Backbone,
 				    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
 				    status.created_at = timeSince(date);
 				    tweets = $(tweetTemp(status));
-				    console.log(data[i])
+				    tweets.css('width', self.model.collection.tweetWidth);
+console.log(self.model.collection)
 				    $('.tweet-container').isotope( 'insert', tweets );
 				    $(".tweet img").error(function(){
         				$(this).attr('src','styles/twitter-ico.png');

@@ -1,20 +1,16 @@
 <div class="tweet">
-<div class="time">{{created_at}}</div>
+  <div class="time">{{created_at}}</div>
   <div class="avatar">
-             <a href="http://twitter.com/{{user.screen_name}}"
-             target="_blank">
-               <img src="{{profile_image_url}}"/>
-             </a>
-         </div>
-       <div class="meta">
-         <div class="user">
-             <a href="http://twitter.com/{{screen_name}}"
-              target="_blank"> {{ name}} <span>@{{screen_name}}</span>
-             </a>
-         </div>
-        </div>
+    <a href="http://twitter.com/{{user.screen_name}}" target="_blank"><img src="{{profile_image_url}}"/></a>
+  </div>
+  <div class="meta">
+    <div class="user">
+      <a href="http://twitter.com/{{screen_name}}"target="_blank"> {{ name}} <span>@{{screen_name}}</span></a>
+    </div>
+  </div>
 
-       <div class="text">
-           <p>{{{tweet_text}}}</p>
-       </div>
+  <div class="text">
+    <p>{{{tweet_text}}}</p>
+  </div>
+  <div class="view-tweet">View on twitter</div>
 </div>
