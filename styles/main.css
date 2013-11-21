@@ -448,6 +448,13 @@ header nav {
   color: #aaa;
 }
 
+/* Suggestion Form
+ * =============== */
+#suggest {
+  margin-top: 7px;
+  margin-left: 7px;
+}
+
 
 /*/////////////////////////////
     map key/range indicator

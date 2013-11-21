@@ -8,8 +8,25 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			template: nbhoodsTemplate
 		},
 		events: {
-			'click #sort-by li':'sort'
+			'click #sort-by li':'sort',
+      'click #suggest-submit':'submit_suggest'
 		},
+    /* Submit event for suggesting hashtag
+     * =================================== */
+    submit_suggest: function() {
+      var hashtag = $('#suggest-field').val();
+        jQuery.ajax({
+          url: 'data/suggest.php',
+          data: 'hashtag='+hashtag,
+          type: 'POST',
+          async: false,
+          success: function(data, stat, jqXHR) {
+            $('#suggest-field').attr('placeholder', 'Thank you for the suggestion.');
+            $('#suggest-field').val('');
+          }
+        });
+    },
+
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),
 				nbhoods = this.$el.find('.nbhood');
