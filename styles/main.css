@@ -1,4 +1,5 @@
 @import url("normalize.css");
+@import url("isotope.css");
 
 * { box-sizing: border-box }
 
@@ -36,7 +37,7 @@ button {
 #map-controls {
   position: absolute;
   z-index: 1000;
-  left: 7px;
+  right: 7px;
   top: 180px;
   width: 35px;
   background-color: #fff;
@@ -197,6 +198,15 @@ button {
         header and nav
 /////////////////////////////*/
 
+#logo {
+  fill: black;
+  width: 120px;
+  position: absolute;
+  z-index: 100;
+  top: -195px;
+  left: 8px;
+  pointer-events: none;
+}
 header {
   position: absolute;
   width: 100%;
@@ -205,7 +215,9 @@ header {
   border-bottom: 1px solid rgba(0,0,0,.2);
   z-index: 1000;
   pointer-events: none;
+  display: none;
 }
+
 #expand-header {
   height: 27px;
   padding: 2px 7px;
@@ -221,6 +233,7 @@ header {
   text-transform: uppercase;
   font-family: 'oswald';
   color: rgba(0,0,0,.65);
+  display: none;
 }
 #expand-header span {
   float: left;
@@ -482,14 +495,14 @@ header nav {
 /////////////////////////////*/
 
 #tweet-feed {
-  height: 300px;
   width: 75%;
   float: left;
   position: relative;
   /*display: none;*/
 }
 .tweet-container {
-  padding: 10px;
+  height: 400px;
+  padding: 5px;
 }
 #tweet-feed h5 {
   padding: 18px 10px;
@@ -501,9 +514,9 @@ header nav {
 .tweet {
   padding: 12px 15px 0 12px;
   border: 1px solid #e9e9e9;
-  display: inline-block;
-  width: 30%;
-  margin: 0 1%;
+  border-radius: 3px;
+  width: 300px;
+  margin: 5px;
 }
 .tweet .avatar {
   float: left;

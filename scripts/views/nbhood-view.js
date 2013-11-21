@@ -7,6 +7,7 @@ define(['backbone',
 		'hbs!tmpl/modal-template',
 		'hbs!tmpl/tweet',
 		'collections/ranges-collection',
+		'isotope',
 		'infobox',
 		'polygonContains'], 
 function(Backbone,
@@ -19,6 +20,22 @@ function(Backbone,
 		tweetTemp,
 		rangesCollection){
 	'use strict';
+
+	$.Isotope.prototype._getMasonryGutterColumns = function() {
+  var gutter = this.options.masonry && this.options.masonry.gutterWidth || 0;
+      containerWidth = this.element.width();
+
+  this.masonry.columnWidth = this.options.masonry && this.options.masonry.columnWidth ||
+                // or use the size of the first item
+                this.$filteredAtoms.outerWidth(true) ||
+                // if there's no items, use size of container
+                containerWidth;
+
+  this.masonry.columnWidth += gutter;
+
+  this.masonry.cols = Math.floor( ( containerWidth + gutter ) / this.masonry.columnWidth );
+  this.masonry.cols = Math.max( this.masonry.cols, 1 );
+};
 
 	String.prototype.parseURL = function() {
 		return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
@@ -91,6 +108,15 @@ function(Backbone,
 			// trigger check if address search result is in neighborhood bounds
 			Communicator.events.on('addressSearch', function( place ){
 				self.addressSearch( place );
+			});
+
+			$('.tweet-container').isotope({
+				itemSelector: '.tweet',
+				masonry: {
+   					columnWidth: 310,
+   					gutterWidth: 10,
+   					resizesContainer: true
+  				}
 			});
 		},
 
@@ -191,26 +217,30 @@ function(Backbone,
 				map.panTo( center );
 			}
 
+			$('.tweet-container').isotope( 'remove', $('.tweet') );
 			$.ajax({
 		  		type: 'GET',
 		  		url: 'data/tweets_by_tag.json',
 			}).done(function(data){
 				
 				$('.tweet-header h5').text('Showing tweets for #'+hashtag);
-				$('.tweet-container').empty()
+				
 				for (var i = 0; i < data.length; i++){
 					var status = data[i],
-	    				date = status.created_at;
+	    				date = status.created_at,
+	    				tweets;
 	    				
 				    status.tweet_text = status.tweet_text.parseURL().parseHashtag().parseUsername();
 				    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
 				    status.created_at = timeSince(date);
+				    tweets = $(tweetTemp(status));
+				    
+				    $('.tweet-container').isotope( 'insert', tweets );
 
-				    $('.tweet-container').append(tweetTemp(status));
 				}
 
 			});
-
+	
 			ib.open(map, marker);
 		},
 

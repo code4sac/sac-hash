@@ -37,6 +37,7 @@ require.config({
         infobox: '../components/infobox/infobox-min',
         polygonContains: '../components/polygon-contains/polygon-contains',
         geolocation: '../components/geolocation/geo-location',
+        isotope: '../components/isotope/jquery.isotope.min',
 
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
         text: '../components/requirejs-text/text',
