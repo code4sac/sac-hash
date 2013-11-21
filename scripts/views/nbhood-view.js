@@ -227,7 +227,7 @@ function(Backbone,
 				    status.created_at = timeSince(date);
 				    tweets = $(tweetTemp(status));
 				    tweets.css('width', self.model.collection.tweetWidth);
-console.log(self.model.collection)
+
 				    $('.tweet-container').isotope( 'insert', tweets );
 				    $(".tweet img").error(function(){
         				$(this).attr('src','styles/twitter-ico.png');
@@ -320,6 +320,7 @@ console.log(self.model.collection)
 				Communicator.events.trigger('clicked');
 	    		ib.open(map, marker);
 	    		self.showTweets();
+	    		console.log(ib)
 	  		}); 
 
 	  		this.model.set('infobox', ib);

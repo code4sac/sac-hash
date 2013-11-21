@@ -37,9 +37,8 @@ button {
 #map-controls {
   position: absolute;
   z-index: 1000;
-  right: 7px;
-  top: 180px;
-  width: 35px;
+  right: 9px;
+  top: 165px;
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid rgb(210,210,210);
@@ -50,11 +49,11 @@ button {
   margin: 0;
   padding: 0 1px;
 }
-#map-controls li {
+#map-controls li, #toggle-nav {
   display: block;
-  color: rgba(0,0,0,.63);
-  font-size: 12px;
-  padding: 6px 7px;
+  color: rgba(0,0,0,.7);
+  font-size: 14px;
+  padding: 9px 12px;
   margin: 4px 0px;
   border-bottom: 1px solid rgba(0,0,0,.07);
   text-align: center;
@@ -66,16 +65,22 @@ button {
   border: 0;
   margin-bottom: 1px;
 }
-#map-controls .zoom-in div {
-  margin-top: -1px;
-}
 #map-controls .zoom-out div {
-  margin-left: -1px;
   margin-top: -1px;
 }
-#map-controls .use-location div {
-  margin-left: -3px;
-  margin-top: -1px;
+
+#toggle-nav {
+  border-radius: 5px;
+  border: 1px solid rgb(210,210,210);
+  position: absolute;
+  z-index: 1000;
+  right: 9px;
+  top: 9px;
+  background-color: #fff;
+  padding: 11px 12px;
+}
+#toggle-nav div {
+  margin-top: 1px;
 }
 
 /* loading data popup */
@@ -451,8 +456,23 @@ header nav {
 /* Suggestion Form
  * =============== */
 #suggest {
-  margin-top: 7px;
-  margin-left: 7px;
+  margin-top: 2px;
+  margin-left: 9px;
+}
+#suggest input {
+  padding: 7px 6px 7px 6px;
+  width: 75%;
+  border: 1px solid rgba(0,0,0,0.25);
+  border-radius: 5px;
+  box-shadow:  1px 0px 2px rgba(255,255,255,.0), inset 1px 1px 2px rgba(0,0,0,.1);
+}
+#suggest-submit {
+  padding: 7px 0px;
+  width: 22%;
+  border-radius: 5px;
+  border: 1px solid rgba(0,0,0,.14);
+  background-color: rgba(255,255,255,.5);
+  box-shadow: inset 0 1px 0 0 rgba(255,255,255,.8), inset 0 5px 20px rgba(255,255,255,.5);
 }
 
 
@@ -489,9 +509,6 @@ header nav {
   top: 2px;
   left: -7px;
 }
-.map-key li:hover {
-  cursor: pointer;
-}
 .map-key li:last-child {
   text-shadow: 1px 1px 0px rgba(255,255,255,.13);
   border-right: 0px;
@@ -526,19 +543,15 @@ header nav {
   text-align: center;
 }
 .tweet {
-  padding: 12px 15px 0 12px;
+  padding: 12px 15px 4px 12px;
   border: 1px solid rgba(0,0,0,.13);
   border-radius: 3px;
   margin: 5px;
   box-shadow: 1px 1px 5px rgba(0,0,0,.06);
   position: relative;
   z-index: 100;
+  font-size: 14px;
 }
-/*.tweet:hover {
-  box-shadow: 1px 1px 7px rgba(0,0,0,.14), inset 0 0 0 1px #379ce7;
-  border: 1px solid #379ce7;
-  cursor: pointer;
-}*/
 .tweet .avatar {
   float: left;
   width: 60px;
@@ -550,13 +563,13 @@ header nav {
 }
 .tweet .user {
   line-height: 1.25em;
-
 }
 .tweet .user a {
   font-weight: 700;
   font-size: 15px;
   color: #333;
   text-transform: capitalize;
+  text-decoration: none;
 }
 .tweet .user a:hover {
   text-decoration: none;
@@ -575,24 +588,31 @@ header nav {
 }
 .tweet .text p {
   margin-top: 3px;
+  margin-bottom: 6px;
 }
 .view-tweet {
   position: absolute;
   padding: 1px 6px;
-  background-color: #379ce7;
+  /*background-color: #379ce7;*/
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
-  top: -16px;
-  left: 12px;
-  color: white;
+  bottom: 6px;
+  color: rgba(0,0,0,.24);
   text-transform: uppercase;
-  font-size: 10px;
-  z-index: 100;
+  font-size: 12px;
+  font-weight: 700;
   display: none;
 }
-/*.tweet:hover .view-tweet {
-  display: block;
-}*/
+.tweet .footer a {
+  font-size: 20px;
+  color: rgba(0,0,0,.24);
+  margin-left: 8px;
+  float: right;
+}
+.tweet .footer a:hover {
+  color: rgba(0,0,0,.4);
+  text-decoration: none;
+}
 
 
 
@@ -802,10 +822,14 @@ header nav {
   neighborhood map info-box
 /////////////////////////////*/
 
-.infoBox {
-  font-family: 'Open Sans';
-  /*min-width: 300px;*/
+.infoBox img {
+  position: absolute;
+  opacity: 0;
+  top: 22px;
+  left: -5px;
+  z-index: 200;
 }
+
 .info-box:after {
   border: 2px solid rgba(0, 0, 0, 0.16);
   background-color: rgba(255, 255, 255, 0.9);
@@ -1007,7 +1031,7 @@ neighborhood display sorting
 }
 #sort-by .search input {
   padding: 7px 6px 7px 30px;
-  width: 300px;
+  width: 200px;
   border: 1px solid rgba(0,0,0,0.25);
   /*border-top-color: rgba(0,0,0,0.24);*/
   /*border-right-color: rgba(0,0,0,0.14);*/
@@ -1048,13 +1072,6 @@ neighborhood search autocomplete
   cursor: pointer;
 }
 
-.infoBox img {
-  position: absolute;
-  opacity: 0;
-  top: 5px;
-  left: -20px;
-  z-index: 100;
-}
 
 /* Footer Style
  * ============ */

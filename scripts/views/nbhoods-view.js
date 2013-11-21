@@ -8,25 +8,8 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			template: nbhoodsTemplate
 		},
 		events: {
-			'click #sort-by li':'sort',
-      'click #suggest-submit':'submit_suggest'
+			'click #sort-by li':'sort'
 		},
-    /* Submit event for suggesting hashtag
-     * =================================== */
-    submit_suggest: function() {
-      var hashtag = $('#suggest-field').val();
-        jQuery.ajax({
-          url: 'data/suggest.php',
-          data: 'hashtag='+hashtag,
-          type: 'POST',
-          async: false,
-          success: function(data, stat, jqXHR) {
-            $('#suggest-field').attr('placeholder', 'Thank you for the suggestion.');
-            $('#suggest-field').val('');
-          }
-        });
-    },
-
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),
 				nbhoods = this.$el.find('.nbhood');
@@ -110,8 +93,8 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				scale,
 				scaleDom = '';
 
+			// sets width of tweets so they will fit in container
 			this.collection.tweetWidth = Math.floor($('.tweet-container').width() / 3) - 10;
-
 
 			// sets range on nbhood model to reference to ranges model later
 			function generateColor(count, diff, min){
@@ -243,6 +226,14 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				autocompleteData = this.collection.autocomplete,
 				input = this.$el.find('#nbhood-search');
 
+			$('.tweet-container').isotope({
+				itemSelector: '.tweet',
+				masonry: {
+   					columnWidth: self.tweetWidth,
+   					gutterWidth: 10,
+   					resizesContainer: true
+  				}
+			});
 
 			// brings watched neighborhoods to top of list
 			this.sortWatched();
@@ -266,14 +257,7 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
     			}
 		  	});
 
-		  	$('.tweet-container').isotope({
-				itemSelector: '.tweet',
-				masonry: {
-   					columnWidth: self.tweetWidth,
-   					gutterWidth: 10,
-   					resizesContainer: true
-  				}
-			});
+		  	
 		}
 	});
 });
