@@ -24,9 +24,6 @@ function( Backbone, Communicator, tweetParse, map, nbhoodsView, nbhoodsCollectio
 		mapControls: '#map-controls'
 	});
 
-	// append loader
-	$('body').append('<div id="loader"><div class="loadable loading"> <div class="loadable-content"></div> <div class="loadable-progress"> <img class="loader-hexagon" src="styles/hexagon.svg"><div class="loading-spinner"></div></div></div><span>LOADING DATA</span></div>');
-	
 	// fetch neighborhood data
 	nbhoodsCollection.fetch({
 		success: function(){

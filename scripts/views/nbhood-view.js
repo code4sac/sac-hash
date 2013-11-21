@@ -20,6 +20,24 @@ function(Backbone,
 		rangesCollection){
 	'use strict';
 
+	String.prototype.parseURL = function() {
+		return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
+			return url.link(url);
+		});
+	};
+	String.prototype.parseHashtag = function() {
+		return this.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
+			var tag = t.replace("#","%23")
+			return t.link("http://search.twitter.com/search?q="+tag);
+		});
+	};
+	String.prototype.parseUsername = function() {
+		return this.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
+			var username = u.replace("@","")
+			return u.link("http://twitter.com/"+username);
+		});
+	};
+
 	return Backbone.Marionette.ItemView.extend({ 
 		className: 'nbhood',
 
@@ -44,9 +62,9 @@ function(Backbone,
 			var watchedItems = store.get('watched');
 
 			// checks local storage for watched neighborhoods
-			if ( watchedItems && watchedItems.indexOf(this.model.cid) > -1){
-				this.model.set('watched', true);
-			}
+			// if ( watchedItems && watchedItems.indexOf(this.model.cid) > -1){
+			// 	this.model.set('watched', true);
+			// }
 		},
 
 		onRender: function(){
@@ -77,6 +95,7 @@ function(Backbone,
 		},
 
 		addressSearch: function( place ){
+
 			var polygon = this.model.get('poly'),
 				contains = polygon.containsLatLng( place.geometry.location ),
 				self = this,
@@ -93,7 +112,7 @@ function(Backbone,
 
 					Communicator.events.trigger('clicked');
 
-					$('body').append( modalTemp(modalInfo) );
+					// $('body').append( modalTemp(modalInfo) );
 					
 					$('.close-modal').on('click', function(){
 						destroyModal();
@@ -102,7 +121,7 @@ function(Backbone,
 
 					$('.show-tweets').on('click', function(){
 						destroyModal();
-						self.showTweets();
+						
 						Communicator.events.trigger('closeSearchPanel');
 					});
 
@@ -113,7 +132,7 @@ function(Backbone,
 						self.watched();
 						self.showTweets();
 					});
-					
+					self.showTweets();
 
 				}
 			
@@ -172,25 +191,25 @@ function(Backbone,
 				map.panTo( center );
 			}
 
-			// $.ajax({
-		 //  		type: 'GET',
-		 //  		url: '/tweets/'+hashtag+'/'+num,
-			// }).done(function(data){
-			// 	$('.tweet-header h5').text('Showing tweets for #'+hashtag);
-			// 	$('.tweet-container').empty()
-			// 	for (var i = 0; i < data.statuses.length; i++){
-			// 		var status = data.statuses[i],
-			// 			tweet = linkify_entities(status),
-	  //   				date = status.created_at;
+			$.ajax({
+		  		type: 'GET',
+		  		url: 'data/tweets_by_tag.json',
+			}).done(function(data){
+				
+				$('.tweet-header h5').text('Showing tweets for #'+hashtag);
+				$('.tweet-container').empty()
+				for (var i = 0; i < data.length; i++){
+					var status = data[i],
+	    				date = status.created_at;
 	    				
-			// 	    status.entities.text = tweet;
-			// 	    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
-			// 	    status.created_at = timeSince(date);
+				    status.tweet_text = status.tweet_text.parseURL().parseHashtag().parseUsername();
+				    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
+				    status.created_at = timeSince(date);
 
-			// 	    $('.tweet-container').append(tweetTemp(status));
-			// 	}
+				    $('.tweet-container').append(tweetTemp(status));
+				}
 
-			// });
+			});
 
 			ib.open(map, marker);
 		},

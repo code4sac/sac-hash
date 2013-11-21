@@ -12,10 +12,10 @@
 require_once('cityTags_config.php');
 global $cityTags;
 // Directory for db_config.php
-define('DB_CONFIG_DIR', '/Applications/MAMP/hashtags-merge/data/140dev/db/');
+define('DB_CONFIG_DIR', 'sac-hash/data/140dev/db/');
 
 // Server path for scripts within the framework to reference each other
-define('CODE_DIR', '/Applications/MAMP/hashtags-merge/data/140dev/');
+define('CODE_DIR', 'sac-hash/data/140dev/');
 
 // External URL for Javascript code in browsers to call the framework with Ajax
 define('AJAX_URL', 'http://mac.twitterStream/140dev/');

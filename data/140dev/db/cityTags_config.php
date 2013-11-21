@@ -11,7 +11,7 @@ $cityTags = array(
 $mysql_config = array(
   'host'    => 'localhost',
   'user'    => 'root',
-  'pass'    => '0cool',
+  'pass'    => 'root',
   'db'      => 'sactags'
 );
 ?>

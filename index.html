@@ -32,13 +32,7 @@
             <div id="expand-header">nav<span class="glyphicon glyphicon-chevron-down"></span></div>
             <nav>
                 <ul class="navigation">
-                    <li>
-                      <!--   <div id="toggle-search" class="glyphicon glyphicon-search"></div>
-                        <div id="search-panel">
-                            <input id="target" type="text" placeholder="Find your address in Sacramento, CA">
-                            <button class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> or Use Location</button>
-                        </div>  -->
-                    </li>
+
                     <li>
                         <div id="toggle-nav" class="glyphicon glyphicon-align-justify"></div>
                         <ul class="drop-down">
@@ -50,25 +44,45 @@
                     </li>
                 </ul>
             </nav> 
-            
         </header>
+        
+        <!-- LOADING MODAL -->
+        <div id="loader">
+            <div class="loadable loading"> 
+                <div class="loadable-content"></div> 
+                <div class="loadable-progress"> 
+                    <img class="loader-hexagon" src="styles/hexagon.svg">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+            <span>LOADING MAP DATA</span>
+        </div>
+
+        <!-- CUSTOM MAP CONTROLS -->
         <div id="map-controls"></div>
+
         <div id="welcome-modal">
             <p>Welcome to the</p>
             <h1>Sacramento Hashtag Project</h1>
         </div>
-        <div id="map-canvas">
-            
-        </div>
+
+        <!-- GOOGLE MAP CONTAINER -->
+        <div id="map-canvas"></div>
+
+        <!-- TWEET RANGES -->
         <div id="map-key"></div>
-        <div id="resize-bar"><div class="handle"></div></div>
+        
+        <!-- NEIGHBORHOODS LIST -->
         <div id="block-view"></div>
+
+        <!-- TWEETS -->
         <div id="tweet-feed">
             <div class="tweet-header">
                 <h5></h5>
             </div>
             <div class="tweet-container"></div>
         </div>
+
         <!-- build:js scripts/main.js -->
         <script data-main="scripts/init" src="components/requirejs/require.js"></script>
         <!-- endbuild -->
