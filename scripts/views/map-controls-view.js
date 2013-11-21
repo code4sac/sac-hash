@@ -42,11 +42,13 @@ define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geo
 		zoomIn: function(){
 			var zoom = map.getZoom();
         	map.setZoom( zoom + 1 );
+        	Communicator.events.trigger('zoom', zoom + 1);
 		},
 
 		zoomOut: function(){
 			var zoom = map.getZoom();
         	map.setZoom( zoom - 1 );
+        	Communicator.events.trigger('zoom', zoom - 1);
 		},
 
 		geoLocation: function(){

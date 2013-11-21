@@ -108,6 +108,18 @@ function(Backbone,
 			Communicator.events.on('addressSearch', function( place ){
 				self.addressSearch( place );
 			});
+
+			Communicator.events.on('zoom', function( zoom ){
+
+				var ib = self.model.get('infobox');
+
+				if (ib.getVisible() == true){
+					zoom = (zoom * 4.6);
+					ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });
+					ib.draw();
+				}
+
+			});
 			
 		},
 
@@ -317,10 +329,14 @@ function(Backbone,
 			ib = new InfoBox(boxOptions);
 	        
 	        google.maps.event.addListener(poly, 'click', function() {
+				var zoom = map.getZoom() * 4.6;
 				Communicator.events.trigger('clicked');
+
+				ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });
+				
 	    		ib.open(map, marker);
+
 	    		self.showTweets();
-	    		console.log(ib)
 	  		}); 
 
 	  		this.model.set('infobox', ib);
