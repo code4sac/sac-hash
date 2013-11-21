@@ -8,7 +8,7 @@ $mysql  = new mysql();
 
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
 
-$tag = "HollywoodPark";
+$tag = "DowntownSac";
 
 $query = "
 SELECT  tweets.tweet_id
@@ -19,6 +19,7 @@ SELECT  tweets.tweet_id
     ,   user_id
     ,   screen_name
     ,   name
+    ,   profile_image_url
 FROM tweets
 LEFT JOIN 
   tweet_tags ON tweet_tags.tweet_id = tweets.tweet_id
