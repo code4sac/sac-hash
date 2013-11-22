@@ -8,7 +8,7 @@ $mysql  = new mysql();
 
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
 
-$tag = "DowntownSac";
+//$tag = "DowntownSac";
 
 $query = "
 SELECT  tweets.tweet_id
@@ -25,6 +25,7 @@ LEFT JOIN
   tweet_tags ON tweet_tags.tweet_id = tweets.tweet_id
 WHERE 
   tweet_tags.tag = '$tag'
+LIMIT 100
 ";
 
 $result = $mysql->getRows($query);

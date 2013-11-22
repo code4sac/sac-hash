@@ -8,7 +8,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
     	
     	Communicator.events.on('clicked', function( hashtag ){
     		window.setTimeout(function(){
-				self.url = 'data/tweets_by_tag.json';
+				self.url = 'data/tweets_by_tag.json?hashtag='+hashtag;
 				self.reset().fetch();
 			}, 200);
     	});
