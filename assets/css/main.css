@@ -128,7 +128,6 @@ button {
    border-bottom:30px solid transparent;
    border-right:30px solid transparent;
    border-radius:100%;
-
 }
 
 @-webkit-keyframes rotation {
@@ -161,14 +160,23 @@ button {
   letter-spacing: .07em;
   padding: 10px 15px 14px;
   font-weight: 700;
-  z-index: 100;
+  z-index: 500;
 }
 
-#loader.hide-loader .loader-hexagon {
-  
+#loader.tweet-loader {
+  -moz-transform: scale(0.6);
+  -webkit-transform: scale(0.6);
+  transform: scale(0.6);
+  background: transparent;
 }
-.hide-loader {
-  visibility: hidden;
+.tweet-loader .loader-hexagon {
+  fill: #aaa;
+}
+.tweet-loader .loading-spinner {
+  background: white;
+}
+.tweet-loader .loading-spinner:before {
+  border-top-color: rgba(0,0,0,.3);
 }
 
 #loader span {

@@ -147,6 +147,7 @@ function(Backbone,
 				marker = this.model.get('marker'),
 				center = this.model.get('center');
 
+
 			// if ($(window).scrollTop() > 0){
 			// 	$('html, body').animate({'scrollTop':0}, 100, function(){
 			// 		map.panTo( center );

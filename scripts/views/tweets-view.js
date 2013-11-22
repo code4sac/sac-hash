@@ -10,7 +10,8 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 
 		ui: {
 			container: '.tweet-container',
-			currentHashtag: '.current-hashtag span'
+			currentHashtag: '.current-hashtag span',
+			loader: '#loader'
 		},
 
 		initialize: function(){
@@ -18,11 +19,13 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 
 			Communicator.events.on('clicked', function( hashtag ){
 				self.ui.currentHashtag.animate({'margin-top':'-40px'}, 150, function(){
-					self.ui.currentHashtag.css('margin-bottom','40px').animate({'margin-top':'0'}, 150).text('Showing tweets for #' + hashtag);
+					self.ui.currentHashtag.css('margin-top','40px').animate({'margin-top':'0'}, 150).text('Showing tweets for #' + hashtag);
 				});
 
 				if (self.ui.container.hasClass('isotope'))
 				self.ui.container.isotope('remove', self.$el.find('.tweet'));
+
+				self.ui.loader.delay(200).fadeIn(200)
 			});
 		},
 
@@ -41,6 +44,7 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
   				}
 			});
 			
+			this.ui.loader.stop().hide();
     		container.isotope( 'insert', tweets );
   		}
 	});

@@ -40,7 +40,7 @@ define([
 	// fetch neighborhood data
 	nbhoodsCollection.fetch({
 		success: function(){
-			$('#loader').hide();
+			$('#loader').remove();
 		}
 	});
 
