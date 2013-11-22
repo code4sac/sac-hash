@@ -8,16 +8,24 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			template: tweetsTemplate
 		},
 
-		onRender: function(){
-
-			
+		ui: {
+			container: '.tweet-container'
 		},
+
+		initialize: function(){
+			var self = this;
+			Communicator.events.on('clicked', function(){
+				if (self.ui.container.hasClass('isotope'))
+				self.ui.container.isotope('remove', self.$el.find('.tweet'));
+			});
+		},
+
 		appendHtml: function(collectionView, itemView, index){
-			var container = this.$el.find('.tweet-container'),
+			var container = this.ui.container,
 				tweetWidth = Math.floor(container.width() / 3) - 10,
 				tweets = itemView.$el.width( tweetWidth );
 
-			if (!container.hasClass('.isotope'))
+			if (container.hasClass('isotope') == false)
 			container.isotope({
 				itemSelector: '.tweet',
 				masonry: {
@@ -26,11 +34,8 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
    					resizesContainer: true
   				}
 			});
-			else
-			container.isotope('remove', this.previousTweets );
 			
-			this.previousTweets = tweets;
-    		collectionView.$('.tweet-container').isotope( 'insert', tweets );
+    		container.isotope( 'insert', tweets );
   		}
 	});
 

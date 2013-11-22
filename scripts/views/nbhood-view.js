@@ -78,7 +78,6 @@ function(Backbone,
 			});
 
 			Communicator.events.on('zoom', function( zoom ){
-
 				var ib = self.model.get('infobox');
 
 				if (ib.getVisible() == true){
@@ -86,7 +85,6 @@ function(Backbone,
 					ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });
 					ib.draw();
 				}
-
 			});
 			
 		},
@@ -147,24 +145,21 @@ function(Backbone,
 				hashtag = this.model.get('hashtag'),
 				ib = this.model.get('infobox'),
 				marker = this.model.get('marker'),
-				center = this.model.get('center'),
-				dom = this.$el,
-				num = 10;
-
-			Communicator.events.trigger('clicked');
+				center = this.model.get('center');
 
 			
-			if ($(window).scrollTop() > 0){
-				$('html, body').animate({'scrollTop':0}, 100, function(){
-					map.panTo( center );
-				});
-			} else {
-				map.panTo( center );
-			}
+			
+			// if ($(window).scrollTop() > 0){
+			// 	$('html, body').animate({'scrollTop':0}, 100, function(){
+			// 		map.panTo( center );
+			// 	});
+			// } else {
+				
+			// }
+			map.panTo( center );
+			Communicator.events.trigger('clicked', hashtag);
+			
 
-			tweetsCollection.url = 'data/tweets_by_tag.json';
-			tweetsCollection.reset().fetch();
-	
 			ib.open(map, marker);
 		},
 
