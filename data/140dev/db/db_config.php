@@ -9,8 +9,10 @@
 * @version BETA 0.20
 */
 require_once('cityTags_config.php');
-  $db_host      = $mysql_config['host'];
-  $db_user      = $mysql_config['user'];
-  $db_password  = $mysql_config['pass'];
-  $db_name      = $mysql_config['db'];
+global $mysql_config;
+
+$db_host      = $mysql_config['host'];
+$db_user      = $mysql_config['user'];
+$db_password  = $mysql_config['pass'];
+$db_name      = $mysql_config['db'];
 ?> 

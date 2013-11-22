@@ -1,7 +1,8 @@
-<? /* Fusion Table Class
-    * Returns json, or PHP array depending on how the class is
-    * constructed. 'json' || 'array'
-    */
+<?php
+/* Fusion Table Class
+ * Returns json, or PHP array depending on how the class is
+ * constructed. 'json' || 'array'
+ * ========================================================= */
 require_once('cityTags_config.php');
 class ftables {
   public $json;
@@ -59,7 +60,6 @@ class ftables {
       $ret_array[] = $tArray;
     }
     curl_close($ch);
-
 
     return $ret_array;
   }
