@@ -1,0 +1,3 @@
+[submodule "components/isotope"]
+	path = components/isotope
+	url = https://github.com/desandro/isotope.git
