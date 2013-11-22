@@ -164,37 +164,6 @@ function(Backbone,
 
 			tweetsCollection.url = 'data/tweets_by_tag.json';
 			tweetsCollection.reset().fetch();
-			// $('.tweet-container').isotope( 'remove', $('.tweet') );
-			// $.ajax({
-		 //  		type: 'GET',
-		 //  		url: 'data/tweets_by_tag.json',
-			// }).done(function(data){
-				
-			// 	$('.current-hashtag span').animate({'margin-top':'-40px'}, {
-			// 		duration: 200, 
-			// 		easing: 'linear', 
-			// 		complete: function(){
-			// 			$(this).css('margin-top','40px').text('Showing tweets for #'+hashtag).animate({'margin-top':'0'}, 200);
-			// 		}
-			// 	});
-				
-			// 	for (var i = 0; i < data.length; i++){
-			// 		var status = data[i],
-	  //   				date = status.created_at,
-	  //   				tweets;
-	    				
-			// 	    status.tweet_text = status.tweet_text.parseURL().parseHashtag().parseUsername();
-			// 	    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
-			// 	    status.created_at = timeSince(date);
-			// 	    tweets = $(tweetTemp(status));
-			// 	    tweets.css('width', self.model.collection.tweetWidth);
-
-			// 	    $('.tweet-container').isotope( 'insert', tweets );
-			// 	    $(".tweet img").error(function(){
-   //      				$(this).attr('src','styles/twitter-ico.png');
-			// 		});
-			// 	}
-			// });
 	
 			ib.open(map, marker);
 		},
