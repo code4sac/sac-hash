@@ -9,12 +9,18 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 		},
 
 		ui: {
-			container: '.tweet-container'
+			container: '.tweet-container',
+			currentHashtag: '.current-hashtag span'
 		},
 
 		initialize: function(){
 			var self = this;
-			Communicator.events.on('clicked', function(){
+
+			Communicator.events.on('clicked', function( hashtag ){
+				self.ui.currentHashtag.animate({'margin-top':'-40px'}, 150, function(){
+					self.ui.currentHashtag.css('margin-bottom','40px').animate({'margin-top':'0'}, 150).text('Showing tweets for #' + hashtag);
+				});
+
 				if (self.ui.container.hasClass('isotope'))
 				self.ui.container.isotope('remove', self.$el.find('.tweet'));
 			});

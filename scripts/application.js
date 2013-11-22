@@ -42,7 +42,9 @@ define([
 		success: function(){
 			$('#loader').hide();
 		}
-	})
+	});
+
+	
     
     // render app after data is loaded
     nbhoodsCollection.on('sync', function(model, xhr, options){
@@ -52,7 +54,10 @@ define([
 			App.mapControls.show( new mapControlsView() );
 			App.tweets.show( new tweetsView({ collection: tweetsCollection }) );
 		});
-
+		
+		tweetsCollection.url = 'data/tweets_by_tag.json';
+		tweetsCollection.fetch();
+		
 		nbhoodsCollection.off('sync');
     });
 

@@ -10,7 +10,6 @@ define(['backbone','hbs!tmpl/tweet-template'], function(Backbone, tweetTemplate)
 			avatar.error(function(){
       			avatar.attr('src','styles/twitter-ico.png');
 			});
-		},
-		
+		}
 	});
 });

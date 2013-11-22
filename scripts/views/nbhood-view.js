@@ -154,7 +154,9 @@ function(Backbone,
 			// } else {
 				
 			// }
+			
 			map.panTo( center );
+
 			Communicator.events.trigger('clicked', hashtag);
 			
 			ib.open(map, marker);
@@ -237,10 +239,7 @@ function(Backbone,
 	        
 	        google.maps.event.addListener(poly, 'click', function() {
 				var zoom = map.getZoom() * 4;
-
 				ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });
-				
-	    		ib.open(map, marker);
 
 	    		self.showTweets();
 	  		}); 
