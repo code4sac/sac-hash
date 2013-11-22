@@ -6,12 +6,20 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
     initialize: function(){
     	var self = this;
     	
+      /* Fetch tweets when tag / map nbhood is clicked
+       * ============================================= */
     	Communicator.events.on('clicked', function( hashtag ){
+        $('#loader').show();
     		window.setTimeout(function(){
 				self.url = 'data/tweets_by_tag.json?hashtag='+hashtag;
-				self.reset().fetch();
+				self.reset().fetch({
+          success: function() {
+            $('#loader').hide();  
+          }
+        });
 			}, 200);
     	});
+
     }
   });
 
