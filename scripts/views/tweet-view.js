@@ -8,7 +8,7 @@ define(['backbone','hbs!tmpl/tweet-template'], function(Backbone, tweetTemplate)
 			var avatar = this.$el.find('.avatar img');
 			
 			avatar.error(function(){
-      			avatar.attr('src','styles/twitter-ico.png');
+      			avatar.attr('src','assets/images/twitter-ico.png');
 			});
 		}
 	});
