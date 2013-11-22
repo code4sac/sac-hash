@@ -9,7 +9,8 @@ define(['backbone',
 		'collections/ranges-collection',
 		'isotope',
 		'infobox',
-		'polygonContains'], 
+		'polygonContains',
+		'jqueryui'], 
 function(Backbone,
 		Communicator,
 		store,
@@ -21,24 +22,10 @@ function(Backbone,
 		rangesCollection){
 	'use strict';
 
-	$.Isotope.prototype._getMasonryGutterColumns = function() {
-  var gutter = this.options.masonry && this.options.masonry.gutterWidth || 0;
-      containerWidth = this.element.width();
-
-  this.masonry.columnWidth = this.options.masonry && this.options.masonry.columnWidth ||
-                // or use the size of the first item
-                this.$filteredAtoms.outerWidth(true) ||
-                // if there's no items, use size of container
-                containerWidth;
-
-  this.masonry.columnWidth += gutter;
-
-  this.masonry.cols = Math.floor( ( containerWidth + gutter ) / this.masonry.columnWidth );
-  this.masonry.cols = Math.max( this.masonry.cols, 1 );
-};
 
 	String.prototype.parseURL = function() {
 		return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
+			if (!url) return;
 			return url.link(url);
 		});
 	};
@@ -227,7 +214,13 @@ function(Backbone,
 		  		url: 'data/tweets_by_tag.json',
 			}).done(function(data){
 				
-				$('.tweet-header h5').text('Showing tweets for #'+hashtag);
+				$('.current-hashtag span').animate({'margin-top':'-40px'}, {
+					duration: 200, 
+					easing: 'linear', 
+					complete: function(){
+						$(this).css('margin-top','40px').text('Showing tweets for #'+hashtag).animate({'margin-top':'0'}, 200);
+					}
+				});
 				
 				for (var i = 0; i < data.length; i++){
 					var status = data[i],
@@ -263,8 +256,6 @@ function(Backbone,
 				poly,
 				center;
 				
-				// paths = paths.match('<coordinates>(.*?)</coordinates>');
-				// paths = paths[1].match(/(".*?"|[^"\s]+)+(?=\s*|\s*$)/g);
 				paths = paths.geometry.coordinates[0];
 
 			for (var i = 0; i < paths.length; i++){
@@ -329,7 +320,7 @@ function(Backbone,
 			ib = new InfoBox(boxOptions);
 	        
 	        google.maps.event.addListener(poly, 'click', function() {
-				var zoom = map.getZoom() * 4.6;
+				var zoom = map.getZoom() * 4;
 				Communicator.events.trigger('clicked');
 
 				ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });

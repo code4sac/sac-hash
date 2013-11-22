@@ -40,7 +40,7 @@ button {
   right: 9px;
   top: 165px;
   background-color: #fff;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid rgb(210,210,210);
   pointer-events: auto;
 }
@@ -70,7 +70,7 @@ button {
 }
 
 #toggle-nav {
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid rgb(210,210,210);
   position: absolute;
   z-index: 1000;
@@ -529,14 +529,27 @@ header nav {
   height: 400px;
   padding: 5px;
 }
-#tweet-feed h5 {
+.current-hashtag {
   display: inline-block;
-  padding: 8px 12px 7px;
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,.14);
   background-color: rgba(255,255,255,.5);
-  box-shadow: inset 0 1px 0 0 rgba(255,255,255,.8), inset 0 5px 20px rgba(255,255,255,.5);
+  box-shadow: inset 0 1px 0 0 rgba(255,255,255,.8), inset 0 0px 8px rgba(255,255,255,.5);
   margin: 5px 0 0 8px;
+  overflow: hidden;
+  height: 34px;
+}
+.current-hashtag div {
+  display: inline-block;
+  float: left;
+  padding: 10px 9px 9px 12px;
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+.current-hashtag span {
+  padding: 6px 12px 7px 10px;
+  border-left: 1px solid white;
+  display: inline-block;
+  float: left;
 }
 .tweet-header {
   border-left: 1px solid rgba(255,255,255,.45);
@@ -854,7 +867,7 @@ header nav {
 
 .info-box {
   min-width: 340px;
-  height: 80px;
+  height: 79px;
   padding: 10px 0;
   border-radius: 12px;
   background-color: white;
@@ -869,26 +882,26 @@ header nav {
   letter-spacing: 0;
 }
 .info-box .count {
-  width: 58px;
-  height: 58px;
-  font-size: 18px;
+  width: 54px;
+  height: 54px;
   padding-top: 16px;
-  font-weight: 500;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);
+  /*text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);*/
   position: relative;
-  top: -1px;
-  left: 1px;
+  border-radius: 4px;
+  font-weight: 500;
+  top: 3px;
+  left: 2px;
 }
 .info-box:before {
   content: '';
   position: absolute;
-  left: -12px;
+  left: -11px;
   top: 27px;
   width: 0;
   height: 0;
-  border-top: 12px solid transparent;
-  border-bottom: 12px solid transparent;
-  border-right: 12px solid white;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-right: 11px solid white;
 }
 
 
