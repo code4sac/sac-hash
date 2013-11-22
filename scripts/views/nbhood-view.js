@@ -7,6 +7,7 @@ define(['backbone',
 		'hbs!tmpl/modal-template',
 		'hbs!tmpl/tweet',
 		'collections/ranges-collection',
+		'collections/tweets-collection',
 		'isotope',
 		'infobox',
 		'polygonContains',
@@ -19,28 +20,9 @@ function(Backbone,
 		infoboxTemp,
 		modalTemp,
 		tweetTemp,
-		rangesCollection){
+		rangesCollection,
+		tweetsCollection ){
 	'use strict';
-
-
-	String.prototype.parseURL = function() {
-		return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
-			if (!url) return;
-			return url.link(url);
-		});
-	};
-	String.prototype.parseHashtag = function() {
-		return this.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
-			var tag = t.replace("#","%23")
-			return t.link("http://search.twitter.com/search?q="+tag);
-		});
-	};
-	String.prototype.parseUsername = function() {
-		return this.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
-			var username = u.replace("@","")
-			return u.link("http://twitter.com/"+username);
-		});
-	};
 
 	return Backbone.Marionette.ItemView.extend({ 
 		className: 'nbhood',
@@ -63,7 +45,7 @@ function(Backbone,
 		},
 
 		initialize: function(){
-			var watchedItems = store.get('watched');
+			// var watchedItems = store.get('watched');
 
 			// checks local storage for watched neighborhoods
 			// if ( watchedItems && watchedItems.indexOf(this.model.cid) > -1){
@@ -76,9 +58,8 @@ function(Backbone,
 
 			this.createPolygon();
 			this.infoBox();
-			this.watched();
+			// this.watched();
 			
-
 			// close open infobox when another is clicked
 			Communicator.events.on('clicked', function(){
 				self.model.get('infobox').close();
@@ -172,34 +153,7 @@ function(Backbone,
 
 			Communicator.events.trigger('clicked');
 
-			function timeSince(date) {
-
-			    var seconds = Math.floor((new Date() - date) / 1000);
-
-			    var interval = Math.floor(seconds / 31536000);
-
-			    if (interval > 1) {
-			        return interval + "y";
-			    }
-			    interval = Math.floor(seconds / 2592000);
-			    if (interval > 1) {
-			        return interval + "m";
-			    }
-			    interval = Math.floor(seconds / 86400);
-			    if (interval > 1) {
-			        return interval + "d";
-			    }
-			    interval = Math.floor(seconds / 3600);
-			    if (interval > 1) {
-			        return interval + "h";
-			    }
-			    interval = Math.floor(seconds / 60);
-			    if (interval > 1) {
-			        return interval + "m";
-			    }
-			    return Math.floor(seconds) + "s";
-			}
-
+			
 			if ($(window).scrollTop() > 0){
 				$('html, body').animate({'scrollTop':0}, 100, function(){
 					map.panTo( center );
@@ -208,38 +162,39 @@ function(Backbone,
 				map.panTo( center );
 			}
 
-			$('.tweet-container').isotope( 'remove', $('.tweet') );
-			$.ajax({
-		  		type: 'GET',
-		  		url: 'data/tweets_by_tag.json',
-			}).done(function(data){
+			tweetsCollection.url = 'data/tweets_by_tag.json';
+			tweetsCollection.reset().fetch();
+			// $('.tweet-container').isotope( 'remove', $('.tweet') );
+			// $.ajax({
+		 //  		type: 'GET',
+		 //  		url: 'data/tweets_by_tag.json',
+			// }).done(function(data){
 				
-				$('.current-hashtag span').animate({'margin-top':'-40px'}, {
-					duration: 200, 
-					easing: 'linear', 
-					complete: function(){
-						$(this).css('margin-top','40px').text('Showing tweets for #'+hashtag).animate({'margin-top':'0'}, 200);
-					}
-				});
+			// 	$('.current-hashtag span').animate({'margin-top':'-40px'}, {
+			// 		duration: 200, 
+			// 		easing: 'linear', 
+			// 		complete: function(){
+			// 			$(this).css('margin-top','40px').text('Showing tweets for #'+hashtag).animate({'margin-top':'0'}, 200);
+			// 		}
+			// 	});
 				
-				for (var i = 0; i < data.length; i++){
-					var status = data[i],
-	    				date = status.created_at,
-	    				tweets;
+			// 	for (var i = 0; i < data.length; i++){
+			// 		var status = data[i],
+	  //   				date = status.created_at,
+	  //   				tweets;
 	    				
-				    status.tweet_text = status.tweet_text.parseURL().parseHashtag().parseUsername();
-				    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
-				    status.created_at = timeSince(date);
-				    tweets = $(tweetTemp(status));
-				    tweets.css('width', self.model.collection.tweetWidth);
+			// 	    status.tweet_text = status.tweet_text.parseURL().parseHashtag().parseUsername();
+			// 	    date = new Date(date.replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC"));
+			// 	    status.created_at = timeSince(date);
+			// 	    tweets = $(tweetTemp(status));
+			// 	    tweets.css('width', self.model.collection.tweetWidth);
 
-				    $('.tweet-container').isotope( 'insert', tweets );
-				    $(".tweet img").error(function(){
-        				$(this).attr('src','styles/twitter-ico.png');
-					});
-				}
-
-			});
+			// 	    $('.tweet-container').isotope( 'insert', tweets );
+			// 	    $(".tweet img").error(function(){
+   //      				$(this).attr('src','styles/twitter-ico.png');
+			// 		});
+			// 	}
+			// });
 	
 			ib.open(map, marker);
 		},

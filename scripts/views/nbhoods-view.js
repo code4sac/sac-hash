@@ -93,9 +93,6 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 				scale,
 				scaleDom = '';
 
-			// sets width of tweets so they will fit in container
-			this.collection.tweetWidth = Math.floor($('.tweet-container').width() / 3) - 10;
-
 			// sets range on nbhood model to reference to ranges model later
 			function generateColor(count, diff, min){
 
@@ -225,15 +222,6 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			var self = this,
 				autocompleteData = this.collection.autocomplete,
 				input = this.$el.find('#nbhood-search');
-
-			$('.tweet-container').isotope({
-				itemSelector: '.tweet',
-				masonry: {
-   					columnWidth: self.tweetWidth,
-   					gutterWidth: 10,
-   					resizesContainer: true
-  				}
-			});
 
 			// brings watched neighborhoods to top of list
 			this.sortWatched();
