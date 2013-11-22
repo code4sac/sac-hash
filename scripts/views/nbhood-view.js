@@ -147,8 +147,6 @@ function(Backbone,
 				marker = this.model.get('marker'),
 				center = this.model.get('center');
 
-			
-			
 			// if ($(window).scrollTop() > 0){
 			// 	$('html, body').animate({'scrollTop':0}, 100, function(){
 			// 		map.panTo( center );
@@ -159,7 +157,6 @@ function(Backbone,
 			map.panTo( center );
 			Communicator.events.trigger('clicked', hashtag);
 			
-
 			ib.open(map, marker);
 		},
 
@@ -240,7 +237,6 @@ function(Backbone,
 	        
 	        google.maps.event.addListener(poly, 'click', function() {
 				var zoom = map.getZoom() * 4;
-				Communicator.events.trigger('clicked');
 
 				ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });
 				
