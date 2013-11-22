@@ -79,7 +79,7 @@ define(['backbone'], function( Backbone ){
          var s  = raw_date.getSeconds();
          s = (s < 10) ? ("0" + s) : s;
 
-         formatted = months[m]+" "+d+" '"+y+" "+h+":"+i;
+         var formatted = months[m]+" "+d+" '"+y+" "+h+":"+i;
          this.set('created_at', formatted);
 		    
 		}
