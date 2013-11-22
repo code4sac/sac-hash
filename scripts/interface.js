@@ -5,15 +5,14 @@ define(['backbone','communicator'], function(Backbone, Communicator){
 		var self = $(this);
 
 		if (self.hasClass('nav-active')){
-			$('.drop-down').animate({'height':'10px'}, 100 , function(){
-				$(this).animate({'width':'0'}, 70, function(){
-					$(this).css({'top':'68px','opacity':'0','width':'200px','height':'auto'});
-				});
-			});
+			$('.drop-down').animate({'right':'25px'}, 150).hide(0);
 			self.removeClass('nav-active');
+			self.find('div').removeClass('icon-remove').addClass('icon-reorder')
+
 		} else {
-			$('.drop-down').show(0).animate({'top':'62px','opacity':'1'}, 260);
+			$('.drop-down').show(0).animate({'right':'35px','opacity':'1'}, 100);
 			self.addClass('nav-active');
+			self.find('div').removeClass('icon-reorder').addClass('icon-remove')
 		}
 		
 	});
