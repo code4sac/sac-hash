@@ -67,7 +67,17 @@ define(['backbone'], function( Backbone ){
         /* Kaleb Attempt
          * ============= */
          var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-         var raw_date = new Date(this.get('created_at'));
+         var rda = this.get('created_at').split(' ');
+         var date_array = rda[0].split('-');
+         var time_array = rda[1].split(':');
+         var raw_date = new Date(
+           date_array[0],
+           date_array[1] -1,
+           date_array[2],
+           time_array[0],
+           time_array[1],
+           time_array[2]
+         );
          var m  = raw_date.getMonth();
          var y  = raw_date.getFullYear().toString().substr(2,2);
          var d  = raw_date.getDate();
