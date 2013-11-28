@@ -14,4 +14,8 @@ https://trello.com/b/eMuHgAAN/sacramentohashtagproject
 4. Add Twitter API information
 5. Configure DB_CONFIG_DIR, CODE_DIR in data/140dev/db/140dev_config.php to match your install directory.
 
+### Git configuration
+1. ```git submodule init```
+2. ```git submoudle update```
+
 
