@@ -32,7 +32,7 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 		appendHtml: function(collectionView, itemView, index){
 			var container = this.ui.container,
 				tweetWidth = Math.floor(container.width() / 3) - 10,
-				tweets = itemView.$el.width( tweetWidth );
+				tweets = itemView.$el.css('width', tweetWidth );
 
 			if (container.hasClass('isotope') == false)
 			container.isotope({

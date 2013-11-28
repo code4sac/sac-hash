@@ -4,7 +4,7 @@ define(['backbone'], function( Backbone ){
 	return Backbone.Model.extend({
 		initialize: function(){
 			this.parseEntities();
-			this.dateFormat();
+			this.set('created_at', this.dateFormat( this.get('created_at') ));
 		},
 		parseEntities: function(){
 			var tweet = this.get('tweet_text');
@@ -32,66 +32,42 @@ define(['backbone'], function( Backbone ){
 
 			this.set('tweet_text', tweet.parseURL().parseHashtag().parseUsername());
 		},
-		dateFormat: function() {
-        /*
-        console.log(this.get('created_at'));
-		    var date = new Date(this.get('created_at').replace(/^\w+ (\w+) (\d+) ([\d:]+) \+0000 (\d+)$/,"$1 $2 $4 $3 UTC")),
+		dateFormat: function( time ) {
+        	
+        	var rda = time.split(' '),
+	       		date_array = rda[0].split('-'),
+	       		time_array = rda[1].split(':'),
+	       		date = new Date(
+		           date_array[0],
+		           date_array[1] -1,
+		           date_array[2],
+		           time_array[0],
+		           time_array[1],
+		           time_array[2]
+	        	),
 		    	seconds = Math.floor((new Date() - date) / 1000),
-		    	interval = Math.floor(seconds / 31536000),
-		    	formatted;
-
+		    	interval = Math.floor(seconds / 31536000);
+		    	
 		    if (interval > 1) {
-		        formatted = interval + "y";
+		        return interval + "y";
 		    }
 		    interval = Math.floor(seconds / 2592000);
 		    if (interval > 1) {
-		        formatted = interval + "m";
+		        return interval + "m";
 		    }
 		    interval = Math.floor(seconds / 86400);
 		    if (interval > 1) {
-		        formatted = interval + "d";
+		        return interval + "d";
 		    }
 		    interval = Math.floor(seconds / 3600);
 		    if (interval > 1) {
-		        formatted = interval + "h";
+		        return interval + "h";
 		    }
 		    interval = Math.floor(seconds / 60);
 		    if (interval > 1) {
-		        formatted = interval + "m";
+		        return interval + "m";
 		    }
-			formatted = Math.floor(seconds) + "s";
-
-		    this.set('created_at', formatted);
-        */
-
-        /* Kaleb Attempt
-         * ============= */
-         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-         var rda = this.get('created_at').split(' ');
-         var date_array = rda[0].split('-');
-         var time_array = rda[1].split(':');
-         var raw_date = new Date(
-           date_array[0],
-           date_array[1] -1,
-           date_array[2],
-           time_array[0],
-           time_array[1],
-           time_array[2]
-         );
-         var m  = raw_date.getMonth();
-         var y  = raw_date.getFullYear().toString().substr(2,2);
-         var d  = raw_date.getDate();
-
-         var h  = raw_date.getHours();
-         h = (h < 10) ? ("0" + h) : h;
-         var i  = raw_date.getMinutes();
-         i = (i < 10) ? ("0" + i) : i;
-         var s  = raw_date.getSeconds();
-         s = (s < 10) ? ("0" + s) : s;
-
-         var formatted = months[m]+" "+d+" '"+y+" "+h+":"+i;
-         this.set('created_at', formatted);
-		    
+			return Math.floor(seconds) + "s";		    
 		}
 	});
 });
