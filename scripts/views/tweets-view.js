@@ -9,7 +9,7 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 		},
 
 		events: {
-			'click .sort-tweets':'sort'
+			'click .sort-tweets span':'sortDate'
 		},
 
 		ui: {
@@ -23,7 +23,7 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 
 			Communicator.events.on('clicked', function( hashtag ){
 				self.ui.currentHashtag.animate({'margin-top':'-40px'}, 150, function(){
-					self.ui.currentHashtag.css('margin-top','40px').animate({'margin-top':'0'}, 150).text('Showing tweets for #' + hashtag);
+					self.ui.currentHashtag.css('margin-top','40px').animate({'margin-top':'0'}, 150).text('#' + hashtag);
 				});
 
 				if (self.ui.container.hasClass('isotope'))
@@ -33,11 +33,32 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			});
 		},
 
-		sort: function(){
-			this.ui.container.isotope({ 
-			  sortBy : 'time',
-			  sortAscending : true
-			});
+		sortDate: function(e){
+			var target = $(e.target),
+				buttons = this.$el.find('.sort-tweets span');
+
+			
+			if (target.hasClass('active-sort')) return;
+			else buttons.removeClass('active-sort');
+			
+
+			if (target.hasClass('date-new')){
+				// target.addClass('active-sort')
+				this.ui.container.isotope({ 
+			  		sortBy : 'time',
+			  		sortAscending : false
+				});
+				target.addClass('active-sort')
+
+			} 
+			if (target.hasClass('date-old')){
+				this.ui.container.isotope({ 
+			  		sortBy : 'time',
+			  		sortAscending : true
+				});
+				target.addClass('active-sort')
+			}
+			
 		},
 
 		appendHtml: function(collectionView, itemView, index){

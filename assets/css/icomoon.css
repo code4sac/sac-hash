@@ -50,3 +50,21 @@
 .icon-reorder:before {
 	content: "\e608";
 }
+.icon-map-marker:before {
+	content: "\e609";
+}
+.icon-calendar-empty:before {
+	content: "\e60e";
+}
+.icon-music:before {
+	content: "\e60a";
+}
+.icon-drink:before {
+	content: "\e60b";
+}
+.icon-location:before {
+	content: "\e60c";
+}
+.icon-user:before {
+	content: "\e60d";
+}

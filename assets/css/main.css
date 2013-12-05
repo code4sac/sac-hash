@@ -458,7 +458,7 @@ button {
   height: 400px;
   padding: 5px;
 }
-.current-hashtag, .sort-tweets {
+.header-button {
   display: inline-block;
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,.14);
@@ -468,17 +468,31 @@ button {
   overflow: hidden;
   height: 34px;
 }
-.current-hashtag div {
+.header-button div {
   display: inline-block;
   float: left;
-  padding: 10px 9px 9px 12px;
+  padding: 9px 9px 9px 12px;
   border-right: 1px solid rgba(0,0,0,.1);
 }
-.current-hashtag span, .sort-tweets div {
-  padding: 6px 12px 7px 10px;
-  border-left: 1px solid white;
+.header-button span {
+  padding: 6px 10px;
   display: inline-block;
   float: left;
+}
+.header-button span:first-child {
+  border-left: 1px solid white;
+}
+.sort-tweets span:hover {
+  cursor: pointer;
+}
+.header-button .date-new {
+  border-right: 1px solid rgba(0,0,0,.1);
+}
+.header-button .date-old {
+  border-left: 1px solid white;
+}
+.active-sort {
+  font-weight: 700;
 }
 .tweet-header {
   border-left: 1px solid rgba(255,255,255,.45);
