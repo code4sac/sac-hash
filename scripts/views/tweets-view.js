@@ -8,6 +8,10 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			template: tweetsTemplate
 		},
 
+		events: {
+			'click .sort-tweets':'sort'
+		},
+
 		ui: {
 			container: '.tweet-container',
 			currentHashtag: '.current-hashtag span',
@@ -29,6 +33,14 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			});
 		},
 
+		sort: function(){
+			console.log(true)
+			this.ui.container.isotope({ 
+			  sortBy : 'time',
+			  sortAscending : true
+			});
+		},
+
 		appendHtml: function(collectionView, itemView, index){
 			var container = this.ui.container,
 				tweetWidth = Math.floor(container.width() / 3) - 10,
@@ -41,7 +53,14 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
    					columnWidth: tweetWidth + 10,
    					gutterWidth: 10,
    					resizesContainer: true
-  				}
+  				},
+  				getSortData : {
+				  time : function ( $elem ) {
+				    return $elem.attr('data-time');
+				  }
+				},
+				sortBy : 'time',
+  				sortAscending : false
 			});
 			
 			this.ui.loader.stop().hide();

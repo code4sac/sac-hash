@@ -293,10 +293,9 @@ button {
   padding: 6px;
   width: 450px;
   position: absolute;
-  left: 50px;
+  right: 53px;
   top: -2px;
   z-index: 2000;
-  right: 0;
   background-color: white;
   border-radius: 6px;
   display: none;
@@ -304,13 +303,13 @@ button {
 #search-panel:before {
   content: '';
   position: absolute;
-  left: -10px;
+  right: -10px;
   top: 11px;
   width: 0;
   height: 0;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 10px solid white;
+  border-left: 10px solid white;
 }
 #search-panel h1 {
   color: #333;
@@ -327,7 +326,7 @@ button {
   float: left;
 }
 #search-panel input {
-  width: 79%;
+  width: 100%;
   padding: 5px 15px 5px;
   margin-right: 1%;
 }
@@ -341,6 +340,7 @@ button {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: inset 1px 1px 1px #eee;
   width: 20%;
+  display: none;
 }
 
 /* address modal popup */
@@ -450,13 +450,15 @@ button {
   width: 75%;
   float: left;
   position: relative;
+  background-color: white;
+  z-index: 1000;
   /*display: none;*/
 }
 .tweet-container {
   height: 400px;
   padding: 5px;
 }
-.current-hashtag {
+.current-hashtag, .sort-tweets {
   display: inline-block;
   border-radius: 5px;
   border: 1px solid rgba(0,0,0,.14);
@@ -472,7 +474,7 @@ button {
   padding: 10px 9px 9px 12px;
   border-right: 1px solid rgba(0,0,0,.1);
 }
-.current-hashtag span {
+.current-hashtag span, .sort-tweets div {
   padding: 6px 12px 7px 10px;
   border-left: 1px solid white;
   display: inline-block;
@@ -562,6 +564,7 @@ button {
 
 #nbhoods {
   width: 25%;
+  z-index: 1000;
   float: left;
 }
 .nbhood {

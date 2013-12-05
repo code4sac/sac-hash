@@ -47,7 +47,10 @@ define(['backbone'], function( Backbone ){
 	        	),
 		    	seconds = Math.floor((new Date() - date) / 1000),
 		    	interval = Math.floor(seconds / 31536000);
-		    	
+
+		    // set time in seconds for isotope sorting
+		    this.set('time_stamp', seconds);
+
 		    if (interval > 1) {
 		        return interval + "y";
 		    }

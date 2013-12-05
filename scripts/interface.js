@@ -1,6 +1,13 @@
 define(['backbone','communicator'], function(Backbone, Communicator){
 	'use strict';
 
+	// var interfaceTop = $('#tweet-feed').offset().top,
+	// 	windowDom = $(window),
+	// 	windowHeight = windowDom.height(),
+	// 	nbhoodMenu = $('#nbhoods'),
+	// 	tweetHeader = $('#tweet-feed'),
+	// 	tweets = $('.tweet-container .isotope');
+
 	$('#toggle-nav').on('click', function(event){
 		var self = $(this);
 
@@ -16,5 +23,15 @@ define(['backbone','communicator'], function(Backbone, Communicator){
 		}
 		
 	});
+
+	// windowDom.scroll(function(){
+	// 	var scrollPos = windowDom.scrollTop();
+		
+	// 	if (scrollPos >= interfaceTop){
+	// 		nbhoodMenu.css({'position':'fixed','top':'0px'});
+	// 		tweetHeader.css({'position':'fixed','top':'0px','left':'25%'});
+	// 		$('.tweet-container').attr('style','overflow: scroll; height:'+ (windowHeight - 40) +'px; position:relative;')
+	// 	}
+	// });
 	
 });
