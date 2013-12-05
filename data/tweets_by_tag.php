@@ -5,6 +5,13 @@ include('mysqli.php');
 header('Content-type: application/json');
 
 $mysql  = new mysql();
+$ntd = '';
+$WHERE = '';
+
+if(isset($_GET['ntd'])) {
+  $ntd = $_GET['ntd'];
+  $WHERE = "AND DATE(tweets.created_at) > '$ntd'";
+}
 
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
 
@@ -25,10 +32,11 @@ LEFT JOIN
   tweet_tags ON tweet_tags.tweet_id = tweets.tweet_id
 WHERE 
   tweet_tags.tag = '$tag'
-LIMIT 100
+  $WHERE
 ";
 
 $result = $mysql->getRows($query);
 $json   = json_encode($result, true);
+
 print $json;
 ?>
