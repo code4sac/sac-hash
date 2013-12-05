@@ -26,7 +26,7 @@ define(['backbone','communicator'], function(Backbone, Communicator){
 
 	window.setTimeout(function(){
 		$('#welcome-modal').animate({ 'opacity':'1', 'margin-top':'0px' }, 100);
-		$(document).on('click', '#map-canvas, #nbhoods', function(){ $('#welcome-modal').hide(); });
+		$(document).on('click', '#map-canvas, #nbhoods, .toggle-search', function(){ $('#welcome-modal').hide(); });
 	}, 1500)
 
 	
