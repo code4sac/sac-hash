@@ -264,28 +264,45 @@ button {
 #welcome-modal {
   position: absolute;
   z-index: 900;
-  top: 37px;
-  left: 0px;
-  width: 450px;
-  height: 270px;
-  padding: 30px 10px 10px 25px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background-color: rgba(40,40,40,.93);
-  text-align: center;
-  border: 1px solid rgba(0,0,0,.2);
+  top: 125px;
+  right: 72px;
+  width: 370px;
+  margin-top: 30px;
+  opacity: 0;
+  padding: 15px 30px 18px;
+  border-radius: 9px;
+  background-color: rgba(255,255,255,.94);
+  /*display: none;*/
+}
+#welcome-modal h4, #welcome-modal p {
+  margin: 4px 0 0 0;
+}
+#welcome-modal:before {
+  content: '';
+  position: absolute;
+  right: -11px;
+  top: 49px;
+  width: 0;
+  height: 0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 11px solid white;
+}
+#welcome-modal .close {
+  border: 2px solid rgba(0, 0, 0, 0.16);
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 19px;
+  height: 19px;
+  border-radius: 5px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1000;
+  color: rgba(0, 0, 0, 0.16);
+  padding-left: 2px;
   display: none;
 }
-#welcome-modal h1 {
-  font-family: 'oswald';
-  font-weight: 400;
-  font-size: 24px;
-  margin: 0;
-}
-#welcome-modal p {
-  margin: 0;
-  color: rgba(0,0,0,.3);
-}
+
 
 /* address search panel */
 
