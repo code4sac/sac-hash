@@ -103,30 +103,30 @@ function(Backbone,
 				}
 
 				if (contains == true){
-					modalInfo.name = this.model.get('NAME2');
+					// modalInfo.name = this.model.get('NAME2');
 
-					Communicator.events.trigger('clicked');
+					// Communicator.events.trigger('clicked', this.model.get('hashtag'));
 
 					// $('body').append( modalTemp(modalInfo) );
 					
-					$('.close-modal').on('click', function(){
-						destroyModal();
-						Communicator.events.trigger('closeSearchPanel');
-					});
+					// $('.close-modal').on('click', function(){
+					// 	destroyModal();
+					// 	Communicator.events.trigger('closeSearchPanel');
+					// });
 
-					$('.show-tweets').on('click', function(){
-						destroyModal();
+					// $('.show-tweets').on('click', function(){
+					// 	destroyModal();
 						
-						Communicator.events.trigger('closeSearchPanel');
-					});
+					// 	Communicator.events.trigger('closeSearchPanel');
+					// });
 
-					$('.watch-nbhood').on('click', function(){
-						destroyModal();
-						Communicator.events.trigger('closeSearchPanel');
-						self.model.set('watched', true);
-						self.watched();
-						self.showTweets();
-					});
+					// $('.watch-nbhood').on('click', function(){
+					// 	destroyModal();
+					// 	Communicator.events.trigger('closeSearchPanel');
+					// 	self.model.set('watched', true);
+					// 	self.watched();
+					// 	self.showTweets();
+					// });
 					self.showTweets();
 
 				}
@@ -146,7 +146,6 @@ function(Backbone,
 				ib = this.model.get('infobox'),
 				marker = this.model.get('marker'),
 				center = this.model.get('center');
-
 
 			// if ($(window).scrollTop() > 0){
 			// 	$('html, body').animate({'scrollTop':0}, 100, function(){

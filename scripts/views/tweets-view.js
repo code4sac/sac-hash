@@ -34,7 +34,6 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 		},
 
 		sort: function(){
-			console.log(true)
 			this.ui.container.isotope({ 
 			  sortBy : 'time',
 			  sortAscending : true

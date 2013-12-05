@@ -18,11 +18,11 @@ define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geo
 		initAddressSearch: function(){
 			// initialize address search
 			var self = this,
-				center = new google.maps.LatLng(map.center.ob, map.center.pb),
-				defaultBounds = new google.maps.LatLngBounds( center, center),
+				center = new google.maps.LatLng(map.center.pb, map.center.qb),
+				defaultBounds = new google.maps.LatLngBounds( center, center ),
 		    	input = this.$el.find('#search-box')[0],
 		    	searchBox = new google.maps.places.Autocomplete( input );
-		    
+		    console.log(defaultBounds, map.center)
 		    searchBox.setBounds( defaultBounds );
 
 			google.maps.event.addListener(searchBox, 'place_changed', function() {
