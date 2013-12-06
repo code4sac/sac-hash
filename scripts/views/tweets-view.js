@@ -61,6 +61,9 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			
 		},
 
+		addNewTweets: function(){
+		},
+
 		appendHtml: function(collectionView, itemView, index){
 			var container = this.ui.container,
 				tweetWidth = Math.floor(container.width() / 3) - 10,
@@ -82,9 +85,15 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 				sortBy : 'time',
   				sortAscending : false
 			});
+			// else if ( this.collection.addNew == true ){
+			// 	container.prepend( tweets ).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
+
+			// }
+			// else
 			
 			this.ui.loader.stop().hide();
-    		container.isotope( 'insert', tweets );
+			container.isotope( 'insert', tweets );
+			
   		}
 	});
 

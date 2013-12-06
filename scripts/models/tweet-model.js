@@ -4,7 +4,7 @@ define(['backbone'], function( Backbone ){
 	return Backbone.Model.extend({
 		initialize: function(){
 			this.parseEntities();
-			this.set('created_at', this.dateFormat( this.get('created_at') ));
+			this.set('time_since', this.dateFormat( this.get('created_at') ));
 		},
 		parseEntities: function(){
 			var tweet = this.get('tweet_text');
