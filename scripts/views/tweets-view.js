@@ -37,19 +37,15 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			var target = $(e.target),
 				buttons = this.$el.find('.sort-tweets span');
 
-			
 			if (target.hasClass('active-sort')) return;
 			else buttons.removeClass('active-sort');
 			
-
 			if (target.hasClass('date-new')){
-				// target.addClass('active-sort')
 				this.ui.container.isotope({ 
 			  		sortBy : 'time',
 			  		sortAscending : false
 				});
 				target.addClass('active-sort')
-
 			} 
 			if (target.hasClass('date-old')){
 				this.ui.container.isotope({ 
@@ -58,12 +54,8 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 				});
 				target.addClass('active-sort')
 			}
-			
 		},
-
-		addNewTweets: function(){
-		},
-
+		
 		appendHtml: function(collectionView, itemView, index){
 			var container = this.ui.container,
 				tweetWidth = Math.floor(container.width() / 3) - 10,
@@ -85,15 +77,9 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 				sortBy : 'time',
   				sortAscending : false
 			});
-			// else if ( this.collection.addNew == true ){
-			// 	container.prepend( tweets ).isotope( 'reloadItems' ).isotope({ sortBy: 'original-order' });
-
-			// }
-			// else
 			
 			this.ui.loader.stop().hide();
 			container.isotope( 'insert', tweets );
-			
   		}
 	});
 
