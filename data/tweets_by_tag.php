@@ -5,17 +5,21 @@ include('mysqli.php');
 header('Content-type: application/json');
 
 $mysql  = new mysql();
-$ntd = '';
-$WHERE = '';
+$ntd    = NULL;
+$otd    = NULL;
+$WHERE  = NULL;
 
 if(isset($_GET['ntd'])) {
   $ntd = $_GET['ntd'];
-  $WHERE = "AND DATE(tweets.created_at) > '$ntd'";
+  $WHERE = "AND DATE(tweets.created_at) >= '$ntd'";
+}
+
+if(isset($_GET['otd'])) {
+  $otd  = $_GET['otd'];
+  $WHERE = "AND DATE(tweets.created_at) <= '$ntd'";
 }
 
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
-
-//$tag = "DowntownSac";
 
 $query = "
 SELECT  tweets.tweet_id
