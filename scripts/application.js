@@ -56,6 +56,7 @@ define([
 		});
 		
 		tweetsCollection.url = 'data/tweets_by_tag.json?hashtag=downtownsac';
+		tweetsCollection.hashtag = 'downtownsac';
 		tweetsCollection.fetch();
 		
 		nbhoodsCollection.off('sync');

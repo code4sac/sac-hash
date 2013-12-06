@@ -15,16 +15,16 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
         // this.autoLoader();
     },
     parse: function(response){
-        var newTweets = response.length,
-            currentTweets = this.models.length,
-            diff;
+        // var newTweets = response.length,
+        //     currentTweets = this.models.length,
+        //     diff;
 
-            console.log('new:' + newTweets, 'old:' + currentTweets);
+        //     console.log('new:' + newTweets, 'old:' + currentTweets);
 
-        if ( currentTweets > 0 && newTweets > currentTweets ){
-            diff = newTweets - currentTweets;
-            response = response.slice( diff );
-        }
+        // if ( currentTweets > 0 && newTweets > currentTweets ){
+        //     diff = newTweets - currentTweets;
+        //     response = response.slice( diff );
+        // }
 
         return response;
     },
@@ -32,24 +32,29 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
         var self = this;
             
         window.setTimeout(function(){
-          self.url = 'data/tweets_by_tag.json?hashtag='+hashtag;
-          self.reset().fetch({
-            success: function() {
-              self.addNew = false;
-            }
-          });
+            self.hashtag = hashtag;
+            self.url = 'data/tweets_by_tag.json?hashtag='+hashtag;
+            self.reset().fetch({
+                success: function() {
+                  self.addNew = false;
+                }
+            });
         }, 400);
     },
     autoLoader: function(){
         var self = this;
       
         window.setInterval(function(){
-          self.fetch({
-            remove: false,
-            success: function(data){
-              self.addNew = true;
-            }
-          })
+            var time = self.models[0].get('created_at');
+                
+            self.url = 'data/tweets_by_tag.json?hashtag=' + self.hashtag + '&ntd=' + time;
+            
+            self.fetch({
+              remove: false,
+              success: function(data){
+                self.addNew = true;
+              }
+            });
         }, 5000);
     }
   });
