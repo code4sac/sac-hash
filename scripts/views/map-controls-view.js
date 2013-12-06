@@ -22,7 +22,7 @@ define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geo
 				defaultBounds = new google.maps.LatLngBounds( center, center ),
 		    	input = this.$el.find('#search-box')[0],
 		    	searchBox = new google.maps.places.Autocomplete( input );
-		    console.log(defaultBounds, map.center)
+		 
 		    searchBox.setBounds( defaultBounds );
 
 			google.maps.event.addListener(searchBox, 'place_changed', function() {

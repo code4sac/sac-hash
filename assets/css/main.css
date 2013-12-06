@@ -474,6 +474,7 @@ button {
 .tweet-container {
   height: 400px;
   padding: 5px;
+  border-left: 1px solid #e9e9e9;
 }
 .header-button {
   display: inline-block;
@@ -604,18 +605,18 @@ button {
   height: 70px;
   padding-top: 11px;
   background-color: white;
-  text-align: center;
-  border-right: 1px solid #e9e9e9;
   border-bottom: 1px solid #e9e9e9;
   position: relative;
-  /*background-color: rgba(0,0,0,.016);*/
-  box-shadow: inset 0 0 0 1px white, inset 15px 15px 40px white;
+}
+.nbhood hgroup {
+  position: relative;
 }
 .nbhood:hover {
   cursor: pointer;
+  color: rgba(0,0,0,.9) !important;
 }
 .nbhood .count {
-  padding: 14px 0;
+  padding: 15px 0;
   width: 50px;
   height: 50px;
   border-radius: 5px;
@@ -624,18 +625,31 @@ button {
   color: white;
   position: relative;
   text-align: center;
-  margin: -1px 0 0 10px;
-  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2);
+  margin: -1px 25px 0 10px;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
   font-size: 14px;
-  /*border: 2px solid white;*/
+  /*border-bottom: 3px solid rgba(0,0,0,.1);*/
+  font-family: 'oswald';
+  font-weight: 100;
+  font-size: 16px;
+  letter-spacing: .03em;
 }
-.nbhood .count {
-  border: 1px solid rgba(0,0,0,.07);
-  box-shadow: inset 0 1px 0 0 rgba(255,255,255,.2);
-  /*box-shadow: inset 0 1px 0 0 rgba(255,255,255,.4), inset 0 -10px 15px rgba(0,0,0,.04), inset 0 5px 20px rgba(255,255,255,.12), inset 0 0 4px 3px rgba(0,0,0,.01);*/
+.show-tweets {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 70px;
+  width: 0px;
+  padding: 21px;
+  border-right-style: solid;
+  border-right-width: 0;
+  overflow: hidden;
 }
-.nbhood hgroup {
-  /*letter-spacing: -.03em;*/
+.show-tweets svg {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  right: -30px;
 }
 .nbhood h4 {
   margin: 6px 0 3px;
@@ -747,31 +761,52 @@ button {
   color: #505050;
 }
 
+.nbhood[data-range="0"] .show-tweets {
+  border-right-color: #cff09e;
+  fill: #cff09e;
+}
 .nbhood[data-range="0"] .count {
   background-color: #cff09e;
 }
 
+.nbhood[data-range="1"] .show-tweets {
+  border-right-color: #a8dba8;
+  fill: #a8dba8;
+}
 .nbhood[data-range="1"] .count {
   background-color: #a8dba8;
 }
 
+.nbhood[data-range="2"] .show-tweets {
+  border-right-color: #79bd9a;
+  fill: #79bd9a;
+}
 .nbhood[data-range="2"] .count {
   background-color: #79bd9a;
-
 }
 
+.nbhood[data-range="3"] .show-tweets {
+  border-right-color: #3b8686;
+  fill: #3b8686;
+}
 .nbhood[data-range="3"] .count {
   background-color: #3b8686;
 }
 
+.nbhood[data-range="4"] .show-tweets{
+   border-right-color: #1B5D83;
+   fill: #1B5D83;
+}
 .nbhood[data-range="4"] .count {
   background-color: #1B5D83;
+ 
 }
 
-.nbhood:hover {
+
+/*.nbhood:hover {
     box-shadow: inset 0 0 0 3px white;
-}
-.nbhood[data-range="0"]:hover {
+}*/
+/*.nbhood[data-range="0"]:hover {
   background-color: #cff09e;
 }
 
@@ -789,7 +824,7 @@ button {
 
 .nbhood[data-range="4"]:hover {
   background-color: #1B5D83;
-}
+}*/
 /**/
 
 /*/////////////////////////////
@@ -832,6 +867,7 @@ button {
   padding: 10px 0;
   border-radius: 12px;
   background-color: white;
+  text-align: center;
 }
 .info-box hgroup {
   position: relative;
@@ -845,11 +881,12 @@ button {
 .info-box .count {
   width: 54px;
   height: 54px;
-  padding-top: 16px;
+  padding-top: 15px;
   /*text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.05);*/
   position: relative;
   border-radius: 4px;
-  font-weight: 500;
+  font-size: 18px;
+  /*font-weight: 500;*/
   top: 3px;
   left: 2px;
 }
