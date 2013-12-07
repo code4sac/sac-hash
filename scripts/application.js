@@ -55,7 +55,7 @@ define([
 			App.tweets.show( new tweetsView({ collection: tweetsCollection }) );
 		});
 		
-		tweetsCollection.url = 'data/tweets_by_tag.json?hashtag=downtownsac';
+		tweetsCollection.url = 'data/tweets_by_tag.php?hashtag=downtownsac';
 		tweetsCollection.hashtag = 'downtownsac';
 		tweetsCollection.fetch();
 		
