@@ -12,7 +12,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
           self.loadTweets( hashtag );
       	});
 
-        // this.autoLoader();
+         this.autoLoader();
     },
     parse: function(response){
         // var newTweets = response.length,

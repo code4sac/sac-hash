@@ -1,7 +1,16 @@
 <?php
 include('../data/140dev/db/cityTags_config.php');
 include('../data/mysqli.php');
+?>
+<html>
+  <head>
+    <script type="text/javascript" src="/components/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/admin/js/emerge.js"></script>
+  </head>
+  <body>
+<?
 $mysql = new mysql();
+
 
 $query = "
   SELECT  *
@@ -44,3 +53,5 @@ foreach($rows as $hts) {
   }
 ?>
 </table>
+  </body>
+</html>

@@ -11,7 +11,7 @@ $WHERE  = NULL;
 
 if(isset($_GET['ntd'])) {
   $ntd = $_GET['ntd'];
-  $WHERE = "AND DATE(tweets.created_at) >= '$ntd'";
+  $WHERE = "AND tweets.created_at >= '$ntd'";
 }
 
 if(isset($_GET['otd'])) {
