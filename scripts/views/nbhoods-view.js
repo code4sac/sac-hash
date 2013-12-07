@@ -10,6 +10,10 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 		events: {
 			'click #sort-by li':'sort'
 		},
+		initialize: function(){
+			rangesCollection.buildRanges();
+
+		},
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),
 				nbhoods = this.$el.find('.nbhood');
@@ -80,7 +84,7 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			// sorts watched neighborhoods back to top of list
 			this.sortWatched();
 		},
-		onBeforeRender: function(){
+		onBeforeRnder: function(){
 
 			var countValues = [],
 				collection = this.collection.models,

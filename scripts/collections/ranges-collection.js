@@ -1,8 +1,34 @@
-define(['backbone', 'models/range-model'], function( Backbone, rangeModel){
+define(['backbone', 'models/range-model', 'collections/nbhoods-collection','geostats'], function( Backbone, rangeModel, nbhoodsCollection ){
 	'use strict';
 
 	var rangesCollection = Backbone.Collection.extend({
 		model: rangeModel,
+		buildRanges: function(){
+			var self = this,
+				data = [],
+				serie,
+				ranges;
+
+			nbhoodsCollection.each(function(model){
+				data.push( model.get('COUNT') )
+			});
+
+			serie = new geostats(data);
+			serie.getJenks(5);
+			ranges = serie.getRanges();
+
+			for (var i = 0; i < this.models.length; i++){
+				var model = this.models[i];
+				
+				model.set('range', ranges[i]); 
+			}
+
+
+			nbhoodsCollection.each(function(model){
+				var inRange = serie.getRangeNum( model.get('COUNT') );
+				model.set({'range': inRange, 'color': self.models[inRange].get('color')});
+			});
+		}
 	});
 
 	var Ranges = new rangesCollection([
