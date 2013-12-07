@@ -12,7 +12,10 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
           self.loadTweets( hashtag );
       	});
 
-        // this.autoLoader();
+        this.autoLoader();
+    },
+    comparator: function(model){
+      return model.get('created_at');
     },
     parse: function(response){
         // var newTweets = response.length,
@@ -46,7 +49,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
       
         window.setInterval(function(){
             var time = self.models[0].get('created_at');
-                
+                console.log(self.models)
             self.url = 'data/tweets_by_tag.json?hashtag=' + self.hashtag + '&ntd=' + time;
             
             self.fetch({
