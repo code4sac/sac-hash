@@ -31,6 +31,8 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 
 				self.ui.loader.delay(200).fadeIn(200)
 			});
+
+
 		},
 
 		sortDate: function(e){
@@ -79,6 +81,8 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 			});
 			
 			this.ui.loader.stop().hide();
+			container.prepend( tweets)
+  .isotope( 'reloadItems' ).isotope({ sortBy: 'time' });
 			container.isotope( 'insert', tweets );
   		}
 	});
