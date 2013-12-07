@@ -33,7 +33,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
             
         window.setTimeout(function(){
             self.hashtag = hashtag;
-            self.url = 'data/tweets_by_tag.json?hashtag='+hashtag;
+            self.url = 'data/tweets_by_tag.php?hashtag='+hashtag;
             self.reset().fetch({
                 success: function() {
                   self.addNew = false;
@@ -45,9 +45,9 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
         var self = this;
       
         window.setInterval(function(){
-            var time = self.models[0].get('created_at');
+            var time = self.models[5].get('created_at');
                 
-            self.url = 'data/tweets_by_tag.json?hashtag=' + self.hashtag + '&ntd=' + time;
+            self.url = 'data/tweets_by_tag.php?hashtag=' + self.hashtag + '&ntd=' + time;
             
             self.fetch({
               remove: false,
