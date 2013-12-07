@@ -15,7 +15,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
         this.autoLoader();
     },
     comparator: function(model){
-      return model.get('created_at');
+      return -model.get('created_at');
     },
     parse: function(response){
         // var newTweets = response.length,
@@ -45,11 +45,34 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
         }, 400);
     },
     autoLoader: function(){
-        var self = this;
-      
+        var self = this,
+            now;
+
+        function getDate(){
+           var now = new Date(),
+            day = now.getDate().toString(),
+            month = parseFloat(now.getMonth().toString()) + 1,
+            year = now.getFullYear(),
+            hours = now.getHours().toString(),
+            minutes = now.getMinutes().toString(),
+            seconds = now.getSeconds().toString(),
+            time;
+
+            if ( month.length == 1) month = '0' + month;
+            if ( day.length == 1) day = '0' + day;
+            if ( hours.length == 1) hours = '0' + hours;
+            if ( minutes.length == 1) minutes = '0' + minutes;
+            if ( seconds.length == 1) seconds = '0' + seconds;
+            
+            return  year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+        }
+           
+        now = getDate()
+            console.log(now)
+            // now.replace('/','-')
         window.setInterval(function(){
-            var time = self.models[0].get('created_at');
-            self.url = 'data/tweets_by_tag.json?hashtag=' + self.hashtag + '&ntd=' + time;
+            // var time = self.models[0].get('created_at');
+            self.url = 'data/tweets_by_tag.json?hashtag=' + self.hashtag + '&ntd=' + now;
             
             self.fetch({
               remove: false,
@@ -57,6 +80,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
                 self.addNew = true;
               }
             });
+            now = getDate();
         }, 5000);
     }
   });
