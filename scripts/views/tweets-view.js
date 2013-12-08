@@ -73,11 +73,12 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
   				},
   				getSortData : {
 				  time : function ( $elem ) {
-				    return $elem.attr('data-time');
+				    //return $elem.attr('data-time');
+				    return $elem.attr('data-id');
 				  }
 				},
 				sortBy : 'time',
-  				sortAscending : false
+  				sortAscending : true 
 			});
 			
 			this.ui.loader.stop().hide();
