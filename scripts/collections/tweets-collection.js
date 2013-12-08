@@ -76,21 +76,21 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
             var tid = self.models[0].get('tweet_id'); 
             var len = self.models.length -1 ;
             var otid = self.models[len].get('tweet_id');
-            for(i = 0; i <= self.models.length -1; i++) {
-              console.log(self.models[i].get('tweet_id'));
-            }
+            //for(i = 0; i <= self.models.length -1; i++) {
+            //  console.log(self.models[i].get('tweet_id'));
+            //}
             console.log('tid', tid);
             console.log('otid', otid);
 
             //self.url = 'data/tweets_by_tag.json?hashtag=' + self.hashtag + '&ntd=' + now;
 
             self.url = 'data/tweets_by_tag.php?hashtag=' + self.hashtag + '&ntid=' + tid;
-            console.log(self.url);
+            //console.log(self.url);
             
             self.fetch({
               remove: false,
               success: function(data){
-                console.log('DATA', data);
+                //console.log('DATA', data);
                 self.addNew = true;
               }
             });
