@@ -7,6 +7,7 @@ header('Content-type: application/json');
 $mysql  = new mysql();
 $ntd    = NULL;
 $otd    = NULL;
+$ntid   = NULL;
 $WHERE  = NULL;
 
 if(isset($_GET['ntd'])) {
@@ -17,6 +18,11 @@ if(isset($_GET['ntd'])) {
 if(isset($_GET['otd'])) {
   $otd  = $_GET['otd'];
   $WHERE = "AND DATE(tweets.created_at) <= '$ntd'";
+}
+
+if(isset($_GET['ntid'])) {
+  $tid = $_GET['ntid'];
+  $WHERE = "AND tweets.tweet_id > '$tid'";
 }
 
 $tag = filter_var($_GET['hashtag'], FILTER_SANITIZE_STRING);
@@ -37,7 +43,10 @@ LEFT JOIN
 WHERE 
   tweet_tags.tag = '$tag'
   $WHERE
+ORDER BY tweets.tweet_id  DESC
+LIMIT 100
 ";
+
 
 $result = $mysql->getRows($query);
 $json   = json_encode($result, true);
