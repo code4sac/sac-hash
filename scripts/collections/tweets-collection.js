@@ -36,7 +36,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
             
         window.setTimeout(function(){
             self.hashtag = hashtag;
-            self.url = 'data/tweets_by_tag.php?hashtag='+hashtag;
+            self.url = 'data/tweets_by_tag.json?hashtag='+hashtag;
             self.reset().fetch({
                 success: function() {
                   self.addNew = false;

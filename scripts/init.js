@@ -1,6 +1,6 @@
 require.config({
 
-    baseUrl: "/scripts",
+    baseUrl: "/sac-hash/scripts",
 
     /* starting point for application */
     deps: ['backbone.marionette','marionette.handlebars','main'],
