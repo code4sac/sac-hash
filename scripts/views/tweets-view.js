@@ -1,4 +1,4 @@
-define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template','isotope'], function(Backbone, Communicator, tweetView, tweetsTemplate){
+define(['backbone','communicator','models/tweet-model','views/tweet-view','hbs!tmpl/tweets-template','hbs!tmpl/tweet','isotope'], function(Backbone, Communicator, tweetModel, tweetView, tweetsTemplate, tweetTemplate){
 	'use strict';
 
 	return Backbone.Marionette.CompositeView.extend({
@@ -32,6 +32,11 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 				self.ui.loader.delay(200).fadeIn(200)
 			});
 
+			Communicator.events.on('autoLoad', function( tweets ){
+				self.autoLoad( tweets );
+			});
+
+			this.collection.addTweets = [];
 
 		},
 
@@ -57,35 +62,64 @@ define(['backbone','communicator','views/tweet-view','hbs!tmpl/tweets-template',
 				target.addClass('active-sort')
 			}
 		},
-		
-		appendHtml: function(collectionView, itemView, index){
-			var container = this.ui.container,
-				tweetWidth = Math.floor(container.width() / 3) - 10,
-				tweets = itemView.$el.css('width', tweetWidth );
 
-			if (container.hasClass('isotope') == false)
-			container.isotope({
-				itemSelector: '.tweet',
-				masonry: {
-   					columnWidth: tweetWidth + 10,
-   					gutterWidth: 10,
-   					resizesContainer: true
-  				},
-  				getSortData : {
-				  time : function ( $elem ) {
-				    //return $elem.attr('data-time');
-				    return $elem.attr('data-id');
-				  }
-				},
-				sortBy : 'time',
-  				sortAscending : true 
-			});
+		onRender: function(){
 			
+		},
+
+		appendHtml: function(collectionView, itemView, index){
+			
+			var	container = this.ui.container,
+	 		tweetWidth = Math.floor(container.width() / 3) - 10,
+			tweet = itemView.$el.css('width', tweetWidth );
+			
+			// set tweet width for autoloaded tweets
+			this.collection.tweetWidth = tweetWidth;
+
+				container.isotope({
+					itemSelector: '.tweet',
+					masonry: {
+	   					columnWidth: tweetWidth + 10,
+	   					gutterWidth: 10,
+	   					resizesContainer: true
+	  				},
+	  				getSortData : {
+					  time : function ( $elem ) {
+					    //return $elem.attr('data-time');
+					    return $elem.attr('data-id');
+					  }
+					},
+					sortBy : 'time',
+	  				sortAscending : true 
+				});
+
 			this.ui.loader.stop().hide();
-			container.prepend( tweets)
-  .isotope( 'reloadItems' ).isotope({ sortBy: 'time' });
-			container.isotope( 'insert', tweets );
-  		}
+			container.isotope( 'insert', tweet );
+		
+
+  		},
+
+  		autoLoad: function( tweets ){
+  			var container = this.ui.container,
+  				tweetLen = tweets.length,
+  				newTweets = [];
+
+  			for (var i = 0; i < tweets.length; i++){
+  				var model = new tweetModel( tweets[i] ),
+  					view = new tweetView({ model: model }).render();
+
+  				view.$el.css('width', this.collection.tweetWidth );
+  				newTweets.push( view.el )
+  			}
+
+  			container.prepend( newTweets ).isotope( 'reloadItems' ).isotope({ sortBy: 'time' });
+  		},
+  		
 	});
 
 });
+
+
+
+
+
