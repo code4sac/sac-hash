@@ -90,7 +90,7 @@ define(['backbone','communicator','models/tweet-model','views/tweet-view','hbs!t
 					  }
 					},
 					sortBy : 'time',
-	  				sortAscending : true 
+	  				sortAscending : false 
 				});
 
 			this.ui.loader.stop().hide();
