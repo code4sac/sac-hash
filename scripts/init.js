@@ -20,6 +20,9 @@ require.config({
         },
         jqueryui: {
             deps: ['jquery']
+        },
+        isotope: {
+        	deps: ['jquery']
         }
     },
 
