@@ -550,7 +550,7 @@ button {
   font-weight: 700;
   font-size: 15px;
   color: #333;
-  text-transform: capitalize;
+  
   text-decoration: none;
 }
 .tweet .user a:hover {
@@ -561,9 +561,16 @@ button {
   font-size: 13px;
   color: #aaa;
 }
+.tweet .user span {
+	display: block;
+}
 .tweet .time {
   float: right;
   margin-top: -3px;
+}
+.tweet .time .new {
+	text-transform: uppercase;
+	font-size: 11px;
 }
 .tweet .text {
   margin-left: 60px;

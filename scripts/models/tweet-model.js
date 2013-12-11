@@ -59,6 +59,7 @@ define(['backbone'], function( Backbone ){
 		    }
 		    interval = Math.floor(seconds / 2592000);
 		    if (interval > 1) {
+		    	return parseFloat(date.getMonth()) + 1 + '/' + date.getDay();
 		        return interval + "m";
 		    }
 		    interval = Math.floor(seconds / 86400);
@@ -74,7 +75,7 @@ define(['backbone'], function( Backbone ){
 		        return interval + "m";
 		    }
 		    if ( Math.floor(seconds) < 0 )
-		    	return 'now';
+		    	return '<span class="new">new</span>';
 		    
 			return Math.floor(seconds) + "s";		    
 		}
