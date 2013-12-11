@@ -44,8 +44,6 @@ define([
 		}
 	});
 
-	
-    
     // render app after data is loaded
     nbhoodsCollection.on('sync', function(model, xhr, options){
    	  	App.addInitializer( function(){
@@ -55,12 +53,11 @@ define([
 			App.tweets.show( new tweetsView({ collection: tweetsCollection }) );
 		});
 		
-		tweetsCollection.url = 'data/tweets_by_tag.php?hashtag=downtownsac';
-		tweetsCollection.hashtag = 'downtownsac';
-		tweetsCollection.fetch();
+		tweetsCollection.initialLoad();
 		
 		nbhoodsCollection.off('sync');
     });
+    
 
 	return App;
 });
