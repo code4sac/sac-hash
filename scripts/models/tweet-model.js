@@ -14,19 +14,22 @@ define(['backbone'], function( Backbone ){
 			String.prototype.parseURL = function() {
 				return this.replace(/[A-Za-z]+:\/\/[A-Za-z0-9-_]+\.[A-Za-z0-9-_:%&~\?\/.=]+/g, function(url) {
 					if (!url) return;
-					return url.link(url);
+					var str = '<a target="_blank" href="' + url + '">' + url + '</a>';
+					return url.replace(url, str);
 				});
 			};
 			String.prototype.parseHashtag = function() {
 				return this.replace(/[#]+[A-Za-z0-9-_]+/g, function(t) {
 					var tag = t.replace("#","%23")
-					return t.link("http://search.twitter.com/search?q="+tag);
+					var str = '<a target="_blank" href="https://twitter.com/search?q=' + tag + '">' + t + '</a>';
+					return t.replace(t, str);
 				});
 			};
 			String.prototype.parseUsername = function() {
 				return this.replace(/[@]+[A-Za-z0-9-_]+/g, function(u) {
-					var username = u.replace("@","")
-					return u.link("http://twitter.com/"+username);
+					var username = u.replace("@","");
+					var str = '<a target="_blank" href="http://twitter.com/' + username + '">' + u + '</a>';
+					return u.replace(u, str);
 				});
 			};
 
@@ -70,6 +73,9 @@ define(['backbone'], function( Backbone ){
 		    if (interval > 1) {
 		        return interval + "m";
 		    }
+		    if ( Math.floor(seconds) < 0 )
+		    	return 'now';
+		    
 			return Math.floor(seconds) + "s";		    
 		}
 	});
