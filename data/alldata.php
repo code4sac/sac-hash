@@ -8,6 +8,7 @@ header('Content-type: application/json');
 $ftable = new ftables('array');
 $mysql  = new mysql();
 
+
 $ft_query = "
   SELECT * 
   FROM ".$cityTags['fusion_table']." 
