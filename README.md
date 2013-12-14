@@ -12,7 +12,7 @@ https://trello.com/b/eMuHgAAN/sacramentohashtagproject
 
 2. Load MySQL schema from data/140dev/db/mysql_database_schema.sql
    For Linux/Unix
-   $ mysql -u USER -p -h localhost DATABASE < mysql_database_schema.sql
+   ```$ mysql -u USER -p -h localhost DATABASE < mysql_database_schema.sql```
 
 3. Add Google Fusion table API Key
 
