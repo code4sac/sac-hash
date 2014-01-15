@@ -6,52 +6,15 @@ include('../data/mysqli.php');
   <head>
     <script type="text/javascript" src="/components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/admin/js/emerge.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <link rel="stylesheet" href="/admin/css/main.css"></link>
   </head>
   <body>
-<?
-$mysql = new mysql();
-
-
-$query = "
-  SELECT  *
-  FROM hashtag_suggestions
-";
-$rows = $mysql->getRows($query);
-
-?>
-<table border='1'>
-<tr>
-  <th>Hashtag</th>
-  <th>Created date/time</th>
-</tr>
-<?php
-$group_array = Array();
-foreach($rows as $hts) {
-  @$group_array[$hts->hashtag]++;
-?>
-  <tr>
-    <td><?php echo $hts->hashtag; ?></td>
-    <td><?php echo $hts->created_at; ?></td>
-  </tr>
-<?php
-}
-?>
-</table>
-<table border='1'>
-<tr>
-  <th>Hashtag</th>
-  <th>Count</th>
-</tr>
-<?php
-  foreach($group_array as $ht=> $cnt) {
-?>
-  <tr>
-    <td><?php echo $ht;?></td>
-    <td><?php echo $cnt;?></td>
-  </tr>
-<?php
-  }
-?>
-</table>
+  <div id="status"> </div>
+  <div id="suggestions"> </div>
   </body>
+  <script type="text/javascript">
+        emerge.ajax_get('/admin/suggestions.php', 'suggestions');
+        emerge.ajax_get('/admin/status.php', 'status');
+  </script>
 </html>
