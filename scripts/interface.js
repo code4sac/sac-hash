@@ -24,21 +24,22 @@ define(['backbone','communicator'], function(Backbone, Communicator){
 		
 	});
 
-	window.setTimeout(function(){
-		$('#welcome-modal').animate({ 'opacity':'1', 'margin-top':'0px' }, 100);
-		$(document).on('click', '#map-canvas, #nbhoods, .toggle-search', function(){ $('.modal').hide(); });
-	}, 1500)
-
 	$(document).on('mouseenter', '.nbhood', function(){
+		var index = $(this).index();
 		$(this).find('.show-tweets').animate({'borderRightWidth':'5px'}, 100, function(){
 			$(this).find('svg').animate({'right':'10px'}, 100);
-		})
+		});
+		if (index > 1)
+		$(this).prev().css('border-bottom-color','white');
 	});
 
 	$(document).on('mouseleave', '.nbhood', function(){
+		var index = $(this).index();
 		$(this).find('.show-tweets').animate({'borderRightWidth':'0px'}, 150, function(){
 			$(this).find('svg').animate({'right':'-30px'}, 150);
-		})
+		});
+		if (index > 1)
+		$(this).prev().css('border-bottom-color','#e9e9e9');
 	});
 
 	windowDom.scroll(function(){

@@ -13,28 +13,37 @@ define(['backbone', 'communicator', 'map', 'hbs!tmpl/map-controls-template','geo
 		
 		onRender: function(){
 			this.initAddressSearch();
+			
+			setTimeout(function(){
+				$('#welcome-modal').animate({ 'opacity':'1', 'margin-top':'0px' }, 100);
+				$(document).on('click', '#map-canvas, #nbhoods, .search-location', function(){ $('.modal').hide(); });
+			}, 700)
 		},
 
 		initAddressSearch: function(){
 			// initialize address search
 			var self = this,
-				center = new google.maps.LatLng(map.center.pb, map.center.qb),
+				center = new google.maps.LatLng(38.575067, -121.487761),
 				defaultBounds = new google.maps.LatLngBounds( center, center ),
 		    	input = this.$el.find('#search-box')[0],
 		    	searchBox = new google.maps.places.Autocomplete( input );
 		 
 		    searchBox.setBounds( defaultBounds );
-
+			
 			google.maps.event.addListener(searchBox, 'place_changed', function() {
+		      	if (self.marker) self.marker.setMap(null);
+		      	
 		      	var place = searchBox.getPlace(),
 		      		marker = new google.maps.Marker({
 		        		map: map,
-		        		position: place.geometry.location
+		        		position: place.geometry.location,
+		        		animation: google.maps.Animation.DROP
 		      		});
 				
 				self.$el.find('#search-box').val('');
 		      	self.$el.find('#search-panel').toggle();
-
+				self.marker = marker;
+				
 		      	Communicator.events.trigger('addressSearch', place);
 		    });
 		},

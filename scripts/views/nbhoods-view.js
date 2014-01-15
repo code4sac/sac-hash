@@ -1,4 +1,4 @@
-define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','jqueryui','isotope'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, jqueryui){
+define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','hbs!tmpl/modal-template', 'jqueryui','isotope'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, modalTemp, jqueryui){
 	'use strict';
 
 	return Backbone.Marionette.CompositeView.extend({
@@ -8,11 +8,68 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			template: nbhoodsTemplate
 		},
 		events: {
-			'click #sort-by li':'sort'
+			'click #sort-by li':'sort',
+			'click button#suggest-submit': 'submitSuggested'
 		},
 		initialize: function(){
+			var self = this;
 			rangesCollection.buildRanges();
-
+			
+			// trigger check if address search result is in neighborhood bounds
+			Communicator.events.on('addressSearch', function( place ){
+				self.addressSearch( place );
+			});
+		},
+		addressSearch: function( place ){
+			var result,
+				resultModel = '',
+				modalInfo = {
+						place: place
+				}
+				
+			this.collection.each(function(model){
+				var polygon = model.get('poly'),
+					contains = polygon.containsLatLng( place.geometry.location );
+					console.log(contains)
+				if (contains == true){
+					result = true;
+					resultModel = model;
+				}
+			});
+			
+			Communicator.events.trigger('searchSelected', resultModel);
+			
+			if (result){
+				resultModel.get('infobox').setPosition( place.geometry.location );
+			}
+			
+			if (!result){
+			
+				$('body').append( modalTemp(modalInfo) );
+					
+				$('.close-modal, #map-canvas, .nbhoods, .map-controls').on('click', function(){
+					 $('#modal').remove();
+				});
+				
+/* 				Communicator.events.trigger('clicked'); */
+			} 
+			
+						
+			
+		},
+		submitSuggested: function() {
+			var sugtag = $('#suggest-field').val();
+			$.ajax({
+			      url: 'data/suggest.php',
+			      //data: 'hashtag='+hashtag,
+			      data: 'tags='+sugtag,
+			      type: 'POST',
+			      async: false,
+			      success: function(data, stat, jqXHR) {
+			        $('#suggest-field').val('');
+			        $('#suggest-field').attr('placeholder', 'Thank you for the suggestion!');
+			      }
+			});
 		},
 		sort: function(e){
 			var target = $(e.target).closest('li').attr('class'),

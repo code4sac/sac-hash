@@ -79,6 +79,7 @@ button {
   top: 9px;
   background-color: #fff;
   padding: 11px 13px;
+  display: none;
 }
 #toggle-nav:hover {
   cursor: pointer;
@@ -364,16 +365,20 @@ button {
 
 #modal {
   position: absolute;
-  top: 110px;
+  top: 90px;
   left: calc(50% - 200px);
   width: 400px;
-  padding: 16px;
+  padding: 24px;
   background-color: white;
-  /*text-align: center;*/
+  text-align: center;
   border-radius: 5px;
 }
 #modal p span {
   font-weight: 700;
+}
+#modal h5 {
+	font-size: 1em;
+	margin: 0;
 }
 #modal .button-wrapper {
   text-align: center;
@@ -389,8 +394,8 @@ button {
 .close-modal {
   position: absolute;
   color: #ddd;
-  right: 4px;
-  top: 4px;
+  right: 6px;
+  top: 6px;
 }
 .close-modal:hover {
   cursor: pointer;
@@ -480,7 +485,7 @@ button {
   /*display: none;*/
 }
 .tweet-container {
-  height: 400px;
+  min-height: 400px;
   padding: 5px;
   border-left: 1px solid #e9e9e9;
 }
@@ -665,6 +670,7 @@ button {
   width: 24px;
   height: 24px;
   right: -30px;
+  display: none;
 }
 .nbhood h4 {
   margin: 6px 0 3px;
@@ -684,6 +690,15 @@ button {
 }
 .watched-nbhood {
   display: none;
+}
+.nbhood:not(.info-box):hover {
+	background-color: rgba(0,0,0,.016);
+	box-shadow: inset -1px 0 0 1px rgba(0,0,0,.06), inset -1px 0 0 2px rgba(0,0,0,.01), inset 2px 2px 15px rgba(0,0,0,.06);
+	border-bottom: 0;
+	text-shadow: 1px 1px 1px rgba(255,255,255,.5);
+}
+.nbhood:hover .count {
+	box-shadow: 0px 0px 4px rgba(255,255,255,.7);
 }
 
 
@@ -886,7 +901,7 @@ button {
 }
 .info-box hgroup {
   position: relative;
-  left: -10px;
+  left: -20px;
 }
 .info-box h4 {
   font-size: 22px;
@@ -1106,8 +1121,13 @@ neighborhood search autocomplete
   height: 60px;
   width: 100%;
   border: 1px solid #e9e9e9;
-  margin-top: 5px;
   padding: 3px;
+  padding-top: 10px;
+  text-align: center;
+}
+#footer img {
+	width: 170px;
+	
 }
 
 

@@ -12,7 +12,10 @@ define(['backbone', 'models/range-model', 'collections/nbhoods-collection','geos
 			nbhoodsCollection.each(function(model){
 				data.push( model.get('COUNT') )
 			});
-
+			
+			data.push('30')
+			data.push('5');
+			
 			serie = new geostats(data);
 			serie.getJenks(5);
 			ranges = serie.getRanges();

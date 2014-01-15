@@ -4,7 +4,6 @@ define(['backbone',
 		'hbs!tmpl/nbhood-template',
 		'map',
 		'hbs!tmpl/infobox-template',
-		'hbs!tmpl/modal-template',
 		'hbs!tmpl/tweet',
 		'collections/ranges-collection',
 		'collections/tweets-collection',
@@ -18,7 +17,6 @@ function(Backbone,
 		nbhoodTemplate,
 		map,
 		infoboxTemp,
-		modalTemp,
 		tweetTemp,
 		rangesCollection,
 		tweetsCollection ){
@@ -69,12 +67,9 @@ function(Backbone,
 			Communicator.events.on('searchSelected', function( model ){
 				if (self.model.cid == model.cid){
 					self.showTweets();
+				} else {
+					self.model.get('infobox').close();
 				}
-			});
-
-			// trigger check if address search result is in neighborhood bounds
-			Communicator.events.on('addressSearch', function( place ){
-				self.addressSearch( place );
 			});
 
 			Communicator.events.on('zoom', function( zoom ){
@@ -89,50 +84,6 @@ function(Backbone,
 			
 		},
 
-		addressSearch: function( place ){
-
-			var polygon = this.model.get('poly'),
-				contains = polygon.containsLatLng( place.geometry.location ),
-				self = this,
-				modalInfo = {
-					place: place
-				};
-
-				function destroyModal(){
-					$('#modal').remove();
-				}
-
-				if (contains == true){
-					// modalInfo.name = this.model.get('NAME2');
-
-					// Communicator.events.trigger('clicked', this.model.get('hashtag'));
-
-					// $('body').append( modalTemp(modalInfo) );
-					
-					// $('.close-modal').on('click', function(){
-					// 	destroyModal();
-					// 	Communicator.events.trigger('closeSearchPanel');
-					// });
-
-					// $('.show-tweets').on('click', function(){
-					// 	destroyModal();
-						
-					// 	Communicator.events.trigger('closeSearchPanel');
-					// });
-
-					// $('.watch-nbhood').on('click', function(){
-					// 	destroyModal();
-					// 	Communicator.events.trigger('closeSearchPanel');
-					// 	self.model.set('watched', true);
-					// 	self.watched();
-					// 	self.showTweets();
-					// });
-					self.showTweets();
-
-				}
-			
-		},
-
 		watched: function(){
 			if ( this.model.get('watched') == true ){
 				this.$el.addClass('watched');
@@ -140,26 +91,31 @@ function(Backbone,
 			}
 		},
 
-		showTweets: function(){
+		showTweets: function( loc ){
 			var self = this,
 				hashtag = this.model.get('hashtag'),
 				ib = this.model.get('infobox'),
 				marker = this.model.get('marker'),
 				center = this.model.get('center');
-
-			// if ($(window).scrollTop() > 0){
-			// 	$('html, body').animate({'scrollTop':0}, 100, function(){
-			// 		map.panTo( center );
-			// 	});
-			// } else {
-				
-			// }
 			
-			map.panTo( center );
-
+			
+			 if ($(window).scrollTop() > 0){
+			 	
+			 } else {
+				
+			 }
+			
+/* 			map.panTo( center ); */
+$('html, body').animate({'scrollTop':0}, 100, function(){
+			 		map.panTo( center );
+			 	});
 			Communicator.events.trigger('clicked', hashtag);
 			
 			ib.open(map, marker);
+			
+			if ( loc )
+			ib.setPosition( loc.geometry.location );
+
 		},
 
 		createPolygon: function(){
@@ -225,7 +181,7 @@ function(Backbone,
                  content: infoboxTemp(this.model.attributes)
                 ,disableAutoPan: false
                 ,maxWidth: 0
-                ,pixelOffset: new google.maps.Size(10, -45)
+                ,pixelOffset: new google.maps.Size(15, -48)
                 ,zIndex: null
                 // ,closeBoxMargin: "10px 2px 2px 10px"
                 ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
