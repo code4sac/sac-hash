@@ -7,7 +7,7 @@ $query = "
     SELECT  count(*) as tweets
         ,   CONCAT(DATE(created_at), ' ', HOUR(created_at), ':00:00') as timestamp
     FROM tweets
-    WHERE created_at BETWEEN NOW() - INTERVAL 7 DAY AND NOW()
+    WHERE created_at BETWEEN NOW() - INTERVAL 30 DAY AND NOW()
     GROUP BY CONCAT(DATE(created_at), ' ', HOUR(created_at), ':00:00')
     ORDER BY created_at 
 ";
@@ -17,7 +17,6 @@ foreach($rows as $row) {
     $data .= "['$row->timestamp', $row->tweets],";    
 }
 $data = preg_replace('/,$/', ']', $data);
-print $data;
 ?>
     <script type="text/javascript">
         google.load("visualization", "1", {packages:["corechart"]});
@@ -27,6 +26,7 @@ print $data;
                                       
         var options = {
             title: 'Tweets Gathered',
+	    curveType: 'function',
             hAxis: {textColor: '#FFF'}
         };
                                                                     
