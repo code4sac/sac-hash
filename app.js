@@ -29,6 +29,7 @@ app.set('env', NODE_ENV);
 app.set('port', PORT);
 app.use(express.logger('dev'));
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+app.use(express.static(__dirname + '/public'));
 
 /**
  * Start the server
