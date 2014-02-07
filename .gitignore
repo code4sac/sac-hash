@@ -10,3 +10,4 @@ npm-debug.log
 ./server/twitterFeed/140dev/db/error_log.txt
 cityTags_config.php
 scripts/init.js
+config.ru
