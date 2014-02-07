@@ -1,4 +1,4 @@
-<? // mysqli class
+<?php // mysqli class
 require_once('140dev/db/cityTags_config.php');
 require_once('util.php');
 class mysql {

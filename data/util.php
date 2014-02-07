@@ -1,4 +1,4 @@
-<? // Utility functions: Dumper etc.
+<?php // Utility functions: Dumper etc.
 function Dumper($m, $title = '') {
   ?>
 	<div class='dumper'>
@@ -40,6 +40,6 @@ function logger($message, $class) {
 function jsError($message) {
 ?><script type="text/javascript">
 	alert("<?=$message; ?>");
-</script><?
+</script><?php
 }
 ?>
