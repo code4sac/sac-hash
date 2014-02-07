@@ -4,6 +4,7 @@
   "description": "The Sacramento Hashtag Project",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/code4sac/sac-hash/issues"
   },
-  "homepage": "https://github.com/code4sac/sac-hash"
+  "homepage": "https://github.com/code4sac/sac-hash",
+  "dependencies": {
+    "express": "~3.4.8",
+    "dotenv": "~0.2.3"
+  }
 }
