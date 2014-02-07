@@ -1,0 +1,25 @@
+{
+  "name": "sac-hash",
+  "version": "0.0.1",
+  "description": "The Sacramento Hashtag Project",
+  "main": "app.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/code4sac/sac-hash.git"
+  },
+  "keywords": [
+    "sac",
+    "sacramento",
+    "hashtag",
+    "twitter",
+    "code4sac"
+  ],
+  "author": "code4sac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/code4sac/sac-hash/issues"
+  },
+  "homepage": "https://github.com/code4sac/sac-hash"
+}
