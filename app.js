@@ -26,8 +26,15 @@ var pool = mysql.createPool({
       host     : process.env.MYSQL_HOST,
       user     : process.env.MYSQL_USER,
       password : process.env.MYSQL_PASSWORD,
-      database : process.env.MYSQL_DATABASE
+      database : process.env.MYSQL_DATABASE,
+      multipleStatements : true
     });
+
+/**
+ * Start collecting tweets from the Stream
+ */
+
+require('./lib/tweets')(pool);
 
 /**
  * Create Express server
