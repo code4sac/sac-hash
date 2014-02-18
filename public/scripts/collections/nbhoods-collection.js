@@ -3,9 +3,9 @@ define(['backbone','communicator','models/nbhood-model'], function( Backbone, Co
 
   var nbhoodCollection = Backbone.Collection.extend({
     model: nbhoodModel,
-    url: 'data/alldata.php',
+    url: 'api/tags.json',
     comparator: function(model) {
-        return -model.get('COUNT');
+        return -model.get('count');
     }
   });
 

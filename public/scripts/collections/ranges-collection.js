@@ -10,7 +10,7 @@ define(['backbone', 'models/range-model', 'collections/nbhoods-collection','geos
 				ranges;
 
 			nbhoodsCollection.each(function(model){
-				data.push( model.get('COUNT') )
+				data.push( model.get('count') )
 			});
 			
 			data.push('30')
@@ -28,7 +28,7 @@ define(['backbone', 'models/range-model', 'collections/nbhoods-collection','geos
 
 
 			nbhoodsCollection.each(function(model){
-				var inRange = serie.getRangeNum( model.get('COUNT') );
+				var inRange = serie.getRangeNum( model.get('count') );
 				model.set({'range': inRange, 'color': self.models[inRange].get('color')});
 			});
 		}

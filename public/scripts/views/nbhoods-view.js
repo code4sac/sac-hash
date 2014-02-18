@@ -204,8 +204,8 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 
 			for (var i = 0; i < collection.length; i++){
 				var model = collection[i].attributes,
-					count = model.COUNT,
-					name = model.NAME2,
+					count = model.count,
+					name = model.name,
 					hashtag = model.hashtag;
 
 				autocomplete.push({
@@ -255,8 +255,8 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 			// populate array of all count values
 			for (var i = 0; i < collection.length; i++){
 				var model = collection[i].attributes,
-					count = parseInt(model.COUNT),
-					name = model.NAME2,
+					count = parseInt(model.count),
+					name = model.name,
 					hashtag = model.hashtag;
 
 				searchAutocomplete.push({

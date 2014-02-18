@@ -36,8 +36,8 @@ function(Backbone,
 
 		attributes: function(){
 			return {
-				'data-count': parseFloat(this.model.get('COUNT')),
-				'data-name': this.model.get('NAME2'),
+				'data-count': parseFloat(this.model.get('count')),
+				'data-name': this.model.get('name'),
 				'data-range': this.model.get('range')
 			}
 		},
@@ -129,8 +129,8 @@ $('html, body').animate({'scrollTop':0}, 100, function(){
 				contentString,
 				poly,
 				center;
-				
-				paths = paths.geometry.coordinates[0];
+
+				paths = paths.coordinates[0];
 
 			for (var i = 0; i < paths.length; i++){
 				var coords = paths[i],
@@ -162,9 +162,9 @@ $('html, body').animate({'scrollTop':0}, 100, function(){
 
 			var poly = this.model.get('poly'),
 				center = this.model.get('center'),
-				nbhood = this.model.get('NAME2'),
+				nbhood = this.model.get('name'),
 				hashtag = this.model.get('hashtag'),
-				count = this.model.get('COUNT'),
+				count = this.model.get('count'),
 				self = this,
 				marker,
 				boxText,
