@@ -2,7 +2,7 @@
 -- mysql_database_schema.sql
 -- Schema for the 140dev Twitter framework MySQL database server
 --
-CREATE TABLE `hashtag_suggestions` (
+CREATE TABLE IF NOT EXISTS `hashtag_suggestions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hashtag` varchar(255) DEFAULT NULL COMMENT 'The hashtag suggested',
   `contact_handle` varchar(255) DEFAULT NULL,
