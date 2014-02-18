@@ -46,7 +46,8 @@ var app = express();
  * Load controllers
  */
 
-var tagsController = require('./controllers/api/tags_controller');
+var tagsController = require('./controllers/api/tags_controller'),
+    tweetsController = require('./controllers/api/tweets_controller');
 
 /**
  * Express configuration
@@ -72,7 +73,9 @@ app.all('/api/*', function(req, res, next) {
   req.mysqlPool = pool;
   next();
 });
+
 app.get('/api/tags(.:format)', tagsController.index);
+app.get('/api/tweets(.:format)', tweetsController.index);
 
 /**
  * Start the server

@@ -20,16 +20,17 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
     },
     
     initialLoad: function(){
-    	var self = this;
-    	
-    	this.url = 'data/tweets_by_tag.php?hashtag=downtownsac';
+      var self = this;
+
+      this.url = 'api/tweets.json?tag=downtownsac';
 		this.hashtag = 'downtownsac';
-		
+
 		this.fetch({
 			success: function(){
-				self.tid = self.models[0].get('tweet_id');
-                console.log(self.tid)
-                self.autoLoader('start');
+        if(self.models.length > 0) {
+				  self.tid = self.models[0].get('tweet_id');
+        }
+        self.autoLoader('start');
 			}
 		});
     },
@@ -39,13 +40,15 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
             
         window.setTimeout(function(){
             self.hashtag = hashtag;
-            self.url = 'data/tweets_by_tag.php?hashtag='+hashtag;
+            self.url = 'api/tweets.json?tag='+hashtag;
             self.reset().fetch({
                 success: function() {
                 	self.sort();
-                	self.tid = self.models[0].get('tweet_id');
+                  if(self.models.length > 0) {
+                  	self.tid = self.models[0].get('tweet_id');
+                  }
                 	console.log(self.tid)
-                  	self.autoLoader('start'); 	
+                  	self.autoLoader('start');
                 }
             });
         }, 400);
@@ -72,19 +75,20 @@ otid = self.models[ self.models.length - 1 ].get('tweet_id');
  		});
  		console.log('tid', tid, 'otid', otid);
 */
-           
+
         function findNewTweets(){
-			
-            self.url = 'data/tweets_by_tag.php?hashtag=' + self.hashtag + '&ntid=' + self.tid;
-            
+
+            self.url = 'api/tweets.json?tag=' + self.hashtag + '&ntid=' + (self.tid||0);
+
             $.ajax({
                 url: self.url,
                 success: function(data){
-                	if (data.length == 0) return;
-                	var dataSorted = _.sortBy(data, function(tweet){ 
-                		return -tweet.tweet_id; 
+                	var dataSorted = _.sortBy(data, function(tweet){
+                		return -tweet.tweet_id;
                 	});
-                	self.tid = dataSorted[0].tweet_id;
+                  if(data.length > 0) {
+                  	self.tid = dataSorted[0].tweet_id;
+                  }
                     Communicator.events.trigger('autoLoad', dataSorted);
                 }
             });

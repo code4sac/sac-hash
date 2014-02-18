@@ -36,18 +36,7 @@ define(['backbone'], function( Backbone ){
 			this.set('tweet_text', tweet.parseURL().parseHashtag().parseUsername());
 		},
 		dateFormat: function( time ) {
-        	
-        	var rda = time.split(' '),
-	       		date_array = rda[0].split('-'),
-	       		time_array = rda[1].split(':'),
-	       		date = new Date(
-		           date_array[0],
-		           date_array[1] -1,
-		           date_array[2],
-		           time_array[0],
-		           time_array[1],
-		           time_array[2]
-	        	),
+        	var date = new Date(Date.parse(time)),
 		    	seconds = Math.floor((new Date() - date) / 1000),
 		    	interval = Math.floor(seconds / 31536000);
 
