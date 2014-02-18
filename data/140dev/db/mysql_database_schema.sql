@@ -85,3 +85,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `screen_name` (`screen_name`),
   FULLTEXT KEY `description` (`description`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- Convert from UTF8 to UTF8MB4 to support Emoji
+-- See also: http://mathiasbynens.be/notes/mysql-utf8mb4
+ALTER DATABASE `sactags` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+ALTER TABLE `tweets` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE `tweets` CHANGE `tweet_text` `tweet_text` VARCHAR(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+REPAIR TABLE `tweets`;
+OPTIMIZE TABLE `tweets`;
