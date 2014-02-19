@@ -4,6 +4,7 @@ temp
 dist
 .sass-cache
 app/components
+public/components
 .tmp/
 npm-debug.log
 ./server/twitterFeed/140dev/db/pt.log

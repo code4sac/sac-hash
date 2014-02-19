@@ -1,7 +1,7 @@
 define([
 	'backbone',
 	'communicator',
-	'tweetparse',
+	'twitter-entities',
 	'map',
 	'views/nbhoods-view',
 	'collections/nbhoods-collection',
@@ -12,7 +12,7 @@ define([
 	'views/tweets-view',
 	'hbs!tmpl/tweet',
 	'interface'
-], function( 
+], function(
 	Backbone,
 	Communicator,
 	tweetParse,
@@ -52,12 +52,12 @@ define([
 			App.mapControls.show( new mapControlsView() );
 			App.tweets.show( new tweetsView({ collection: tweetsCollection }) );
 		});
-		
+
 		tweetsCollection.initialLoad();
-		
+
 		nbhoodsCollection.off('sync');
     });
-    
+
 
 	return App;
 });

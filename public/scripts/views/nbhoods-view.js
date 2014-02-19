@@ -1,4 +1,4 @@
-define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','hbs!tmpl/modal-template', 'jqueryui','isotope'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, modalTemp, jqueryui){
+define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template','collections/ranges-collection','views/ranges-view','hbs!tmpl/modal-template', 'jqueryui/autocomplete','isotope'], function(Backbone, Communicator, nbhoodsView, nbhoodsTemplate, rangesCollection, rangesView, modalTemp){
 	'use strict';
 
 	return Backbone.Marionette.CompositeView.extend({
