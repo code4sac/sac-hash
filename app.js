@@ -56,6 +56,7 @@ var tagsController = require('./controllers/api/tags_controller'),
 var admin = {};
 
 admin.suggestionsController = require('./controllers/api/admin/suggestions_controller');
+admin.metricsController = require('./controllers/api/admin/metrics_controller');
 
 /**
  * Express configuration
@@ -99,6 +100,7 @@ app.all('/admin/*', protect);
 app.all('/api/admin/*', protect);
 
 app.get('/api/admin/suggestions(.:format)', admin.suggestionsController.index);
+app.get('/api/admin/metrics(.:format)', admin.metricsController.index);
 
 /**
  * Start the server
