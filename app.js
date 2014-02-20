@@ -31,16 +31,30 @@ var pool = mysql.createPool({
     });
 
 /**
- * Start collecting tweets from the Stream
- */
-
-require('./lib/tweets')(pool);
-
-/**
  * Create Express server
  */
 
 var app = express();
+
+/**
+ * Express configuration
+ */
+
+app.set('env', NODE_ENV);
+app.set('port', PORT);
+app.set('json spaces',0);
+app.set('pool', pool);
+app.set('geoPath', __dirname+'/geo');
+app.use(express.logger('dev'));
+app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+app.use(app.router);
+app.use(express.static(__dirname + '/public'));
+
+/**
+ * Start collecting tweets from the Stream
+ */
+
+require('./lib/tweets')(app);
 
 /**
  * Load public controllers
@@ -57,18 +71,6 @@ var admin = {};
 
 admin.suggestionsController = require('./controllers/api/admin/suggestions_controller');
 admin.metricsController = require('./controllers/api/admin/metrics_controller');
-
-/**
- * Express configuration
- */
-
-app.set('env', NODE_ENV);
-app.set('port', PORT);
-app.set('json spaces',0);
-app.use(express.logger('dev'));
-app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-app.use(app.router);
-app.use(express.static(__dirname + '/public'));
 
 /**
  * Admin authentication configuration
