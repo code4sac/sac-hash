@@ -6,14 +6,15 @@
 
 var util = require('util'),
     when = require('when'),
-    extend = require('node.extend');
+    nodefn = require('when/node/function'),
+    extend = require('node.extend'),
+    mysql = require('mysql');
 
 /**
  * Query constants
  */
 
-var TAG_QUERY = util.format('select hashtag, NAME2 as name, geometry from %s where hashtag NOT EQUAL TO \'\'', process.env.FUSION_TABLE);
-var COUNT_QUERY = 'select count(tag) as count from tweet_tags where tag = \'%s\'';
+var COUNT_QUERY = 'select count(tag) as count from tweet_tags where tag in (?)';
 
 /**
  * ETL functions
@@ -34,42 +35,33 @@ function normalizeRows(data, row) {
   }, {});
 }
 
-function queryTags(googleApi, client) {
-  var deferred = when.defer();
-
-  googleApi.query(TAG_QUERY, client)
-    .then(function(data) {
-      // Convert array of tags to a more useful obj-literal
-      deferred.resolve(data.rows.map(normalizeRows.bind(null, data)));
-    }, deferred.reject);
-
-  return deferred.promise;
+function geoMergedWithTweetCounts(pool, geoProps) {
+  return nodefn.call(pool.getConnection.bind(pool))
+    .then(mapPropsToTweetCounts.bind(null, geoProps));
 }
 
-function joinWithTweetCounts(pool, tags) {
-  var deferred = when.defer(),
-      tagCount = tags.length;
-
-  pool.getConnection(function(err, conn) {
-    if(err) {
-      return deferred.reject(err);
-    }
-    tags.forEach(function(tag, i) {
-      conn.query(util.format(COUNT_QUERY, tag.hashtag), function(err, rows) {
-        if(err) {
-          return deferred.reject(err);
-        }
-        tag.count = rows[0].count;
-        if(tagCount === i+1) {
-          conn.release();
-          return deferred.resolve(tags);
-        }
-      });
-    });
-  });
-
-  return deferred.promise;
+function mapPropsToTweetCounts(geoProps, conn) {
+  return when.map(geoProps, countKeywordedTweets.bind(null, conn))
+          .finally(conn.release.bind(conn));
 }
+
+function countKeywordedTweets(conn, prop) {
+  var sql = mysql.format(COUNT_QUERY, [prop.keywords]);
+
+  return nodefn.call(conn.query.bind(conn), sql)
+          .then(addCounts.bind(null, prop))
+}
+
+function addCounts(prop, results) {
+  var rows = results[0],
+      count = rows[0].count;
+
+  return extend(prop, {count:count});
+}
+
+/**
+ * Rendering methods
+ */
 
 function renderTags(res, data) {
   res.json(data);
@@ -84,11 +76,9 @@ function allErrors(res, err) {
  */
 
 function index(req, res) {
-  var gapi = req.googleApi;
+  var geoProps = req.app.get('geoProps');
 
-  when(gapi.connected())
-    .then(queryTags.bind(null, gapi))
-    .then(joinWithTweetCounts.bind(null, req.mysqlPool))
+  when(geoMergedWithTweetCounts(req.mysqlPool, geoProps))
     .tap(renderTags.bind(null, res))
     .catch(allErrors.bind(null, res));
 }

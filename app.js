@@ -17,6 +17,7 @@ var express = require('express'),
     when = require('when'),
     mysql = require('mysql'),
     googleApi = require('./lib/google_api');
+    geoProps = require('./lib/geo_properties');
 
 /**
  * MySQL pool configuration
@@ -37,6 +38,12 @@ var pool = mysql.createPool({
 var app = express();
 
 /**
+ * Build list of keywords to track
+ */
+
+var gprops = geoProps(__dirname+'/geo'),
+    keywords = gprops.keywords();
+/**
  * Express configuration
  */
 
@@ -44,7 +51,8 @@ app.set('env', NODE_ENV);
 app.set('port', PORT);
 app.set('json spaces',0);
 app.set('pool', pool);
-app.set('geoPath', __dirname+'/geo');
+app.set('geoProps', gprops);
+app.set('keywords', keywords);
 app.use(express.logger('dev'));
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 app.use(app.router);
@@ -83,7 +91,7 @@ var protect = express.basicAuth(process.env.ADMIN_USERNAME,process.env.ADMIN_PAS
  */
 
 app.all('/api/*', function(req, res, next) {
-  if(!(/\.json/.test(req.params[0]) || req.is('json'))) {
+  if(!(/\.(?:geo)*json/.test(req.params[0]) || req.is('json'))) {
     return res.send(406);
   }
   req.googleApi = googleApi;
@@ -94,6 +102,7 @@ app.all('/api/*', function(req, res, next) {
 
 app.get('/api/tags(.:format)', tagsController.index);
 app.get('/api/tweets(.:format)', tweetsController.index);
+app.use('/api/geojsons', express.static(__dirname + '/geo'));
 
 /**
  * Admin API Reoutes

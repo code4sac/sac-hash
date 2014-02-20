@@ -93,3 +93,10 @@ ALTER TABLE `tweets` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
 ALTER TABLE `tweets` CHANGE `tweet_text` `tweet_text` VARCHAR(160) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 REPAIR TABLE `tweets`;
 OPTIMIZE TABLE `tweets`;
+
+-- Migrate un-prefixed tag values to prefixed
+-- Migrate all tag values to lowercase
+update tweet_tags set tag = '#westsac'     where tag in ('WestSac', 'westsac');
+update tweet_tags set tag = '#midtownsac'  where tag in ('MidtownSac', 'midtownsac');
+update tweet_tags set tag = '#downtownsac' where tag in ('DowntownSac', 'downtownsac');
+update tweet_tags set tag = '#eastsac'     where tag in ('EastSac', 'eastsac');
