@@ -50,6 +50,14 @@ var tagsController = require('./controllers/api/tags_controller'),
     tweetsController = require('./controllers/api/tweets_controller');
 
 /**
+ * Load admin controllers
+ */
+
+var admin = {};
+
+admin.suggestionsController = require('./controllers/api/admin/suggestions_controller');
+
+/**
  * Express configuration
  */
 
@@ -89,6 +97,8 @@ app.get('/api/tweets(.:format)', tweetsController.index);
 
 app.all('/admin/*', protect);
 app.all('/api/admin/*', protect);
+
+app.get('/api/admin/suggestions(.:format)', admin.suggestionsController.index);
 
 /**
  * Start the server
