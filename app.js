@@ -86,6 +86,7 @@ app.all('/api/*', function(req, res, next) {
   }
   req.googleApi = googleApi;
   req.mysqlPool = pool;
+  res.type('json');
   next();
 });
 
