@@ -43,7 +43,7 @@ require('./lib/tweets')(pool);
 var app = express();
 
 /**
- * Load controllers
+ * Load public controllers
  */
 
 var tagsController = require('./controllers/api/tags_controller'),
@@ -62,7 +62,13 @@ app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
 /**
- * API Routes
+ * Admin authentication configuration
+ */
+
+var protect = express.basicAuth(process.env.ADMIN_USERNAME,process.env.ADMIN_PASSWORD);
+
+/**
+ * Public API Routes
  */
 
 app.all('/api/*', function(req, res, next) {
@@ -76,6 +82,13 @@ app.all('/api/*', function(req, res, next) {
 
 app.get('/api/tags(.:format)', tagsController.index);
 app.get('/api/tweets(.:format)', tweetsController.index);
+
+/**
+ * Admin API Reoutes
+ */
+
+app.all('/admin/*', protect);
+app.all('/api/admin/*', protect);
 
 /**
  * Start the server
