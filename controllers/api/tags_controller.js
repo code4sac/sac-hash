@@ -51,6 +51,9 @@ function joinWithTweetCounts(pool, tags) {
       tagCount = tags.length;
 
   pool.getConnection(function(err, conn) {
+    if(err) {
+      return deferred.reject(err);
+    }
     tags.forEach(function(tag, i) {
       conn.query(util.format(COUNT_QUERY, tag.hashtag), function(err, rows) {
         if(err) {
