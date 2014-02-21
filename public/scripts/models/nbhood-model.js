@@ -1,19 +1,19 @@
 define(['backbone','store'], function( Backbone, store ){
-	'use strict';
+  'use strict';
 
-	return Backbone.Model.extend({
-		initialize: function(){
-			var watchedItems = store.get('watched');
-			
-			this.on('change:watched', function(){
-				if ( watchedItems.indexOf(this.cid) < 0 ){
-					watchedItems.push(this.cid)
-				} else {
-					watchedItems = [ this.cid ];
-				}
+  return Backbone.Model.extend({
+    initialize: function(){
+      var watchedItems = store.get('watched');
 
-				store.set('watched', watchedItems)
-			});
-		}
-	});
+      this.on('change:watched', function(){
+        if ( watchedItems.indexOf(this.cid) < 0 ){
+          watchedItems.push(this.cid)
+        } else {
+          watchedItems = [ this.cid ];
+        }
+
+        store.set('watched', watchedItems)
+      });
+    }
+  });
 });

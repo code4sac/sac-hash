@@ -1,9 +1,9 @@
 define(['backbone'], function( Backbone ){
-	'use strict';
+  'use strict';
 
-	return Backbone.Model.extend({
-		initialize: function(){
-			
-		}
-	});
+  return Backbone.Model.extend({
+    initialize: function(){
+
+    }
+  });
 });

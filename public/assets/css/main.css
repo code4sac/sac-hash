@@ -377,8 +377,8 @@ button {
   font-weight: 700;
 }
 #modal h5 {
-	font-size: 1em;
-	margin: 0;
+  font-size: 1em;
+  margin: 0;
 }
 #modal .button-wrapper {
   text-align: center;
@@ -555,7 +555,7 @@ button {
   font-weight: 700;
   font-size: 15px;
   color: #333;
-  
+
   text-decoration: none;
 }
 .tweet .user a:hover {
@@ -567,15 +567,15 @@ button {
   color: #aaa;
 }
 .tweet .user span {
-	display: block;
+  display: block;
 }
 .tweet .time {
   float: right;
   margin-top: -3px;
 }
 .tweet .time .new {
-	text-transform: uppercase;
-	font-size: 11px;
+  text-transform: uppercase;
+  font-size: 11px;
 }
 .tweet .text {
   margin-left: 60px;
@@ -692,13 +692,13 @@ button {
   display: none;
 }
 .nbhood:not(.info-box):hover {
-	background-color: rgba(0,0,0,.016);
-	box-shadow: inset -1px 0 0 1px rgba(0,0,0,.06), inset -1px 0 0 2px rgba(0,0,0,.01), inset 2px 2px 15px rgba(0,0,0,.06);
-	border-bottom: 0;
-	text-shadow: 1px 1px 1px rgba(255,255,255,.5);
+  background-color: rgba(0,0,0,.016);
+  box-shadow: inset -1px 0 0 1px rgba(0,0,0,.06), inset -1px 0 0 2px rgba(0,0,0,.01), inset 2px 2px 15px rgba(0,0,0,.06);
+  border-bottom: 0;
+  text-shadow: 1px 1px 1px rgba(255,255,255,.5);
 }
 .nbhood:hover .count {
-	box-shadow: 0px 0px 4px rgba(255,255,255,.7);
+  box-shadow: 0px 0px 4px rgba(255,255,255,.7);
 }
 
 
@@ -829,7 +829,7 @@ button {
 }
 .nbhood[data-range="4"] .count {
   background-color: #1B5D83;
- 
+
 }
 
 
@@ -965,7 +965,7 @@ neighborhood display sorting
   border-right: 1px solid rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
- 
+
 }
 #sort-by, .tweet-header {
   border-top: 1px solid rgba(255,255,255,.85);
@@ -1126,8 +1126,5 @@ neighborhood search autocomplete
   text-align: center;
 }
 #footer img {
-	width: 170px;
-	
+  width: 170px;
 }
-
-

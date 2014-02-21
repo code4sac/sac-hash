@@ -1,46 +1,45 @@
-define(['backbone', 'models/range-model', 'collections/nbhoods-collection','geostats'], function( Backbone, rangeModel, nbhoodsCollection ){
-	'use strict';
+define(['backbone', 'models/range-model', 'collections/nbhoods-collection','geostats'], function( Backbone, rangeModel, nbhoodsCollection ) {
+  'use strict';
 
-	var rangesCollection = Backbone.Collection.extend({
-		model: rangeModel,
-		buildRanges: function(){
-			var self = this,
-				data = [],
-				serie,
-				ranges;
+  var rangesCollection = Backbone.Collection.extend({
+    model: rangeModel,
+    buildRanges: function(){
+      var self = this,
+        data = [],
+        serie,
+        ranges;
 
-			nbhoodsCollection.each(function(model){
-				data.push( model.get('count') )
-			});
-			
-			data.push('30')
-			data.push('5');
-			
-			serie = new geostats(data);
-			serie.getJenks(5);
-			ranges = serie.getRanges();
+      nbhoodsCollection.each(function(model){
+        data.push( model.get('count') )
+      });
 
-			for (var i = 0; i < this.models.length; i++){
-				var model = this.models[i];
-				
-				model.set('range', ranges[i]); 
-			}
+      data.push('30')
+      data.push('5');
 
+      serie = new geostats(data);
+      serie.getJenks(5);
+      ranges = serie.getRanges();
 
-			nbhoodsCollection.each(function(model){
-				var inRange = serie.getRangeNum( model.get('count') );
-				model.set({'range': inRange, 'color': self.models[inRange].get('color')});
-			});
-		}
-	});
+      for (var i = 0; i < this.models.length; i++){
+        var model = this.models[i];
 
-	var Ranges = new rangesCollection([
-		new rangeModel({ color: 'rgb(207,240,158)' }),
-		new rangeModel({ color: 'rgb(168,219,168)' }),
-		new rangeModel({ color: 'rgb(121,189,154)' }),
-		new rangeModel({ color: 'rgb(59,134,134)' }),
-		new rangeModel({ color: '#1B5D83' })
-	]);
+        model.set('range', ranges[i]);
+      }
 
-	return Ranges;
-})
+      nbhoodsCollection.each(function(model){
+        var inRange = serie.getRangeNum( model.get('count') );
+        model.set({'range': inRange, 'color': self.models[inRange].get('color')});
+      });
+    }
+  });
+
+  var Ranges = new rangesCollection([
+    new rangeModel({ color: 'rgb(207,240,158)' }),
+    new rangeModel({ color: 'rgb(168,219,168)' }),
+    new rangeModel({ color: 'rgb(121,189,154)' }),
+    new rangeModel({ color: 'rgb(59,134,134)' }),
+    new rangeModel({ color: '#1B5D83' })
+  ]);
+
+  return Ranges;
+});

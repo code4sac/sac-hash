@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `friends_count` int(10) unsigned DEFAULT NULL,
   `statuses_count` int(10) unsigned DEFAULT NULL,
   `time_zone` varchar(40) DEFAULT NULL,
-  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP 
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
      ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   KEY `user_name` (`name`),
