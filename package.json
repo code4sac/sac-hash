@@ -27,7 +27,6 @@
     "express": "~3.4.8",
     "dotenv": "~0.2.3",
     "mysql": "~2.0.1",
-    "googleapis": "~0.6.1",
     "when": "~2.8.0",
     "node.extend": "~1.0.9",
     "twitter": "~0.2.5",

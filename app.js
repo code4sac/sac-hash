@@ -16,7 +16,6 @@ var NODE_ENV = process.env.NODE_ENV || 'development',
 var express = require('express'),
     when = require('when'),
     mysql = require('mysql'),
-    googleApi = require('./lib/google_api');
     geoProps = require('./lib/geo_properties');
 
 /**
@@ -94,7 +93,6 @@ app.all('/api/*', function(req, res, next) {
   if(!(/\.(?:geo)*json/.test(req.params[0]) || req.is('json'))) {
     return res.send(406);
   }
-  req.googleApi = googleApi;
   req.mysqlPool = pool;
   res.type('json');
   next();
