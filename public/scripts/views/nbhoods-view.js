@@ -30,7 +30,7 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
       this.collection.each(function(model){
         var polygon = model.get('poly'),
             contains = polygon.containsLatLng( place.geometry.location );
-        console.log(contains);
+
         if (contains == true){
           result = true;
           resultModel = model;
@@ -264,8 +264,6 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
 
       allCountValues.sort(function(a,b){ return a-b });
       mean = mean / allCountValues.length;
-
-      console.log(mean, allCountValues);
     },
     sortWatched: function(){
       this.$el.find('.watched').insertAfter( this.$el.find('#sort-by') );

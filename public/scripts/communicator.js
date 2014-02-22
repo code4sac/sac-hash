@@ -3,8 +3,6 @@ define(['backbone', 'backbone.marionette'], function( Backbone ) {
 
   var Communicator = Backbone.Marionette.Controller.extend({
     initialize: function( options ) {
-      console.log("initialize a Communicator");
-
       // create a pub sub
       this.events = new Backbone.Wreqr.EventAggregator();
 

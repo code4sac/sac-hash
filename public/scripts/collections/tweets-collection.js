@@ -55,7 +55,6 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
               if(self.models.length > 0) {
                 self.tid = self.models[0].get('tweet_id');
               }
-              console.log(self.tid);
               self.autoLoader('start');
             }
           });
