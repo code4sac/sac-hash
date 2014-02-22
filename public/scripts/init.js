@@ -30,7 +30,7 @@ require.config({
   },
 
   paths: {
-    jquery: '../components/jquery/jquery',
+    jquery: '../components/jquery/dist/jquery.min',
     'jqueryui/core': '../components/jquery-ui/ui/minified/jquery.ui.core.min',
     'jqueryui/widget': '../components/jquery-ui/ui/minified/jquery.ui.widget.min',
     'jqueryui/position': '../components/jquery-ui/ui/minified/jquery.ui.position.min',

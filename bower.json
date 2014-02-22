@@ -24,7 +24,7 @@
     "geolocation": "gwilson/getAccurateCurrentPosition#638e06d17ac9055ec9746870db2fc6cd52d85f19",
     "geostats": "simogeo/geostats#bd1d14419ebe8c438ce13b302fbd8f71193cf634",
     "isotope": "1.5.25",
-    "jquery": "1.9.1",
+    "jquery": "2.1.0",
     "jquery-ui": "1.10.3",
     "modernizr": "2.6.2",
     "requirejs": "2.1.8",
