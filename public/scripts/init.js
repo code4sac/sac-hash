@@ -23,6 +23,9 @@ require.config({
 
     isotope: {
       deps: ['jquery']
+    },
+    geojson: {
+      exports: 'GeoJSON'
     }
   },
 
@@ -46,6 +49,7 @@ require.config({
     geolocation: '../components/geolocation/geo',
     isotope: '../components/isotope/jquery.isotope',
     geostats: '../components/geostats/lib/geostats.min',
+    geojson: '../components/geojson-google-maps/GeoJSON',
 
     /* Alias text.js for template loading and shortcut the templates dir to tmpl */
     text: '../components/requirejs-text/text',

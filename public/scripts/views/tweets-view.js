@@ -21,9 +21,9 @@ define(['backbone','communicator','models/tweet-model','views/tweet-view','hbs!t
     initialize: function(){
       var self = this;
 
-      Communicator.events.on('clicked', function( hashtag ){
+      Communicator.events.on('clicked', function( keywords ){
         self.ui.currentHashtag.animate({'margin-top':'-40px'}, 150, function(){
-          self.ui.currentHashtag.css('margin-top','40px').animate({'margin-top':'0'}, 150).text('#' + hashtag);
+          self.ui.currentHashtag.css('margin-top','40px').animate({'margin-top':'0'}, 150).text(keywords.join(', '));
         });
 
         if (self.ui.container.hasClass('isotope'))

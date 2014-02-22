@@ -1,5 +1,12 @@
-define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 'hbs!tmpl/infobox-template', 'hbs!tmpl/tweet', 'collections/ranges-collection', 'collections/tweets-collection', 'isotope', 'infobox', 'polygonContains'], function(Backbone, Communicator, store, nbhoodTemplate, map, infoboxTemp, tweetTemp, rangesCollection, tweetsCollection ){
+define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 'geojson', 'hbs!tmpl/infobox-template', 'hbs!tmpl/tweet', 'collections/ranges-collection', 'collections/tweets-collection', 'isotope', 'infobox', 'polygonContains'], function(Backbone, Communicator, store, nbhoodTemplate, map, GeoJSON, infoboxTemp, tweetTemp, rangesCollection, tweetsCollection ){
   'use strict';
+
+  var PolygonOptions = {
+    strokeColor: '#000000',
+    strokeOpacity: 0.2,
+    strokeWeight: 1,
+    fillOpacity: 0.8
+  }
 
   return Backbone.Marionette.ItemView.extend({
     className: 'nbhood',
@@ -33,8 +40,12 @@ define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 
     onRender: function(){
       var self = this;
 
-      this.createPolygon();
-      this.infoBox();
+      $.ajax({
+        url : '/api/geojsons/' + this.model.get('id') + '.geojson'
+      })
+      .done(this.createPolygon.bind(this))
+      .done(this.infoBox.bind(this));
+
       // this.watched();
 
       // close open infobox when another is clicked
@@ -71,7 +82,7 @@ define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 
 
     showTweets: function( loc ){
       var self = this,
-          hashtag = this.model.get('hashtag'),
+          keywords = this.model.get('keywords'),
           ib = this.model.get('infobox'),
           marker = this.model.get('marker'),
           center = this.model.get('center');
@@ -86,60 +97,41 @@ define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 
       $('html, body').animate({'scrollTop':0}, 100, function(){
         map.panTo( center );
       });
-      Communicator.events.trigger('clicked', hashtag);
+      Communicator.events.trigger('clicked', keywords);
 
       ib.open(map, marker);
 
-      if ( loc )
-      ib.setPosition( loc.geometry.location );
+      if(loc && loc.geometry) {
+        ib.setPosition( loc.geometry.location );
+      }
     },
 
-    createPolygon: function(){
-      var paths = this.model.get('geometry'),
-          bounds = new google.maps.LatLngBounds(),
-          range = this.model.get('range'),
-          color = this.model.get('color'),
-          coordinates = [],
-          infoWindow,
-          infoPosition,
-          contentString,
-          poly,
-          center;
+    createPolygon: function(geojson){
+      var options = {
+            fillColor:this.model.get('color')
+          },
+          features = new GeoJSON(geojson, $.extend(options, PolygonOptions));
 
-      paths = paths.coordinates[0];
-
-      for (var i = 0; i < paths.length; i++){
-        var coords = paths[i],
-            latLng = new google.maps.LatLng(coords[1],coords[0]);
-
-        coordinates.push( latLng )
-        bounds.extend( latLng )
+      if(features.error) {
+        return console.error(features.error);
       }
 
-      center = this.GetCentroid(coordinates);
-      infoPosition = new google.maps.LatLng(center.lb, center.mb);
+      var center;
+      features.forEach(function(feature) {
+        feature.setMap(map);
+        if(feature.geojsonProperties) {
+          this.model.set('outline', feature);
+          center = this.GetCentroid(feature.getPath());
+        }
+      }.bind(this));
 
-      poly = new google.maps.Polygon({
-        paths: coordinates,
-        strokeColor: '#000000',
-        strokeOpacity: 0.2,
-        strokeWeight: 1,
-        fillColor: color,
-        fillOpacity: 0.8
-      });
-
-      poly.setMap(map)
-
+      this.model.set('features', features);
       this.model.set('center', center);
-      this.model.set('poly', poly);
     },
 
-    infoBox: function(){
-      var poly = this.model.get('poly'),
+    infoBox: function() {
+      var outline = this.model.get('outline'),
           center = this.model.get('center'),
-          nbhood = this.model.get('name'),
-          hashtag = this.model.get('hashtag'),
-          count = this.model.get('count'),
           self = this,
           marker,
           boxText,
@@ -168,7 +160,7 @@ define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 
 
       ib = new InfoBox(boxOptions);
 
-      google.maps.event.addListener(poly, 'click', function() {
+      google.maps.event.addListener(outline, 'click', function() {
       var zoom = map.getZoom() * 4;
       ib.setOptions({ pixelOffset: new google.maps.Size(10, zoom * -1) });
         self.showTweets();
@@ -187,8 +179,8 @@ define(['backbone', 'communicator', 'store', 'hbs!tmpl/nbhood-template', 'map', 
           area = 0;
 
       for (var i = 0; i < nPts; j=i++) {
-        var pt1 = paths[i],
-            pt2 = paths[j];
+        var pt1 = paths.getAt(i),
+            pt2 = paths.getAt(j);
         f = pt1.lat() * pt2.lng() - pt2.lat() * pt1.lng();
         x += (pt1.lat() + pt2.lat()) * f;
         y += (pt1.lng() + pt2.lng()) * f;

@@ -25,7 +25,7 @@ var TWEETS_QUERY_CONSTRAINTS = 'order by tweets.tweet_id DESC limit 100';
 
 function buildQuery(params) {
   var query = [TWEETS_QUERY_PREFIX,TWEETS_QUERY_FILTER],
-      inserts = [{tag:params.tag}];
+      inserts = [{tag:params.keywords}];
 
   if(params.ntd) {
     query.push(TWEETS_QUERY_NEWEST);

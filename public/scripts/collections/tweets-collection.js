@@ -1,6 +1,12 @@
 define(['backbone','communicator','models/tweet-model'], function( Backbone, Communicator, tweetModel) {
   'use strict';
 
+  function keywordQuery(keywords) {
+    return (keywords||[]).map(function(keyword) {
+      return 'keywords[]=' + encodeURIComponent(keyword);
+    }).join('&');
+  }
+
   var tweetCollection = Backbone.Collection.extend({
     model: tweetModel,
 
@@ -13,17 +19,17 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
 
       /* Fetch tweets when tag / map nbhood is clicked
        * ============================================= */
-      Communicator.events.on('clicked', function( hashtag ){
+      Communicator.events.on('clicked', function( keywords ){
         self.autoLoader('stop');
-        self.loadTweets( hashtag );
+        self.loadTweets( keywords );
       });
     },
 
     initialLoad: function(){
       var self = this;
 
-      this.url = 'api/tweets.json?tag=downtownsac';
-      this.hashtag = 'downtownsac';
+      this.keywords = ['#downtownsac'];
+      this.url = 'api/tweets.json?' + keywordQuery([this.keywords]);
 
       this.fetch({
         success: function(){
@@ -35,12 +41,14 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
       });
     },
 
-    loadTweets: function( hashtag ){
+    loadTweets: function( keywords ){
         var self = this;
 
         window.setTimeout(function(){
-          self.hashtag = hashtag;
-          self.url = 'api/tweets.json?tag='+hashtag;
+          self.keywords = keywords;
+
+          self.url = 'api/tweets.json?'+keywordQuery(keywords);
+
           self.reset().fetch({
             success: function() {
               self.sort();
@@ -76,7 +84,9 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
       */
 
       function findNewTweets(){
-        self.url = 'api/tweets.json?tag=' + self.hashtag + '&ntid=' + (self.tid||0);
+        var keywords = keywordQuery(self.keywords);
+
+        self.url = 'api/tweets.json?' + keywords + '&ntid=' + (self.tid||0);
 
         $.ajax({
           url: self.url,
