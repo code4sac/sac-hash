@@ -15,20 +15,7 @@ var NODE_ENV = process.env.NODE_ENV || 'development',
 
 var express = require('express'),
     when = require('when'),
-    mysql = require('mysql'),
     geoProps = require('./lib/geo_properties');
-
-/**
- * MySQL pool configuration
- */
-
-var pool = mysql.createPool({
-      host     : process.env.MYSQL_HOST,
-      user     : process.env.MYSQL_USER,
-      password : process.env.MYSQL_PASSWORD,
-      database : process.env.MYSQL_DATABASE,
-      multipleStatements : true
-    });
 
 /**
  * Create Express server
@@ -49,7 +36,6 @@ var gprops = geoProps(__dirname+'/geo'),
 app.set('env', NODE_ENV);
 app.set('port', PORT);
 app.set('json spaces',0);
-app.set('pool', pool);
 app.set('geoProps', gprops);
 app.set('keywords', keywords);
 app.use(express.logger('dev'));
@@ -93,7 +79,6 @@ app.all('/api/*', function(req, res, next) {
   if(!(/\.(?:geo)*json/.test(req.params[0]) || req.is('json'))) {
     return res.send(406);
   }
-  req.mysqlPool = pool;
   res.type('json');
   next();
 });
