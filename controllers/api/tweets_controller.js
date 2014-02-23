@@ -4,54 +4,30 @@
  * Module dependencies
  */
 
-var when = require('when'),
-    nodefn = require('when/node/function'),
-    mysql = require('mysql');
-
-/**
- * Query constants
- */
-
-var TWEETS_QUERY_PREFIX = 'select * from tweets left join tweet_tags on tweet_tags.tweet_id = tweets.tweet_id';
-var TWEETS_QUERY_FILTER = 'where ?';
-var TWEETS_QUERY_NEWEST = 'and tweets.created_at >= ?';
-var TWEETS_QUERY_OLDEST = 'and DATE(tweets.created_at) <= ?';
-var TWEETS_QUERY_LATEST = 'and tweets.tweet_id > ?';
-var TWEETS_QUERY_CONSTRAINTS = 'order by tweets.tweet_id DESC limit 100';
+var nodefn = require('when/node/function'),
+    db = require('../../lib/storage');
 
 /**
  * Tweet retrieval methods
  */
 
-function buildQuery(params) {
-  var query = [TWEETS_QUERY_PREFIX,TWEETS_QUERY_FILTER],
-      inserts = [{tag:params.keywords}];
-
-  if(params.ntd) {
-    query.push(TWEETS_QUERY_NEWEST);
-    inserts.push(params.ntd);
-  }
-
-  if(params.otd) {
-    query.push(TWEETS_QUERY_OLDEST);
-    inserts.push(params.otd);
-  }
-
-  if(params.ntid) {
-    query.push(TWEETS_QUERY_LATEST);
-    inserts.push(parseInt(params.ntid, 10));
-  }
-
-  return mysql.format(query.join(' '), inserts);
-}
-
-function fetchTweets(query, conn) {
-  return nodefn.call(conn.query.bind(conn), query)
-          .finally(conn.release.bind(conn));
+function fetchTweets(keywords, filter, res, conn) {
+  return db.findWithKeywords(conn, keywords, filter)
+    .then(function(tweets) {
+      return nodefn.call(
+        tweets
+          .sort({id:-1})
+          .limit(100)
+          .toArray.bind(tweets)
+      );
+    })
+    .then(renderTweets.bind(null, res))
+    .finally(conn.close.bind(conn));
 }
 
 function renderTweets(res, results) {
-  res.json(results[0]);
+  res.set('HTP-Tweet-Count', results.length);
+  res.json(results);
 }
 
 function allErrors(res, err) {
@@ -63,11 +39,16 @@ function allErrors(res, err) {
  */
 
 function index(req, res) {
-  var query = buildQuery(req.query);
+  var query = req.query,
+      keywords = query.keywords,
+      filter = {};
 
-  when(nodefn.call(req.mysqlPool.getConnection.bind(req.mysqlPool)))
-    .then(fetchTweets.bind(null, query))
-    .then(renderTweets.bind(null, res))
+  if(query.ntid) {
+    filter.id = { '$gt':parseInt(query.ntid,10) };
+  }
+
+  db.connect()
+    .then(fetchTweets.bind(null, keywords, filter, res))
     .catch(allErrors.bind(null, res));
 }
 
