@@ -1,19 +1,19 @@
 <div class="tweet">
   <div class="time">{{{time_since}}}</div>
   <div class="avatar">
-    <a href="http://twitter.com/{{screen_name}}" target="_blank"><img width="40" src="{{profile_image_url}}"/></a>
+    <a href="http://twitter.com/{{user.screen_name}}" target="_blank"><img width="40" src="{{user.profile_image_url}}"/></a>
   </div>
   <div class="meta">
     <div class="user">
-      <a href="http://twitter.com/{{screen_name}}" target="_blank"> {{ name}} <span>@{{screen_name}}</span></a>
+      <a href="http://twitter.com/{{user.screen_name}}" target="_blank"> {{user.name}} <span>@{{user.screen_name}}</span></a>
     </div>
   </div>
 
   <div class="text">
-    <p>{{{tweet_text}}}</p>
+    <p>{{{text}}}</p>
   </div>
   <div class="view-tweet">View on twitter</div>
   <div class="footer">
-    <a target="_blank" href="http://twitter.com/intent/favorite?tweet_id={{tweet_id}}"><span class="icon-star"></span></a><a target="_blank" href="http://twitter.com/intent/retweet?tweet_id={{tweet_id}}"><span class="icon-retweet"></span></a><a target="_blank" href="http://twitter.com/intent/tweet?in_reply_to={{tweet_id}}"><span class="icon-reply"></span></a>
+    <a target="_blank" href="http://twitter.com/intent/favorite?tweet_id={{id}}"><span class="icon-star"></span></a><a target="_blank" href="http://twitter.com/intent/retweet?tweet_id={{id}}"><span class="icon-retweet"></span></a><a target="_blank" href="http://twitter.com/intent/tweet?in_reply_to={{id}}"><span class="icon-reply"></span></a>
   </div>
 </div>

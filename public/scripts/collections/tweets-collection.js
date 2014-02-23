@@ -11,7 +11,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
     model: tweetModel,
 
     comparator: function(model){
-      return -model.get('tweet_id');
+      return -model.get('id');
     },
 
     initialize: function(){
@@ -34,7 +34,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
       this.fetch({
         success: function(){
           if(self.models.length > 0) {
-            self.tid = self.models[0].get('tweet_id');
+            self.tid = self.models[0].get('id');
           }
           self.autoLoader('start');
         }
@@ -53,7 +53,7 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
             success: function() {
               self.sort();
               if(self.models.length > 0) {
-                self.tid = self.models[0].get('tweet_id');
+                self.tid = self.models[0].get('id');
               }
               self.autoLoader('start');
             }
@@ -75,9 +75,9 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
 
       // initial otid & ntid
       /*
-      otid = self.models[ self.models.length - 1 ].get('tweet_id');
+      otid = self.models[ self.models.length - 1 ].get('id');
       self.each(function(model){
-        console.log(i + '- id', model.get('tweet_id'))
+        console.log(i + '- id', model.get('id'))
       });
       console.log('tid', tid, 'otid', otid);
       */
@@ -91,10 +91,10 @@ define(['backbone','communicator','models/tweet-model'], function( Backbone, Com
           url: self.url,
           success: function(data){
             var dataSorted = _.sortBy(data, function(tweet){
-              return -tweet.tweet_id;
+              return -tweet.id;
             });
             if(data.length > 0) {
-              self.tid = dataSorted[0].tweet_id;
+              self.tid = dataSorted[0].id;
             }
             Communicator.events.trigger('autoLoad', dataSorted);
           }
