@@ -4,26 +4,14 @@
  * Module dependencies
  */
 
-var when = require('when'),
-    nodefn = require('when/node/function');
+var db = require('../../../lib/storage');
 
 /**
- * Query constants
+ * Rendering methods
  */
-
-var SUGGESTIONS_QUERY = 'select * from hashtag_suggestions';
-
-/**
- * Suggestion retrieval methods
- */
-
-function fetchSuggestions(conn) {
-  return nodefn.call(conn.query.bind(conn), SUGGESTIONS_QUERY)
-          .finally(conn.release.bind(conn));
-}
 
 function renderSuggestions(res, results) {
-  res.json(results[0]);
+  res.json(results);
 }
 
 function allErrors(res, err) {
@@ -35,10 +23,9 @@ function allErrors(res, err) {
  */
 
 function index(req, res) {
-  when(nodefn.call(req.mysqlPool.getConnection.bind(req.mysqlPool)))
-    .then(fetchSuggestions)
+  db.suggestions()
     .then(renderSuggestions.bind(null, res))
-    .catch(allErrors);
+    .catch(allErrors.bind(null, res));
 }
 
 exports.index = index;
