@@ -19,8 +19,17 @@
    * ETL methods
    */
 
-  function rowNormalizer(row) {
-    return [row.timestamp, row.tweets];
+  function rowNormalizer(metrics, row) {
+    var day = Date.parse(row.metadata.date);
+    Object.keys(row.hour).forEach(function(hourKey) {
+      var hour = new Date(day);
+
+      hour.setHours(parseInt(hourKey,10));
+
+      metrics.push([hour.toUTCString(), row.hour[hourKey]]);
+    });
+
+    return metrics;
   }
 
   /**
@@ -29,7 +38,7 @@
 
   function drawChart(e, deferreds) {
     var axes = [['time','tweets']],
-        metrics = (deferreds[0]||[]).map(rowNormalizer),
+        metrics = (deferreds[0]||[]).reduce(rowNormalizer, []),
         data = null,
         chart = new google.visualization.LineChart($el[0]);
 

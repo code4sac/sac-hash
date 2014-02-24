@@ -5,25 +5,16 @@
  */
 
 var when = require('when'),
-    nodefn = require('when/node/function');
+    moment = require('moment'),
+    nodefn = require('when/node/function'),
+    db = require('../../../lib/storage');
 
 /**
- * Query constants
+ * Rendering methods
  */
-
-var METRICS_QUERY = 'select count(*) as tweets, concat(date(created_at), \' \', hour(created_at), \':00:00\') as timestamp from tweets where created_at between now() - interval 30 day and now() group by concat(date(created_at), \' \', hour(created_at), \':00:00\') order by created_at';
-
-/**
- * Suggestion retrieval methods
- */
-
-function fetchMetrics(conn) {
-  return nodefn.call(conn.query.bind(conn), METRICS_QUERY)
-          .finally(conn.release.bind(conn));
-}
 
 function renderMetrics(res, results) {
-  res.json(results[0]);
+  res.json(results);
 }
 
 function allErrors(res, err) {
@@ -31,10 +22,12 @@ function allErrors(res, err) {
 }
 
 function index(req, res) {
-  when(nodefn.call(req.mysqlPool.getConnection.bind(req.mysqlPool)))
-    .then(fetchMetrics)
+  var aMonthAgo = moment().utc().subtract('days', 30).toDate(),
+      filter = { 'metadata.date':{'$gt':aMonthAgo}, 'metadata.keyword':null };
+
+  when.map(db.tweetsPerPeriod('daily', filter))
     .then(renderMetrics.bind(null, res))
-    .catch(allErrors);
+    .catch(allErrors.bind(null, res));
 }
 
 exports.index = index;
