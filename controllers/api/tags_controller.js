@@ -4,21 +4,28 @@
  * Module dependencies
  */
 
-var db = require('../../lib/storage');
+var extend = require('node.extend'),
+    db = require('../../lib/storage');
 
 /**
  * ETL functions
  */
 
-function mergeWithGeoProps(geoProps, counts) {
-  var propsWithCounts = geoProps.map(function(prop) {
-    prop.keywords.forEach(function(keyword) {
-      prop.count = counts[keyword.substr(1).toLowerCase()];
+function mergeWithGeoProps(geoProps, keywordCounts) {
+  var p, keywords;
+  return geoProps.reduce(function(props, prop) {
+    p = extend(true, {}, prop);
+    p.count = 0;
+    keywords = prop.keywords.join('   ');
+    keywordCounts.forEach(function(count) {
+      if(keywords.match(new RegExp(count._id, 'i'))) {
+        p.count = p.count + count.total;
+      }
     });
-    return prop;
-  });
+    props.push(p);
 
-  return propsWithCounts;
+    return props;
+  }, []);
 }
 
 /**
