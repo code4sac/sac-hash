@@ -15,13 +15,8 @@ var NODE_ENV = process.env.NODE_ENV || 'development',
 
 var express = require('express'),
     when = require('when'),
+    metrics = require('./lib/metrics'),
     geoProps = require('./lib/geo_properties');
-
-/**
- * Create Express server
- */
-
-var app = express();
 
 /**
  * Build list of keywords to track
@@ -29,6 +24,19 @@ var app = express();
 
 var gprops = geoProps(__dirname+'/geo'),
     keywords = gprops.keywords();
+
+/**
+ * Metric pre-allocation initialization
+ */
+
+metrics(keywords);
+
+/**
+ * Create Express server
+ */
+
+var app = express();
+
 /**
  * Express configuration
  */
