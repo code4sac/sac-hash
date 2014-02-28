@@ -102,7 +102,8 @@ rl.question('Are you sure you want to rebuild metrics? (y/n) ', function(answer)
       // To prevent connection pool exhaustion, run all operations sequentially
       return sequence(ops);
     }).catch(function(err) {
-      console.error(err.message, err.stack)
+      rl.write('\n');
+      rl.write(err.stack);
     }).finally(function() {
       rl.write('\n');
       rl.write('Done.\n');
