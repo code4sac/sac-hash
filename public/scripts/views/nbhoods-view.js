@@ -56,9 +56,8 @@ define(['backbone','communicator','views/nbhood-view','hbs!tmpl/nbhoods-template
     submitSuggested: function() {
       var sugtag = $('#suggest-field').val();
       $.ajax({
-        url: 'data/suggest.php',
-        //data: 'hashtag='+hashtag,
-        data: 'tags='+sugtag,
+        url: '/api/suggestions.json',
+        data: 'keyword='+sugtag,
         type: 'POST',
         async: false,
         success: function(data, stat, jqXHR) {

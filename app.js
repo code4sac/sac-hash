@@ -48,6 +48,7 @@ app.set('geoProps', gprops);
 app.set('keywords', keywords);
 app.use(express.logger('dev'));
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+app.use(express.bodyParser());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
@@ -62,7 +63,8 @@ require('./lib/tweets')(app);
  */
 
 var tagsController = require('./controllers/api/tags_controller'),
-    tweetsController = require('./controllers/api/tweets_controller');
+    tweetsController = require('./controllers/api/tweets_controller'),
+    suggestionsController = require('./controllers/api/suggestions_controller');
 
 /**
  * Load admin controllers
@@ -93,6 +95,7 @@ app.all('/api/*', function(req, res, next) {
 
 app.get('/api/tags(.:format)', tagsController.index);
 app.get('/api/tweets(.:format)', tweetsController.index);
+app.post('/api/suggestions(.:format)', suggestionsController.create);
 app.use('/api/geojsons', express.static(__dirname + '/geo'));
 
 /**
