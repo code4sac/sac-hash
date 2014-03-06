@@ -14,14 +14,15 @@
 
   function renderSuggestions(data) {
     var items = data.map(function(sugg) {
-      return $('<tr><td>'+sugg.hashtag+'</td><td>'+sugg.created_at+'</td></tr>');
+      var created_at = new Date(Date.parse(sugg.created_at));
+      return $('<tr><td>'+sugg.keyword+'</td><td>'+created_at+'</td></tr>');
     });
     $suggestions.append(items);
   }
 
   function renderUniqueSuggestions(data) {
     var aggregates = data.reduce(function(groups, sugg) {
-      groups[sugg.hashtag] = (groups[sugg.hashtag]||0) + 1;
+      groups[sugg.keyword] = (groups[sugg.keyword]||0) + 1;
       return groups;
     }, {});
 
