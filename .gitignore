@@ -2,3 +2,5 @@
 node_modules
 public/components
 npm-debug.log
+log/*.log
+tmp/pids/*.pid
