@@ -1,7 +1,7 @@
 [{
   "name": "sac-hash-tag",
   "script": "app.js",
-  "instances": 2,
+  "instances": 1,
   "error_file": "log/error.production.log",
   "out_file": "log/output.production.log",
   "pid_file": "tmp/pids/sac-hash-tag.production.pid"
