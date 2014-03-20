@@ -48,7 +48,8 @@ app.set('geoProps', gprops);
 app.set('keywords', keywords);
 app.use(express.logger('dev'));
 app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-app.use(express.bodyParser());
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
