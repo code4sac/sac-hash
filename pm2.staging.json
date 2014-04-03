@@ -1,0 +1,8 @@
+[{
+  "name": "sac-hash-tag.staging",
+  "script": "app.js",
+  "instances": 1,
+  "error_file": "log/error.staging.log",
+  "out_file": "log/output.staging.log",
+  "pid_file": "tmp/pids/sac-hash-tag.staging.pid"
+}]
