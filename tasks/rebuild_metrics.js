@@ -11,13 +11,13 @@ require('dotenv').load();
  */
 
 var readline = require('readline'),
-    util = require('util'),
-    when = require('when'),
-    db = require('../lib/storage'),
-    sequence = require('when/sequence'),
-    metrics = require('../lib/metrics'),
-    geoProps = require('../lib/geo_properties'),
-    keywords = require('../lib/tweets').matchedKeywords;
+var util = require('util');
+var when = require('when');
+var db = require('../lib/storage');
+var sequence = require('when/sequence');
+var metrics = require('../lib/metrics');
+var geoProps = require('../lib/geo_properties');
+var keywords = require('../lib/utils/keyword_extractor');
 
 /**
  * Create command-prompt interface
@@ -32,8 +32,8 @@ var rl = readline.createInterface({
  * Get list of tracked keywords
  */
 
-var gprops = geoProps(__dirname+'/../geo'),
-    tracking = gprops.keywords();
+var gprops = geoProps(__dirname+'/../geo');
+var tracking = gprops.keywords();
 
 /**
  * Sequential operation methods
