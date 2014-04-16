@@ -54,12 +54,6 @@ app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
 /**
- * Start collecting tweets from the Stream
- */
-
-require('./lib/tweets')(app);
-
-/**
  * Load public controllers
  */
 

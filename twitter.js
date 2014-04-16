@@ -1,36 +1,29 @@
 'use strict';
 
 /**
+ * Environment configuration
+ */
+
+require('dotenv').load();
+
+/**
  * Module dependencies
  */
 
-var when = require('when'),
-    callbacks = require('when/callbacks'),
-    twitter = require('twitter'),
-    db = require('./storage'),
-    metrics = require('./metrics');
+var when = require('when');
+var callbacks = require('when/callbacks');
+var twitter = require('twitter');
+var db = require('./lib/storage');
+var metrics = require('./lib/metrics');
+var geoProps = require('./lib/geo_properties');
+var extractKeywords = require('./lib/utils/keyword_extractor');
 
 /**
- * Keyword matching methods
+ * Build list of keywords to track
  */
 
-function onlyKeywords(prefix, tracked, list, entity) {
-  var name = prefix+entity.text.toLowerCase();
-  if(tracked.indexOf(name) > -1) {
-    list.push(name);
-  }
-  return list;
-}
-
-function matchedKeywords(tweet, tracked) {
-  var keywords = [],
-      hashtags = tweet.entities.hashtags,
-      keyHashtags = hashtags.reduce(onlyKeywords.bind(null, '#', tracked), []);
-
-  keywords = keywords.concat(keyHashtags);
-
-  return keywords;
-}
+var gprops = geoProps('./geo');
+var keywords = gprops.keywords();
 
 /**
  * Twitter Client configuration
@@ -50,12 +43,15 @@ var twt = new twitter({
 function manageStream(stream) {
   function destroy(err) {
     if(err) { console.error(err); }
-    console.info('Closing stream');
+    console.info('Closing Twitter stream...');
     stream.destroy();
+    console.info('Exiting process due to closed Twitter stream');
     process.exit();
   }
 
+  stream.once('end', destroy);
   stream.once('error', destroy);
+  stream.once('close', destroy);
   process.on('SIGINT', destroy);
 }
 
@@ -68,7 +64,7 @@ function trackingKeywords(keywords) {
 
   console.log(' ');
 
-  return callbacks.call(twt.stream.bind(twt), 'statuses/filter', {track:tags})
+  return callbacks.call(twt.stream.bind(twt), 'statuses/filter', {track:tags});
 }
 
 /**
@@ -94,7 +90,7 @@ function saveTweet(tweet, trackedKeywords) {
     .then(function() {
       console.log('Saved tweet #%d', tweet.id);
     }).tap(function() {
-      var keywords = matchedKeywords(tweet, trackedKeywords);
+      var keywords = extractKeywords(tweet, trackedKeywords);
       metrics.track('tweets', 1, keywords, tweet.created_at);
     }).catch(function(err) {
       console.error('Error saving tweet #%d: %s', tweet.id, err);
@@ -116,18 +112,16 @@ function destroyTweet(status) {
  * Start tracking Hashtags
  */
 
-function startTracking(app) {
-  var keywords = app.get('keywords');
-
-  when(trackingKeywords(keywords))
+function startTracking() {
+  return when(trackingKeywords(keywords))
     .tap(manageStream)
     .then(persistTweets.bind(null, keywords))
-    .catch(console.error);
+    // auto-restart. TODO: exit process on signal
+    .catch(function(err) {
+      console.error(err);
+      console.error('EXITING');
+      process.exit();
+    });
 }
 
-/**
- * Define public API
- */
-
-exports = module.exports = startTracking;
-exports.matchedKeywords = matchedKeywords;
+startTracking();
