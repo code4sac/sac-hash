@@ -1,8 +1,15 @@
 [{
-  "name": "sac-hash-tag",
+  "name": "sac-hash.web.production",
   "script": "app.js",
   "instances": 1,
-  "error_file": "log/error.production.log",
-  "out_file": "log/output.production.log",
-  "pid_file": "tmp/pids/sac-hash-tag.production.pid"
+  "error_file": "log/error.web.production.log",
+  "out_file": "log/output.web.production.log",
+  "pid_file": "tmp/pids/sac-hash.web.production.pid"
+},{
+  "name": "sac-hash.twitter.production",
+  "script": "twitter.js",
+  "instances": 1,
+  "error_file": "log/error.twitter.production.log",
+  "out_file": "log/output.twitter.production.log",
+  "pid_file": "tmp/pids/sac-hash.twitter.production.pid"
 }]
