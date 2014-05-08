@@ -32,7 +32,7 @@
     "mysql": "~2.0.1",
     "when": "~2.8.0",
     "node.extend": "~1.0.9",
-    "twitter": "git://github.com/dlindahl/node-twitter.git#issues/request_binding_additions",
+    "twitter": "git://github.com/dlindahl/node-twitter.git#issues/backoff_strategy",
     "mongodb": "~1.3.23",
     "moment": "~2.5.1",
     "later": "~1.1.6",

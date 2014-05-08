@@ -40,18 +40,42 @@ var twt = new twitter({
  * Twitter API integration
  */
 
-function manageStream(stream) {
-  function destroy(err) {
-    if(err) { console.error(err); }
-    console.info('Closing Twitter stream...');
-    stream.destroy();
-    console.info('Exiting process due to closed Twitter stream');
+function manageStream(twitter) {
+  var socket = twitter.socket;
+  var stream = twitter.stream;
+
+  function destroy() {
+    console.info('Closing Twitter connection...');
+    socket.close();
+    console.info('Exiting process due to closed Twitter connection');
     process.exit();
   }
 
-  stream.once('end', destroy);
-  stream.once('error', destroy);
-  stream.once('close', destroy);
+  socket.on('open', function() {
+    console.info('Connected to Twitter');
+  });
+
+  socket.on('error', function(_, error) {
+    console.error('sac-hash::socket-error', error);
+  });
+
+  socket.on('reopen', function(socket, strategy, error) {
+    if(error) {
+      console.log('Reconnecting: %s', error.message);
+    } else {
+      console.log('Reconnecting...');
+    }
+  });
+
+  socket.on('backoff', function(socket, number, delay) {
+    console.log('Retrying in', delay, 'ms');
+  });
+
+  stream.on('error', function(error) {
+    console.error('sac-hash::stream-error', error);
+  });
+
+  socket.once('close', destroy);
   process.on('SIGINT', destroy);
 }
 
@@ -71,8 +95,8 @@ function trackingKeywords(keywords) {
  * Tweet persistence
  */
 
-function persistTweets(trackedKeywords, stream) {
-  stream.on('data', function(data) {
+function persistTweets(trackedKeywords, twitter) {
+  twitter.stream.on('data', function(data) {
     if(data.delete) {
       destroyTweet(data.delete.status);
     } else if(data.created_at) {
