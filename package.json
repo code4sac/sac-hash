@@ -1,0 +1,41 @@
+{
+  "name": "sac-hash",
+  "version": "0.0.1",
+  "description": "The Sacramento Hashtag Project",
+  "main": "app.js",
+  "scripts": {
+    "prestart": "node_modules/pm2/bin/pm2 delete pm2.${NODE_ENV:-development}.json",
+    "start": "node_modules/pm2/bin/pm2 start pm2.${NODE_ENV:-development}.json",
+    "stop": "node_modules/pm2/bin/pm2 stop pm2.${NODE_ENV:-development}.json",
+    "poststop": "node_modules/pm2/bin/pm2 delete pm2.${NODE_ENV:-development}.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/code4sac/sac-hash.git"
+  },
+  "keywords": [
+    "sac",
+    "sacramento",
+    "hashtag",
+    "twitter",
+    "code4sac"
+  ],
+  "author": "code4sac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/code4sac/sac-hash/issues"
+  },
+  "homepage": "https://github.com/code4sac/sac-hash",
+  "dependencies": {
+    "express": "~3.4.8",
+    "dotenv": "~0.2.3",
+    "mysql": "~2.0.1",
+    "when": "~2.8.0",
+    "node.extend": "~1.0.9",
+    "twitter": "git://github.com/dlindahl/node-twitter.git#issues/backoff_strategy",
+    "mongodb": "~1.3.23",
+    "moment": "~2.5.1",
+    "later": "~1.1.6",
+    "pm2": "~0.7.8"
+  }
+}

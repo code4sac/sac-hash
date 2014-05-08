@@ -1,0 +1,29 @@
+{
+  "type":"FeatureCollection",
+  "properties" : {
+    "id":"midtown_sac",
+    "name":"Midtown Sacramento",
+    "keywords":["#MidtownSac"]
+  },
+  "features" : [
+    {
+      "type":"Feature",
+      "geometry":{
+        "type":"Polygon",
+        "coordinates":[
+          [[-121.473083,38.559375],[-121.474199,38.556623],[-121.485529,38.559777],[-121.492395,38.56159],[-121.478062,38.594669],[-121.476774,38.595676],[-121.473684,38.591785],[-121.476173,38.585612],[-121.46244,38.582459],[-121.463985,38.580647],[-121.473083,38.559375]]
+        ]
+      },
+      "properties":{
+        "name":"Midtown Sacramento outline",
+        "outline":true
+      }
+    }
+  ],
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  }
+}

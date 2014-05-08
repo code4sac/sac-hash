@@ -1,0 +1,29 @@
+{
+  "type":"FeatureCollection",
+  "properties" : {
+    "id":"downtown_sac",
+    "name":"Downtown Sacramento",
+    "keywords":["#DowntownSac"]
+  },
+  "features" : [
+    {
+      "type":"Feature",
+      "geometry":{
+        "type":"Polygon",
+        "coordinates":[
+          [[-121.476603,38.595676],[-121.480722,38.599365],[-121.487761,38.602115],[-121.496344,38.601981],[-121.501493,38.600975],[-121.506128,38.59903],[-121.507158,38.596279],[-121.506557,38.59259],[-121.505098,38.587894],[-121.507244,38.58105],[-121.510935,38.574273],[-121.51763,38.568502],[-121.49231,38.561791],[-121.478319,38.594871],[-121.476603,38.595676]]
+        ]
+      },
+      "properties":{
+        "name":"Downtown Sacramento outline",
+        "outline":true
+      }
+    }
+  ],
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  }
+}

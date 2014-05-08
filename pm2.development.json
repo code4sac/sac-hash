@@ -1,0 +1,15 @@
+[{
+  "name": "sac-hash.web.development",
+  "script": "app.js",
+  "instances": 1,
+  "error_file": "log/error.web.development.log",
+  "out_file": "log/output.web.development.log",
+  "pid_file": "tmp/pids/sac-hash.web.development.pid"
+},{
+  "name": "sac-hash.twitter.development",
+  "script": "twitter.js",
+  "instances": 1,
+  "error_file": "log/error.twitter.development.log",
+  "out_file": "log/output.twitter.development.log",
+  "pid_file": "tmp/pids/sac-hash.twitter.development.pid"
+}]
